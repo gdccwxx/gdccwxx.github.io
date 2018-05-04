@@ -16,10 +16,12 @@
 <meta property="og:site_name" content="gdccwxx的博客">
 <meta property="og:description" content="变量、作用域、和内存问题引用类型Javascript不允许直接访问内存中的位置，意思位不能直接操作对象的内存空间。在操作对象时，实际上是在操作对象的引用而不是实际的对象。为此，引用类型的值是按引用访问的1234var obj1 = new Object();var obj2 = obj1;obj1.name = &amp;apos;dechen&amp;apos;obj2.name   // dechen 对象是">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-05-01T04:00:23.485Z">
+<meta property="og:image" content="http://yoursite.com/2017/07/11/read-javascript-again-chapter4/heapObject.png">
+<meta property="og:updated_time" content="2018-05-04T01:25:41.781Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript高级程序设计重读---4章">
 <meta name="twitter:description" content="变量、作用域、和内存问题引用类型Javascript不允许直接访问内存中的位置，意思位不能直接操作对象的内存空间。在操作对象时，实际上是在操作对象的引用而不是实际的对象。为此，引用类型的值是按引用访问的1234var obj1 = new Object();var obj2 = obj1;obj1.name = &amp;apos;dechen&amp;apos;obj2.name   // dechen 对象是">
+<meta name="twitter:image" content="http://yoursite.com/2017/07/11/read-javascript-again-chapter4/heapObject.png">
   
     <link rel="alternative" href="/atom.xml" title="gdccwxx的博客" type="application/atom+xml">
   
@@ -181,8 +183,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="变量、作用域、和内存问题"><a href="#变量、作用域、和内存问题" class="headerlink" title="变量、作用域、和内存问题"></a>变量、作用域、和内存问题</h3><h4 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h4><p>Javascript不允许直接访问内存中的位置，意思位不能直接操作对象的内存空间。在操作对象时，实际上是在操作对象的引用而不是实际的对象。为此，引用类型的值是按引用访问的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var obj1 = new Object();</span><br><span class="line">var obj2 = obj1;</span><br><span class="line">obj1.name = &apos;dechen&apos;</span><br><span class="line">obj2.name   // dechen</span><br></pre></td></tr></table></figure></p>
-<p>对象是存在堆中，JavaScript只能引用堆中的Object。如图</p>
-<p>而由于复制后的两个变量对象都指向堆内存中的一个Object，因此改变一个后，另一个也会随着改变</p>
+<p>对象是存在堆中，JavaScript只能引用堆中的Object。如图<br><img src="/2017/07/11/read-javascript-again-chapter4/heapObject.png" alt="heap"><br>而由于复制后的两个变量对象都指向堆内存中的一个Object，因此改变一个后，另一个也会随着改变</p>
 <h5 id="函数在对象的传递是按值传递"><a href="#函数在对象的传递是按值传递" class="headerlink" title="函数在对象的传递是按值传递"></a>函数在对象的传递是按值传递</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">unction setName(obj)&#123;</span><br><span class="line">    obj.name = &apos;dechen&apos;</span><br><span class="line">    obj = new Object();</span><br><span class="line">    obj.name = &apos;guo&apos;</span><br><span class="line">&#125;</span><br><span class="line">var person = new Object();</span><br><span class="line">setName(person)</span><br><span class="line">person.name     // dechen</span><br></pre></td></tr></table></figure>
 <p>解释：由于传入的person给obj复制了一份引用。因此一开始的时候是obj和person引用的是同一个。而第二段代码中，由于obj改变了新的引用。在改变之前，使person的name发生改变。而之后引用新的Object，因此person.name依然是dechen。在函数执行之后，obj立即被销毁。</p>
 <h4 id="检测类型"><a href="#检测类型" class="headerlink" title="检测类型"></a>检测类型</h4><p>利用typeof检查五个基本类型，而对于对象的类型检测，则采用instanceof<br>result = variable instanceof constructor</p>
@@ -460,11 +461,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="gdccwxx的博客">
 <meta property="og:description" content="按照ISA的复杂程度而言，有复杂指令集（CISC）和精简指令集（RISC）两种类型的计算机。而intel就是属于前者 程序执行的概述指令周期：CPU取出并执行一条指令的时间成为指令周期，不同指令的周期时间可能不同。执行程序顺序:1234561、取指令：从pc所支出的存储单元取出指令送到指令寄存器2、指令译码：例如，mov $0x0,%eax，将立即数送到寄存器ebp中3、计算源操作数地址并取操作数">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2017/05/25/basic-computer-sience-chapter5/img/simpleBus.jpg">
-<meta property="og:updated_time" content="2018-05-01T03:52:55.648Z">
+<meta property="og:image" content="http://yoursite.com/2017/05/25/basic-computer-sience-chapter5/simpleBus.jpg">
+<meta property="og:updated_time" content="2018-05-04T01:22:11.596Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算机系统基础－－第五章(程序的执行)">
 <meta name="twitter:description" content="按照ISA的复杂程度而言，有复杂指令集（CISC）和精简指令集（RISC）两种类型的计算机。而intel就是属于前者 程序执行的概述指令周期：CPU取出并执行一条指令的时间成为指令周期，不同指令的周期时间可能不同。执行程序顺序:1234561、取指令：从pc所支出的存储单元取出指令送到指令寄存器2、指令译码：例如，mov $0x0,%eax，将立即数送到寄存器ebp中3、计算源操作数地址并取操作数">
-<meta name="twitter:image" content="http://yoursite.com/2017/05/25/basic-computer-sience-chapter5/img/simpleBus.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2017/05/25/basic-computer-sience-chapter5/simpleBus.jpg">
   
     <link rel="alternative" href="/atom.xml" title="gdccwxx的博客" type="application/atom+xml">
   
@@ -187,7 +187,7 @@
 <h4 id="基本操作："><a href="#基本操作：" class="headerlink" title="基本操作："></a>基本操作：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、读取某储存单元内容(可能是指令或操作数或操作数地址)，并将其装入某个寄存器。</span><br><span class="line">2、把一个数据从某个寄存器存储到给定存储单元。</span><br><span class="line">3、把一个数据从某个寄存器传送到另一个寄存器或ALU。</span><br><span class="line">4、在ALU中进行某种算术运算或逻辑运算，并将结果送到某个寄存器中。</span><br></pre></td></tr></table></figure>
 <h4 id="cup的基本功能和组成"><a href="#cup的基本功能和组成" class="headerlink" title="cup的基本功能和组成"></a>cup的基本功能和组成</h4><p>由程序计数器(PC),指令寄存器(IR)，指令译码器(ID),脉冲源及起停控制逻辑，时序信号产生部件，操作控制信号形成部件，总线控制逻辑，终端机构组成</p>
 <h4 id="打断程序正常执行的事件"><a href="#打断程序正常执行的事件" class="headerlink" title="打断程序正常执行的事件"></a>打断程序正常执行的事件</h4><p>1、内部异常：源自于正在运行程序本身，来自于cpu内部。是必然，同步事件。<br>2、外部中断：源自于正在运行程序的条件，来足浴cpu外部，是偶然，异步事件。</p>
-<h4 id="数据通路基本逻辑和工作原理"><a href="#数据通路基本逻辑和工作原理" class="headerlink" title="数据通路基本逻辑和工作原理"></a>数据通路基本逻辑和工作原理</h4><p>操作元件：多路选择器(MUX)，加法器(ADDER)，算术逻辑部件(ALU)，译码器(Decoder)<br>状态元件：D触发器，这需要建立时间以及保持时间，也称触发器的锁存延迟。<br>数据通路的时钟周期：cycle Time = clk-to-Q(稳定时间)+Longest Delay(处理时间)+ 建立时间+时钟偏移。<br>工作原理：<br><img src="img/simpleBus.jpg" alt="simpleBus"><br>数据通路中的部件之间可以通过总线方式连接，ALU及所有的寄存器通过一条内部的公共总线连接起来，已构成单总线结构数据通路，因为在cpu内部成为cpu内总线。<br><strong>1、完成算术或逻辑运算</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">其完成R[R3]&lt;-R[R1]+R[R2]操作如下：</span><br><span class="line">1、R1(out),Y(in)</span><br><span class="line">2、R2(out),add,Z(in)</span><br><span class="line">3、Z(out),R3(in)</span><br></pre></td></tr></table></figure></p>
+<h4 id="数据通路基本逻辑和工作原理"><a href="#数据通路基本逻辑和工作原理" class="headerlink" title="数据通路基本逻辑和工作原理"></a>数据通路基本逻辑和工作原理</h4><p>操作元件：多路选择器(MUX)，加法器(ADDER)，算术逻辑部件(ALU)，译码器(Decoder)<br>状态元件：D触发器，这需要建立时间以及保持时间，也称触发器的锁存延迟。<br>数据通路的时钟周期：cycle Time = clk-to-Q(稳定时间)+Longest Delay(处理时间)+ 建立时间+时钟偏移。<br>工作原理：<br><img src="/2017/05/25/basic-computer-sience-chapter5/simpleBus.jpg" alt="simpleBus"><br>数据通路中的部件之间可以通过总线方式连接，ALU及所有的寄存器通过一条内部的公共总线连接起来，已构成单总线结构数据通路，因为在cpu内部成为cpu内总线。<br><strong>1、完成算术或逻辑运算</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">其完成R[R3]&lt;-R[R1]+R[R2]操作如下：</span><br><span class="line">1、R1(out),Y(in)</span><br><span class="line">2、R2(out),add,Z(in)</span><br><span class="line">3、Z(out),R3(in)</span><br></pre></td></tr></table></figure></p>
 <p><strong>2、从内存读取一个字(指令或数据或数据的地址)</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">其完成R[R2]&lt;-M[R[R1]]操作如下：</span><br><span class="line">1、R1(out),MAR(in)</span><br><span class="line">2、read,WMFC(使cpu进行等待)</span><br><span class="line">3、MAR(out),R2(in)</span><br></pre></td></tr></table></figure></p>
 <p><strong>3、把一个字(数据)写入内存</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">其完成M[R[R2]]&lt;-R[R1]操作如下：</span><br><span class="line">1、R1(out),MDR(in)</span><br><span class="line">2、R2(out),MAR(in)</span><br><span class="line">3、write,WMFC</span><br></pre></td></tr></table></figure></p>
 <h4 id="流水线方式下命令的执行"><a href="#流水线方式下命令的执行" class="headerlink" title="流水线方式下命令的执行"></a>流水线方式下命令的执行</h4><p>想象以下，你有一堆衣服，有洗，甩干，晾三个操作，分别时间是40,30,20。有洗衣机和甩干机，晾必须得自己操作，当然，洗衣间衣服的时间是40+30+20,若洗n件衣服，依然还是使用这种算法，则总时间为n(40+30+20),而我们最好的方法是：</p>
@@ -459,11 +459,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
               </li>
              
               <li class="article-tag-list-item">
