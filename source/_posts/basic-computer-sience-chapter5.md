@@ -32,7 +32,7 @@ tags: 计算机系统基础
 状态元件：D触发器，这需要建立时间以及保持时间，也称触发器的锁存延迟。
 数据通路的时钟周期：cycle Time = clk-to-Q(稳定时间)+Longest Delay(处理时间)+ 建立时间+时钟偏移。
 工作原理：
-![simpleBus](img/simpleBus.jpg)
+![simpleBus](simpleBus.jpg)
 数据通路中的部件之间可以通过总线方式连接，ALU及所有的寄存器通过一条内部的公共总线连接起来，已构成单总线结构数据通路，因为在cpu内部成为cpu内总线。
 **1、完成算术或逻辑运算**
 ```

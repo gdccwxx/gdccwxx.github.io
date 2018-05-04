@@ -56,7 +56,8 @@ tips: 可知八进制转二进制与十六进制转二进制分别对应着３�
 运用：通常表示浮点数的阶（即指数）
 ##### 浮点数的表示(IEEE754浮点数)
 IEEE754浮点数的表示：
-![chart of iee754](img/IEEE754_chart.jpg)
+![ieee754image](ieee754image.png)
+![chart_of_iee754](IEEE754_chart.jpg)
 sign: 符号位，0表示正数1表示负数
 exponent： 阶码，由偏置常数+偏移量组成
 function： 位数
@@ -76,7 +77,8 @@ function： 位数
 4、 f == (float)(double)i //相等
 ```
 ### 整数的加减
-![choiceTwoWay](img/choiceTwoWay.jpg)
+
+![choiceTwoWay](choiceTwoWay.jpg)
 零标志位为zf，溢出标志位位of；
 符号标志sf，进/借位标志cf
 zf=1时，表示结果为0；

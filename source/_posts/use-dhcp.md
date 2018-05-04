@@ -9,7 +9,7 @@ DHCP(Dynamic Host Configuration Protocol),动态主机配置协议，是一个�
 #### 2.为什么要使用DHCP？
 DHCP（Dynamic Host Configuration Protocol，动态主机配置协议）通常被应用在大型的局域网络环境中，主要作用是集中的管理、分配IP地址，使网络环境中的主机动态的获得IP地址、Gateway地址、DNS服务器地址等信息，并能够提升地址的使用率。
 #### 3.DHCP实现
-![dhcp_client](img/dhcp_client.png)
+![dhcp_client](dhcp_client.png)
 DHCP的实现分为4步，分别是：
 第一步：Client端在局域网内发起一个DHCP　Discover包，目的是想发现能够给它提供IP的DHCP Server。
 第二步：可用的DHCP Server接收到Discover包之后，通过发送DHCP Offer包给予Client端应答，意在告诉Client端它可以提供IP地址。
@@ -143,9 +143,9 @@ shared-network 224-29 {
 ```
 ##### 常用参数介绍
 我在[其他人博客](http://www.zyops.com/dhcp-working-procedure)看到常用参数说明，于是就拷贝下来
-![dhcp_config1](img/dhcp_config1.gif)
-![dhcp_config2](img/dhcp_config2.gif)
-![dhcp_config3](img/dhcp_config3.gif)
+![dhcp_config1](dhcp_config1.gif)
+![dhcp_config2](dhcp_config2.gif)
+![dhcp_config3](dhcp_config3.gif)
 
 ##### 配置实例
 某单位销售部有80台计算机所使用的IP地址段为

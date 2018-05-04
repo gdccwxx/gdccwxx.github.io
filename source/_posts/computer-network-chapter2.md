@@ -31,7 +31,7 @@ tags: 计算机网络
 
 * 数据传输管理
 “物理层”还具有一定的数据传输管理功能，如基于比特流的数据传输流量控制、差错控制、物理线路的激活和释放等。
-![computer_internet](img/computer_internet.png)
+![computer_internet](computer_internet.png)
 #### 信道复用
 ##### 频分复用（FDM）
 载波带宽(请注意，这里的“带宽”是频率带宽而不是数据的发送速率，每个子信道可以并行传送一路信号。FDM 用于模拟传输过程。

@@ -95,14 +95,14 @@ GS：数据段寄存器（Data Segment）
 
 CS寄存器用于存放应用程序代码所在段的段基址，SS寄存器用于存放栈段的段基址，DS寄存器用于存放数据段的段基址。ES、FS、GS寄存器用来存放程序使用的附加数据段的段基址。
 
-![purposeRegiesters](img/purposeRegisters.jpg)
-![sliceRegiester](img/sliceRegister.jpg)
+![purposeRegiesters](purposeRegisters.jpg)
+![sliceRegiester](sliceRegister.jpg)
 
 
 #### 3.程序状态与控制寄存器
 EFLAGS：Flag Register，标志寄存器
-![标志寄存器](img/flagRegister.gif)
-![eflag](img/eflagRegister.png)
+![标志寄存器](flagRegister.gif)
+![eflag](eflagRegister.png)
 ##### 运算结果标志位
 
 1、进位标志CF(Carry Flag)
@@ -152,7 +152,7 @@ I/O特权标志用两位二进制位来表示，也称为I/O特权级字段。�
 #### 4.指令指针寄存器
 EIP：指令指针寄存器（Instruction Pointer），存放下次将要执行的指令在代码段的偏移量。
 ### 七种寻址方式
-![findWay](img/findWay.png)
+![findWay](findWay.png)
 定义以下几个类型
 ```
 int x;
@@ -164,6 +164,7 @@ short b[4][4];
 a[i] = 104+i4 //比例变址
 b[i][j] = 504+i8+j*2 //基址+比例变址+位移
 x = 100 // 基址
+![](stackValue.png)
 ### IA-32常用指令及其操作
 ### 传送指令
 1、mov movb(比特), movw(字), movl(双字)
@@ -258,7 +259,7 @@ val= (val_type) * ptr;
 | JL/JNGE DEST | SF≠OF AND ZF=0 | 有符号数A<B |
 | JLE/JNG DEST | SF≠OF OR ZF=1 | 有符号数A≤B |
 ### IA-32的栈、栈帧及其结构
-![static picture](img/stackBP.jpg)
+![static picture](stackBP.jpg)
 ##### 注：为保证其在内存中的整齐，一般的存在为16的倍数。
 
 

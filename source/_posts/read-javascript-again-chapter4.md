@@ -13,7 +13,7 @@ obj1.name = 'dechen'
 obj2.name   // dechen
 ```
 对象是存在堆中，JavaScript只能引用堆中的Object。如图
-
+![heap](heapObject.png)
 而由于复制后的两个变量对象都指向堆内存中的一个Object，因此改变一个后，另一个也会随着改变
 ##### 函数在对象的传递是按值传递
 ```
