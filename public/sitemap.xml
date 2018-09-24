@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/09/24/the-mythical-man-month/</loc>
+    
+    <lastmod>2018-09-24T14:56:19.339Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2017/10/21/use-dhcp/</loc>
+    
+    <lastmod>2018-09-24T08:54:34.474Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/09/06/2018-tencent-practice/</loc>
     
     <lastmod>2018-09-06T13:41:00.864Z</lastmod>
@@ -19,13 +33,6 @@
     <loc>http://yoursite.com/2017/07/11/read-javascript-again-chapter4/</loc>
     
     <lastmod>2018-05-04T01:25:41.781Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2017/10/21/use-dhcp/</loc>
-    
-    <lastmod>2018-05-04T01:23:53.116Z</lastmod>
     
   </url>
   
