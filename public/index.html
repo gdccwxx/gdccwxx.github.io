@@ -160,19 +160,19 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-《大型网络架构技术》读书笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-《大型网站技术架》读书笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/31/《大型网络架构技术》读书笔记/">《大型网站技术架构架构》读书笔记</a>
+      <a class="article-title" href="/2019/03/31/《大型网站技术架》读书笔记/">《大型网站技术架》读书笔记</a>
     </h1>
   
 
         
-        <a href="/2019/03/31/《大型网络架构技术》读书笔记/" class="archive-article-date">
+        <a href="/2019/03/31/《大型网站技术架》读书笔记/" class="archive-article-date">
   	<time datetime="2019-03-31T12:28:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-31</time>
 </a>
         
@@ -190,8 +190,8 @@
 <li>需求快速变更、发布频繁</li>
 <li>渐进式发展</li>
 </ul>
-<h2 id="大型网站架构演化及发展历程"><a href="#大型网站架构演化及发展历程" class="headerlink" title="大型网站架构演化及发展历程"></a>大型网站架构演化及发展历程</h2><h5 id="初期网站"><a href="#初期网站" class="headerlink" title="初期网站"></a>初期网站</h5><p><img src="/2019/03/31/《大型网络架构技术》读书笔记/./《大型网络架构技术》读书笔记/websiteInit.jpeg" alt="初期应用服务器"></p>
-<h5 id="最终架构的大型网站"><a href="#最终架构的大型网站" class="headerlink" title="最终架构的大型网站"></a>最终架构的大型网站</h5><p><img src="/2019/03/31/《大型网络架构技术》读书笔记/./《大型网络架构技术》读书笔记/websiteDisAppAndUseTec.jpeg" alt="业务及使用nosql"></p>
+<h2 id="大型网站架构演化及发展历程"><a href="#大型网站架构演化及发展历程" class="headerlink" title="大型网站架构演化及发展历程"></a>大型网站架构演化及发展历程</h2><h5 id="初期网站"><a href="#初期网站" class="headerlink" title="初期网站"></a>初期网站</h5><p><img src="/2019/03/31/《大型网站技术架》读书笔记/./《大型网络架构技术》读书笔记/websiteInit.jpeg" alt="初期应用服务器"></p>
+<h5 id="最终架构的大型网站"><a href="#最终架构的大型网站" class="headerlink" title="最终架构的大型网站"></a>最终架构的大型网站</h5><p><img src="/2019/03/31/《大型网站技术架》读书笔记/./《大型网络架构技术》读书笔记/websiteDisAppAndUseTec.jpeg" alt="业务及使用nosql"></p>
 <h3 id="演化过程"><a href="#演化过程" class="headerlink" title="演化过程"></a>演化过程</h3><ul>
 <li>应用服务器和数据服务器分离：应用有单独的应用服务器，数据有单独的数据服务器，文件有单独的文件服务器</li>
 <li>添加缓存：增加本地缓存及分布式缓存，使得数据库查询的部分查询可以使用缓存查询</li>
@@ -208,7 +208,7 @@
 <li>为了技术而技术：网站技术是为业务而存在的，除此之外毫无意义</li>
 <li>企图用技术解决所有问题：技术是用来解决业务问题的，而业务问题也可以通过业务解决。例如12306，分时间抢票比同时间抢票更加技术上更容易实现，且系统更加稳定</li>
 </ul>
-<h2 id="大型网站架构模式"><a href="#大型网站架构模式" class="headerlink" title="大型网站架构模式"></a>大型网站架构模式</h2><h4 id="分层"><a href="#分层" class="headerlink" title="分层"></a>分层</h4><p><img src="/2019/03/31/《大型网络架构技术》读书笔记/./《大型网络架构技术》读书笔记/hierarchy.jpeg" alt="分层"></p>
+<h2 id="大型网站架构模式"><a href="#大型网站架构模式" class="headerlink" title="大型网站架构模式"></a>大型网站架构模式</h2><h4 id="分层"><a href="#分层" class="headerlink" title="分层"></a>分层</h4><p><img src="/2019/03/31/《大型网站技术架》读书笔记/./《大型网络架构技术》读书笔记/hierarchy.jpeg" alt="分层"></p>
 <p>大型网站中架构也分层，将网站软件系统氛围应用层、服务层、数据层。</p>
 <p>分层架构的目的：规划软件清晰的逻辑结构便于开发维护，但在网站的发展过程中，分层结构对网站支持高并发向分布式方向发展至关重要。因此应该在网站很小的时候采用分层架构</p>
 <p>分层架构带来的挑战：必须合理规划层次边界和接口，在开发过程中，严格遵循分层架构的约束，禁止跨层次的调用（应用层直接调用数据层）及逆向调用（数据层调用服务层，或者服务层调用应用层）</p>
@@ -305,7 +305,7 @@
 <h2 id="网站高可用架构"><a href="#网站高可用架构" class="headerlink" title="网站高可用架构"></a>网站高可用架构</h2><h4 id="网站高可用性度量"><a href="#网站高可用性度量" class="headerlink" title="网站高可用性度量"></a>网站高可用性度量</h4><p>网站不可用时间（故障时间）=故障修复时间点-故障发现（报告）时间点</p>
 <p>网站年度可用性指标=（1-网站不可用时间/年度总时间）×100%</p>
 <p>对于大多数网站而言，2个9是基本可用，网站年度不可用时间小于88小时；3个9是较高可用，网站年度不可用时间小于9小时；4个9是具有自动恢复能力的高可用，网站年度不可用时间小于53分钟；5个9是极高可用性，网站年度不可用时间小于5分钟。</p>
-<h4 id="网站可用性考核"><a href="#网站可用性考核" class="headerlink" title="网站可用性考核"></a>网站可用性考核</h4><p><img src="/2019/03/31/《大型网络架构技术》读书笔记/./《大型网络架构技术》读书笔记/useWeight.jpeg" alt=""></p>
+<h4 id="网站可用性考核"><a href="#网站可用性考核" class="headerlink" title="网站可用性考核"></a>网站可用性考核</h4><p><img src="/2019/03/31/《大型网站技术架》读书笔记/./《大型网络架构技术》读书笔记/useWeight.jpeg" alt=""></p>
 <p>故障分=故障时间（分钟）× 故障权重</p>
 <h4 id="高可用的服务"><a href="#高可用的服务" class="headerlink" title="高可用的服务"></a>高可用的服务</h4><ul>
 <li>服务器分级：将服务器分不同级别，核心应用和服务优先使用更好的服务器</li>
@@ -350,7 +350,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/31/《大型网络架构技术》读书笔记/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/31/《大型网站技术架》读书笔记/">展开全文 >></a>
         </p>
       
 
@@ -1486,11 +1486,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1506,11 +1506,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
             
             <div class="clearfix"></div>
