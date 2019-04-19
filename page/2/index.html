@@ -160,6 +160,91 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-use-dhcp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/21/use-dhcp/">DPCH (DPCHCD)服务器的搭建与应用</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/21/use-dhcp/" class="archive-article-date">
+  	<time datetime="2017-10-21T12:53:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="什么是DHCP？"><a href="#什么是DHCP？" class="headerlink" title="什么是DHCP？"></a>什么是DHCP？</h3><h4 id="1-DHCP简介"><a href="#1-DHCP简介" class="headerlink" title="1.DHCP简介"></a>1.DHCP简介</h4><p>DHCP(Dynamic Host Configuration Protocol),动态主机配置协议，是一个应用层协议。当我们将客户主机ip地址设置为动态获取方式时，DHCP服务器就会根据DHCP协议给客户端分配IP，使得客户机能够利用这个IP上网。</p>
+<h4 id="2-为什么要使用DHCP？"><a href="#2-为什么要使用DHCP？" class="headerlink" title="2.为什么要使用DHCP？"></a>2.为什么要使用DHCP？</h4><p>DHCP（Dynamic Host Configuration Protocol，动态主机配置协议）通常被应用在大型的局域网络环境中，主要作用是集中的管理、分配IP地址，使网络环境中的主机动态的获得IP地址、Gateway地址、DNS服务器地址等信息，并能够提升地址的使用率。</p>
+<h4 id="3-DHCP实现"><a href="#3-DHCP实现" class="headerlink" title="3.DHCP实现"></a>3.DHCP实现</h4><p><img src="/2017/10/21/use-dhcp/dhcp_client.png" alt="dhcp_client"><br>DHCP的实现分为4步，分别是：<br>第一步：Client端在局域网内发起一个DHCP　Discover包，目的是想发现能够给它提供IP的DHCP Server。<br>第二步：可用的DHCP Server接收到Discover包之后，通过发送DHCP Offer包给予Client端应答，意在告诉Client端它可以提供IP地址。<br>第三步：Client端接收到Offer包之后，发送DHCP Request包请求分配IP。<br>第四步：DHCP Server发送ACK数据包，确认信息。</p>
+<p>####　4.安装DHCP服务器<br>由于我使用的系统是archlinux，因此在我bash中之存在dhcpcd，当然他们是同名。<br>使用如下命令安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S dhcpcd</span><br></pre></td></tr></table></figure></p>
+<p>检测是否安装成功,键入如下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dhcpcd --version</span><br><span class="line">//显示如下。。。代表安装成功</span><br><span class="line">dhcpcd 6.11.5</span><br><span class="line">Copyright (c) 2006-2016 Roy Marples</span><br><span class="line">Compiled in features: INET IPv4LL INET6 DHCPv6 AUTH</span><br></pre></td></tr></table></figure></p>
+<h4 id="5-DHCP服务器的一般配置"><a href="#5-DHCP服务器的一般配置" class="headerlink" title="5.DHCP服务器的一般配置"></a>5.DHCP服务器的一般配置</h4><h5 id="dhcp服务器一般配置步骤"><a href="#dhcp服务器一般配置步骤" class="headerlink" title="dhcp服务器一般配置步骤"></a>dhcp服务器一般配置步骤</h5><p>1、dhcp服务器住配置文件dhcpd.conf，制定ip作用域，制定分配一个或多个ip地址范围<br>2、建立租约数据库文件<br>3、重新加载配置文件或重启dhcp服务器</p>
+<h5 id="dhcp的工作流程"><a href="#dhcp的工作流程" class="headerlink" title="dhcp的工作流程"></a>dhcp的工作流程</h5><p>在翻阅其他人的博客中，发现这个哥们的博客写的很好，因此<a href="http://www.zyops.com/dhcp-working-procedure" target="_blank" rel="noopener">引用</a>过来</p>
+<h5 id="配置文件DHCPD-CONF"><a href="#配置文件DHCPD-CONF" class="headerlink" title="配置文件DHCPD.CONF"></a>配置文件DHCPD.CONF</h5><p>由于我的系统是archlinux，因此自动生成了一个dhcpd.conf文件在/etc目录之下。下面看一个完整的dhcpcd.conf：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/dhcpd.conf </span><br><span class="line"># dhcpd.conf</span><br><span class="line">#</span><br><span class="line"># Sample configuration file for ISC dhcpd</span><br><span class="line">#</span><br><span class="line"># option definitions common to all supported networks...</span><br><span class="line">option domain-name &quot;example.org&quot;;</span><br><span class="line">option domain-name-servers ns1.example.org, ns2.example.org;</span><br><span class="line">default-lease-time 600;</span><br><span class="line">max-lease-time 7200;</span><br><span class="line"># Use this to enble / disable dynamic dns updates globally.</span><br><span class="line">#ddns-update-style none;</span><br><span class="line"># If this DHCP server is the official DHCP server for the local</span><br><span class="line"># network, the authoritative directive should be uncommented.</span><br><span class="line">#authoritative;</span><br><span class="line"># Use this to send dhcp log messages to a different log file (you also</span><br><span class="line"># have to hack syslog.conf to complete the redirection).</span><br><span class="line">log-facility local7;</span><br><span class="line"># No service will be given on this subnet, but declaring it helps the </span><br><span class="line"># DHCP server to understand the network topology.</span><br><span class="line">subnet 10.152.187.0 netmask 255.255.255.0 &#123;</span><br><span class="line">&#125;</span><br><span class="line"># This is a very basic subnet declaration.</span><br><span class="line">subnet 10.254.239.0 netmask 255.255.255.224 &#123;</span><br><span class="line">  range 10.254.239.10 10.254.239.20;</span><br><span class="line">  option routers rtr-239-0-1.example.org, rtr-239-0-2.example.org;</span><br><span class="line">&#125;</span><br><span class="line"># This declaration allows BOOTP clients to get dynamic addresses,</span><br><span class="line"># which we don&apos;t really recommend.</span><br><span class="line">subnet 10.254.239.32 netmask 255.255.255.224 &#123;</span><br><span class="line">  range dynamic-bootp 10.254.239.40 10.254.239.60;</span><br><span class="line">  option broadcast-address 10.254.239.31;</span><br><span class="line">  option routers rtr-239-32-1.example.org;</span><br><span class="line">&#125;</span><br><span class="line"># A slightly different configuration for an internal subnet.</span><br><span class="line">subnet 10.5.5.0 netmask 255.255.255.224 &#123;</span><br><span class="line">  range 10.5.5.26 10.5.5.30;</span><br><span class="line">  option domain-name-servers ns1.internal.example.org;</span><br><span class="line">  option domain-name &quot;internal.example.org&quot;;</span><br><span class="line">  option routers 10.5.5.1;</span><br><span class="line">  option broadcast-address 10.5.5.31;</span><br><span class="line">  default-lease-time 600;</span><br><span class="line">  max-lease-time 7200;</span><br><span class="line">&#125;</span><br><span class="line"># Hosts which require special configuration options can be listed in</span><br><span class="line"># host statements.   If no address is specified, the address will be</span><br><span class="line"># allocated dynamically (if possible), but the host-specific information</span><br><span class="line"># will still come from the host declaration.</span><br><span class="line">host passacaglia &#123;</span><br><span class="line">  hardware ethernet 0:0:c0:5d:bd:95;</span><br><span class="line">  filename &quot;vmunix.passacaglia&quot;;</span><br><span class="line">  server-name &quot;toccata.example.com&quot;;</span><br><span class="line">&#125;</span><br><span class="line"># Fixed IP addresses can also be specified for hosts.   These addresses</span><br><span class="line"># should not also be listed as being available for dynamic assignment.</span><br><span class="line"># Hosts for which fixed IP addresses have been specified can boot using</span><br><span class="line"># BOOTP or DHCP.   Hosts for which no fixed address is specified can only</span><br><span class="line"># be booted with DHCP, unless there is an address range on the subnet</span><br><span class="line"># to which a BOOTP client is connected which has the dynamic-bootp flag</span><br><span class="line"># set.</span><br><span class="line">host fantasia &#123;</span><br><span class="line">  hardware ethernet 08:00:07:26:c0:a5;</span><br><span class="line">  fixed-address fantasia.example.com;</span><br><span class="line">&#125;</span><br><span class="line"># You can declare a class of clients and then do address allocation</span><br><span class="line"># based on that.   The example below shows a case where all clients</span><br><span class="line"># in a certain class get addresses on the 10.17.224/24 subnet, and all</span><br><span class="line"># other clients get addresses on the 10.0.29/24 subnet.</span><br><span class="line">class &quot;foo&quot; &#123;</span><br><span class="line">  match if substring (option vendor-class-identifier, 0, 4) = &quot;SUNW&quot;;</span><br><span class="line">&#125;</span><br><span class="line">shared-network 224-29 &#123;</span><br><span class="line">  subnet 10.17.224.0 netmask 255.255.255.0 &#123;</span><br><span class="line">    option routers rtr-224.example.org;</span><br><span class="line">  &#125;</span><br><span class="line">  subnet 10.0.29.0 netmask 255.255.255.0 &#123;</span><br><span class="line">    option routers rtr-29.example.org;</span><br><span class="line">  &#125;</span><br><span class="line">  pool &#123;</span><br><span class="line">    allow members of &quot;foo&quot;;</span><br><span class="line">    range 10.17.224.10 10.17.224.250;</span><br><span class="line">  &#125;</span><br><span class="line">  pool &#123;</span><br><span class="line">    deny members of &quot;foo&quot;;</span><br><span class="line">    range 10.0.29.10 10.0.29.230;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到如上默认配置<br>配置格式如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 全局配置</span><br><span class="line">参数或选项			// 全局生效</span><br><span class="line">#局部配置</span><br><span class="line">声明 &#123;</span><br><span class="line">	参数或选项	  // 局部生效</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="常用参数介绍"><a href="#常用参数介绍" class="headerlink" title="常用参数介绍"></a>常用参数介绍</h5><p>我在<a href="http://www.zyops.com/dhcp-working-procedure" target="_blank" rel="noopener">其他人博客</a>看到常用参数说明，于是就拷贝下来<br><img src="/2017/10/21/use-dhcp/dhcp_config1.gif" alt="dhcp_config1"><br><img src="/2017/10/21/use-dhcp/dhcp_config2.gif" alt="dhcp_config2"><br><img src="/2017/10/21/use-dhcp/dhcp_config3.gif" alt="dhcp_config3"></p>
+<h5 id="配置实例"><a href="#配置实例" class="headerlink" title="配置实例"></a>配置实例</h5><p>某单位销售部有80台计算机所使用的IP地址段为<br>192.168.1.1-192.168.1.254,子网掩码为255.22.255.0，网关为<br>192.168.1.1,192.168.1.2-192.168.1.30给各服务器使用，客户<br>端仅可以使用192.168.1.100-192.168.1.200。剩余IP地址保留。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">subnet 198.168.1.0 netmask 255.255.255.0 &#123;</span><br><span class="line">	option routers 192.168.1.1;</span><br><span class="line">	option subnet-mask 255.255.255.0;</span><br><span class="line">	option nis-domain				&quot;domain.org&quot;;</span><br><span class="line">	option domain-name				&quot;domain.org&quot;;</span><br><span class="line">	option domain-name-servers 	192.168.1.2;</span><br><span class="line">	option time-offset 		-18000;</span><br><span class="line">	option netbios-node-type 		2;</span><br><span class="line">	range dynamic-bootp	198.168.1.100 192.168.1.200;</span><br><span class="line">	default-lease-time 	43200;</span><br><span class="line">	host ns &#123;</span><br><span class="line">		next-server archlinux.org;</span><br><span class="line">		hardware ethernet ...;</span><br><span class="line">		fixed-address ...;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="开启服务器"><a href="#开启服务器" class="headerlink" title="开启服务器"></a>开启服务器</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start dhcpcd</span><br></pre></td></tr></table></figure>
+<h5 id="关闭服务器"><a href="#关闭服务器" class="headerlink" title="关闭服务器"></a>关闭服务器</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop dhcpcd</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/21/use-dhcp/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-you-dont-konwn-javascript-this" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1244,93 +1329,6 @@
 
 
   
-    <article id="post-basic-computer-sience-chapter5" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/25/basic-computer-sience-chapter5/">计算机系统基础－－第五章(程序的执行)</a>
-    </h1>
-  
-
-        
-        <a href="/2017/05/25/basic-computer-sience-chapter5/" class="archive-article-date">
-  	<time datetime="2017-05-25T00:37:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>按照ISA的复杂程度而言，有复杂指令集（CISC）和精简指令集（RISC）两种类型的计算机。而intel就是属于前者</p>
-<h4 id="程序执行的概述"><a href="#程序执行的概述" class="headerlink" title="程序执行的概述"></a>程序执行的概述</h4><p>指令周期：CPU取出并执行一条指令的时间成为指令周期，不同指令的周期时间可能不同。<br>执行程序顺序:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1、取指令：从pc所支出的存储单元取出指令送到指令寄存器</span><br><span class="line">2、指令译码：例如，mov $0x0,%eax，将立即数送到寄存器ebp中</span><br><span class="line">3、计算源操作数地址并取操作数：根据寻址方式确定源操作数地址计算方式，若是存储器数据，则最多一次</span><br><span class="line">4、执行数据操作：在ALU或加法器等运算部件中取出的操作数进行计算</span><br><span class="line">5、计算目的操作数地址并存结果：根据寻址方式确定目的操作数地址计算方式，若是存储器数据，则最多一次，若是寄存器数据，则在进行数据操作时直接存结果到寄存器</span><br><span class="line">6、计算下一条指令地址：顺序执行时，将pc加上当前指令长度即可。如果是转移类指令时，需要根据条件标识、操作码和寻址方式确定下一条指令</span><br></pre></td></tr></table></figure></p>
-<h4 id="基本操作："><a href="#基本操作：" class="headerlink" title="基本操作："></a>基本操作：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、读取某储存单元内容(可能是指令或操作数或操作数地址)，并将其装入某个寄存器。</span><br><span class="line">2、把一个数据从某个寄存器存储到给定存储单元。</span><br><span class="line">3、把一个数据从某个寄存器传送到另一个寄存器或ALU。</span><br><span class="line">4、在ALU中进行某种算术运算或逻辑运算，并将结果送到某个寄存器中。</span><br></pre></td></tr></table></figure>
-<h4 id="cup的基本功能和组成"><a href="#cup的基本功能和组成" class="headerlink" title="cup的基本功能和组成"></a>cup的基本功能和组成</h4><p>由程序计数器(PC),指令寄存器(IR)，指令译码器(ID),脉冲源及起停控制逻辑，时序信号产生部件，操作控制信号形成部件，总线控制逻辑，终端机构组成</p>
-<h4 id="打断程序正常执行的事件"><a href="#打断程序正常执行的事件" class="headerlink" title="打断程序正常执行的事件"></a>打断程序正常执行的事件</h4><p>1、内部异常：源自于正在运行程序本身，来自于cpu内部。是必然，同步事件。<br>2、外部中断：源自于正在运行程序的条件，来足浴cpu外部，是偶然，异步事件。</p>
-<h4 id="数据通路基本逻辑和工作原理"><a href="#数据通路基本逻辑和工作原理" class="headerlink" title="数据通路基本逻辑和工作原理"></a>数据通路基本逻辑和工作原理</h4><p>操作元件：多路选择器(MUX)，加法器(ADDER)，算术逻辑部件(ALU)，译码器(Decoder)<br>状态元件：D触发器，这需要建立时间以及保持时间，也称触发器的锁存延迟。<br>数据通路的时钟周期：cycle Time = clk-to-Q(稳定时间)+Longest Delay(处理时间)+ 建立时间+时钟偏移。<br>工作原理：<br><img src="/2017/05/25/basic-computer-sience-chapter5/simpleBus.jpg" alt="simpleBus"><br>数据通路中的部件之间可以通过总线方式连接，ALU及所有的寄存器通过一条内部的公共总线连接起来，已构成单总线结构数据通路，因为在cpu内部成为cpu内总线。<br><strong>1、完成算术或逻辑运算</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">其完成R[R3]&lt;-R[R1]+R[R2]操作如下：</span><br><span class="line">1、R1(out),Y(in)</span><br><span class="line">2、R2(out),add,Z(in)</span><br><span class="line">3、Z(out),R3(in)</span><br></pre></td></tr></table></figure></p>
-<p><strong>2、从内存读取一个字(指令或数据或数据的地址)</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">其完成R[R2]&lt;-M[R[R1]]操作如下：</span><br><span class="line">1、R1(out),MAR(in)</span><br><span class="line">2、read,WMFC(使cpu进行等待)</span><br><span class="line">3、MAR(out),R2(in)</span><br></pre></td></tr></table></figure></p>
-<p><strong>3、把一个字(数据)写入内存</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">其完成M[R[R2]]&lt;-R[R1]操作如下：</span><br><span class="line">1、R1(out),MDR(in)</span><br><span class="line">2、R2(out),MAR(in)</span><br><span class="line">3、write,WMFC</span><br></pre></td></tr></table></figure></p>
-<h4 id="流水线方式下命令的执行"><a href="#流水线方式下命令的执行" class="headerlink" title="流水线方式下命令的执行"></a>流水线方式下命令的执行</h4><p>想象以下，你有一堆衣服，有洗，甩干，晾三个操作，分别时间是40,30,20。有洗衣机和甩干机，晾必须得自己操作，当然，洗衣间衣服的时间是40+30+20,若洗n件衣服，依然还是使用这种算法，则总时间为n(40+30+20),而我们最好的方法是：</p>
-<p><em>在洗第n件衣服时，正好在甩干第n-1件，在晾第n-2件。而大家都同时以40分钟时间为标准，因此。最后的总时间为：40n+30+20，节省不少时间。</em><br>在计算机中也是如此，设计原则是：<br><strong>指令流水段个数以最复杂指令所用的功能段数为准，流水段的长度以最复杂的功能段的操作所用的时间为准。</strong><br>因此，比较适合流水线的指令集特征为：<br>1、指令长度尽量一致。<br>2、指令格式尽量规整，尽量保证源寄存器的位置相同<br>3、采用load/store型指令风格(指令集中只有load指令和store指令能访问内存储器，其他一律不行)<br>4、数据和指令要在寄存器中“对齐存放”</p>
-<h4 id="流水线方式下出现问题"><a href="#流水线方式下出现问题" class="headerlink" title="流水线方式下出现问题"></a>流水线方式下出现问题</h4><p>1、结构冒险：可能逻辑A与逻辑D存放的正好是同一个寄存器，而同时需要运行这条指令，造成结构冒险，由于硬件共享产生的问题。<br>解决方案：<br>(1)、规定一个部件的每条指令只能使用一次，而且只能特定阶段使用<br>(2)、通过设置多个独立的部件来避免资源的冲突</p>
-<p>2、数据冒险：后面的指令用到前面指令的运算结果，前面的指令还没有完成，结果还没有算出，造成数据冒险。<br>解决方案：<br>(1)、由编译器在数据相关的指令之间加若干个nop(空操作指令)指令，等待上一条数据的产生<br>(2)、采用数据转发机制，即结果出来后通过旁路放到相关的exce阶段的ALU输入端<br>(3)、通过硬件阻塞(插入气泡)来延迟load命令执行<br>(4)、通过寄存器的读写操作进行特殊处理，保证在一个时钟的前半周期进行寄存器写，在后半期进行寄存器读。</p>
-<p>3、控制冒险:<br>由于中断或转移指令的执行顺序，可能发生控制冒险。<br>可通过插入气泡或插入空操作符解决。</p>
-<h4 id="小结："><a href="#小结：" class="headerlink" title="小结："></a>小结：</h4><p>计算机程序的运行并没有那么简单，从简单的代码，转化为汇编之后，再变成单条的运行，之间发生了奇妙的变化，这章的学习让我明白软件的运行并不是简单我们看到的代码，而是分解之后单条单条的汇编代码，每条汇编代码又需要执行条小周期，才能完成一条汇编代码。而每条小周期还能变成一个完整的流水线。即使每个流水线都是有各种各样的问题，但解决流水线问题之后，速度是质的提升。这种思想也改变了我的思维，对代码效率的考虑。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机系统基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/25/basic-computer-sience-chapter5/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1420,11 +1418,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">code</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ncuhome</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1436,19 +1446,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ncuhome</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">code</a>
               </li>
             
             <div class="clearfix"></div>
