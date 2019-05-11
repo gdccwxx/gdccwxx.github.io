@@ -160,6 +160,147 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-read-javascript-again-chapter1-3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/11/read-javascript-again-chapter1-3/">JavaScript高级程序设计重读—1-3章</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/11/read-javascript-again-chapter1-3/" class="archive-article-date">
+  	<time datetime="2017-07-11T01:03:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><h4 id="关于script标签"><a href="#关于script标签" class="headerlink" title="关于script标签"></a>关于script标签</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;/javascripts/application.js&quot; type=&quot;text/javascript&quot; charset=&quot;utf-8&quot; async defer&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>script标签共有src，type，charset，async，defer几个属性。在只有script时依然可以作用。<br>1、async是可选的，意为立即下载脚本，但不妨碍页面中的其他操作。且其下载后文件的执行顺序不定。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;1.js&quot; async&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=&quot;2.js&quot; async&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>其下载后1.js和2.js不定制性。没有一定顺序，可能是1先，也可能是2先执行。</p>
+<p>2、charset是指定字符集，在不写的情况下，默认charset为‘utf-8’编码。<br>3、type，在不谢的情况下默认值位‘text/javascript’<br>4、src属性，src属性并不是非得引用xx.js,而是其只要正确引用返回MIME类型即可。(mime类型：MIME (Multipurpose Internet Mail Extensions) 是描述消息内容类型的因特网标准。<br>MIME 消息能包含文本、图像、音频、视频以及其他应用程序专用的数据。)如果有src属性，则script标签中即使有代码也不会执行。</p>
+<h4 id="script标签位置"><a href="#script标签位置" class="headerlink" title="script标签位置"></a>script标签位置</h4><p>由于浏览器是由上到下解析内容。如果放在head变迁内，浏览器要等其下载完成后，再去渲染整个页面。因此会有一段时间延迟渲染，造成用户体验差，因此，为了避免这个问题，现代web应用一般是放在body元素中页面内容的后面。加上defer延迟后，将在浏览器解析完成整个页面，即解析完成&lt; /html&gt;之后再执行js代码。</p>
+<p><em>ps：defer，async都是先下载文件。加载页面完成后执行，但是不同点是defer保证js文件顺序执行，而async则不保证。</em></p>
+<h4 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h4><p>规则：<br>1、第一个字符必须是字母、下划线，或美元符号<br>2、其他字符可以使字母，下划线，美元符号或数字<br>最佳采用驼峰式命名</p>
+<h4 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h4><p>未初始化的变量都有一个默认的值，undefined，若未使用var，则其将直接变成全局变量。可以使用逗号分隔，多个变量赋值，即<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a = 0,</span><br><span class="line">    b = 1,</span><br><span class="line">    c = 2</span><br></pre></td></tr></table></figure></p>
+<h4 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h4><p>JavaScript共有5种基本数据类型和1种复杂数据类型。分别是：<br>Undefined，Null，Boolean，Number，String；Object</p>
+<h5 id="TYPEOF操作"><a href="#TYPEOF操作" class="headerlink" title="TYPEOF操作"></a>TYPEOF操作</h5><p>typeof操作只能返回下列字符串<br>undefined – 值未定义<br>boolean – 布尔值<br>string — 字符串<br>number – 数值<br>object – 对象或null<br>function – 函数</p>
+<h5 id="Undefined类型"><a href="#Undefined类型" class="headerlink" title="Undefined类型"></a>Undefined类型</h5><p>显示的对一个值赋值为undefined和不初始化某个变量，其都===undefined<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var message</span><br><span class="line">// var age   此变量未声明</span><br><span class="line">typeof message // undefined</span><br><span class="line">typeof age //undefined</span><br></pre></td></tr></table></figure></p>
+<p><em>ps：对未初始化的变量执行typeof操作符会返回undefined，而对未声明的变量执行统一配发操作符同样也会返回undefined值。</em></p>
+<h5 id="Null类型"><a href="#Null类型" class="headerlink" title="Null类型"></a>Null类型</h5><p>Null类型是表示一个空对象指针，也正是typeof null 返回Object的原因了。因此在声明一个为初始化的对象时，应该赋值为Null,在判断语句if中，null代表false。因此常用其作为未初始对象的赋值</p>
+<h5 id="Boolean类型"><a href="#Boolean类型" class="headerlink" title="Boolean类型"></a>Boolean类型</h5><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>转换为true的值</th>
+<th>转换位为false的值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Boolean</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr>
+<td>String</td>
+<td>任何非空字符串</td>
+<td>“”空字符串</td>
+</tr>
+<tr>
+<td>Number</td>
+<td>任何非零数值(包括无穷大)</td>
+<td>0和NaN</td>
+</tr>
+<tr>
+<td>Object</td>
+<td>任何对象</td>
+<td>null</td>
+</tr>
+<tr>
+<td>Undefined</td>
+<td>不存在的</td>
+<td>undefined</td>
+</tr>
+</tbody>
+</table>
+<h5 id="Number类型"><a href="#Number类型" class="headerlink" title="Number类型"></a>Number类型</h5><p>1、如果前缀为 0，则 JavaScript 会把数值常量解释为八进制数，如果前缀为 0 和 “x”，则解释为十六进制数。即<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var octalNum = 070 // 56</span><br><span class="line">var hexNum1 = 0xA //10</span><br></pre></td></tr></table></figure></p>
+<p>在进行算术运算时其右会转化成10进制<br>2、JavaScript中+0和-0是相等的<br>3、由于浮点数的数值计算产生误差，即0.1 + 0.2 = 0.30000000000000004是因为给予IEEE754数值的浮点数计算的通病(详见：计算机系统基础－－第二章(数据的机器级表示与处理) – 浮点数的表示)<br>4、由于浮点数的表示范围有限，因此其表示范围有Number.MIN_VALUE(最小值)和Number.MAX_VALUE(最大值)表示。采用isFinite()函数判断其是否溢出<br>5、NaN表示not a number 是一个特殊的值，表示其转换不是一个数值。任何数值的算术运算对NaN的结果都是NaN，且NaN不等于其本身。判断是否是NaN有专门函数isNaN()来判断。传入参数会先尝试转换成number再判断。而测试对象时先调用对象的valueOf方法，在确定是否可以转换成数值，如果不能，再调用toString方法。在测试返回值。<br>6、数值转换函数Number(),规则如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(1)boolean,true转换成1，false转换成0</span><br><span class="line">(2)数值，简单传入和返回</span><br><span class="line">(3)null，返回0</span><br><span class="line">(4)undefined，返回NaN</span><br><span class="line">(5)字符串：   &lt;1&gt;转换为十进制数，并且将前面多余的0去除</span><br><span class="line">             &lt;2&gt;浮点数格式相同</span><br><span class="line">             &lt;3&gt;如果包含0x、0o，将其转换成10进制数</span><br><span class="line">             &lt;4&gt;空字符串转换为0</span><br><span class="line">             &lt;5&gt;其他格式外都转换成NaN</span><br><span class="line">(6)对象，先调用valueOf()方法，然后依照返回值，如果是NaN，则调用对象toString方法，再根据前面返回字符串</span><br></pre></td></tr></table></figure></p>
+<p>7、parseInt()，parseFloat()函数<br>parseInt也是将传入参数转换成数值，与Number函数不同的地方是，parseInt函数会选取从首字符开始的数值，到非数值字符结束，即parseInt(‘123abc’)转换成123，而Number转换成NaN。<br>parseInt可以接受第二个参数，代表转换成的基于格式。即<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parseInt(&apos;10&apos;,2)  // 2</span><br></pre></td></tr></table></figure></p>
+<p>基于格式格式转化成相应十进制数</p>
+<h5 id="String类型"><a href="#String类型" class="headerlink" title="String类型"></a>String类型</h5><p>1、字符字面量，例如\n(换行),\t(制表)等等。这些字面量在字符串的任意位置都会被当做字符来解析。例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var a = &apos;\t\t\t&apos;</span><br><span class="line">a.length // 3</span><br></pre></td></tr></table></figure></p>
+<p>而a打印出来是三个制表<br>2、字符串的特点。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var lang = &apos;Java&apos;</span><br><span class="line">lang = lang + &apos;Script&apos;</span><br></pre></td></tr></table></figure></p>
+<p>开始时lang保存字符串Java，而第二行把lang的值重新定义为Java和script结合，这个操作首先创建一个能容纳10个字符的新字符串，然后在这个字符串中填入java 和script，最后一步是销毁原来的字符串java和字符串script。<br>3、字符串的转换<br>利用toString方法来将数值转化成string，而其参数是转化成不同进制<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var num = 11</span><br><span class="line">num.toString() // &apos;11&apos;</span><br><span class="line">var nums = 10</span><br><span class="line">nums.toString(2) // &apos;1010&apos;</span><br></pre></td></tr></table></figure></p>
+<p>在不是null和undefined的情况下，还可以调用String()函数其转换规则如下<br>1、如果值有toString方法，调用其不带参数的toString方法<br>2、如果值是null，返回’null’<br>3、如果是undefined，返回’undefined’</p>
+<h5 id="Object类型"><a href="#Object类型" class="headerlink" title="Object类型"></a>Object类型</h5><p>可以使用 var o = new Object()或者使用var o = new Object来构造Object实例。每个Object实例都有下列属性和方法<br>1、constructor 保存着创建当前对象的函数<br>2、hasOwnProperty 用于检查给定的属性在当前实例中(而不是实例的原型中)<br>3、isPrototypeOf 用于检查传入的对象是否是当前对象的原型<br>4、propertyIsEnumerable 用于检查给定的属性是否能用for-in语句来枚举<br>5、toLocaleString 返回对象的字符串表示，该字符串与执行环境的地区对应<br>6、toString 返回对象的字符串表示<br>7、valueOf 返回对象的字符串、数值或布尔值</p>
+<h5 id="位操作符"><a href="#位操作符" class="headerlink" title="位操作符"></a>位操作符</h5><p>1、按位非 (NOT) ~<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var num1 = 25   // 二进制00000000000000000000000000011001</span><br><span class="line">var num2 = ~num1// 二进制11111111111111111111111111100110</span><br><span class="line">num2            // ~26</span><br></pre></td></tr></table></figure></p>
+<p>2、按位与 (AND) &amp;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var result = 25 &amp; 3</span><br><span class="line">result  // 1</span><br><span class="line">25 = 0000 0000 0000 0000 0000 0000 0001 1001</span><br><span class="line">3 =  0000 0000 0000 0000 0000 0000 0000 0011</span><br><span class="line">----------------------------------------------</span><br><span class="line">AND= 0000 0000 0000 0000 0000 0000 0000 0001</span><br></pre></td></tr></table></figure></p>
+<p>3、按位或 (OR) |<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var result = 25 | 3</span><br><span class="line">result  // 27</span><br><span class="line">25 = 0000 0000 0000 0000 0000 0000 0001 1001</span><br><span class="line">3 =  0000 0000 0000 0000 0000 0000 0000 0011</span><br><span class="line">----------------------------------------------</span><br><span class="line">AND= 0000 0000 0000 0000 0000 0000 0001 1011</span><br></pre></td></tr></table></figure></p>
+<p>4、按位异或 (XOR) ^<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var result = 25 ^ 3</span><br><span class="line">result  // 27</span><br><span class="line">25 = 0000 0000 0000 0000 0000 0000 0001 1001</span><br><span class="line">3 =  0000 0000 0000 0000 0000 0000 0000 0011</span><br><span class="line">----------------------------------------------</span><br><span class="line">AND= 0000 0000 0000 0000 0000 0000 0001 1010</span><br></pre></td></tr></table></figure></p>
+<p>5、 操作符<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">25**2 = 625</span><br></pre></td></tr></table></figure></p>
+<p>**代表次方</p>
+<h4 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h4><p>label语句结合break，continue语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">var num = 0;</span><br><span class="line">outermost:</span><br><span class="line">    for (var i = 0; i &lt; 10; i++) &#123;</span><br><span class="line">        for (var j = 0; j &lt; 10; j++) &#123;</span><br><span class="line">            if (i == 5 &amp;&amp; j == 5) &#123;</span><br><span class="line">               break outermost</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">num // 55</span><br><span class="line">var num = 0;</span><br><span class="line">outermost:</span><br><span class="line">    for (var i = 0; i &lt; 10; i++) &#123;</span><br><span class="line">        for (var j = 0; j &lt; 10; j++) &#123;</span><br><span class="line">            if (i == 5 &amp;&amp; j == 5) &#123;</span><br><span class="line">               continue outermost</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">num // 95</span><br></pre></td></tr></table></figure></p>
+<p>lable结合break，continue语句可以控制跳出位置</p>
+<h4 id="with语句"><a href="#with语句" class="headerlink" title="with语句"></a>with语句</h4><p>将代码作用域设定到特定对象中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var qs = location.search.substring(1)</span><br><span class="line">var hostName = location.hostname</span><br><span class="line">var url = location.href</span><br><span class="line">//使用with语句后</span><br><span class="line">with(location)&#123;</span><br><span class="line">    var qs = search.substring(1)</span><br><span class="line">    var hostName = hostname</span><br><span class="line">    var url = href</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>通过本章学习，发现许多细节问题之前没有搞清楚，一直使用老方法去引用script。变量命名一直也是随意命名，今后的学习、coding之路，让我更清晰，明了基础的知识</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/11/read-javascript-again-chapter1-3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-basic-computer-sience-chapter5" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -859,19 +1000,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ncuhome</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ncuhome</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
