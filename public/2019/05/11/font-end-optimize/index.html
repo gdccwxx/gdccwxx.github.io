@@ -8,20 +8,20 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>前端性能优化 | gdccwxx</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前端性能优化资源合并与压缩-http请求的过程及潜在的性能优化浏览器的一个请求从发送到返回都经历了什么思考  dns是否可以通过缓存减少dns查询时间？ 网络请求的过程走最近的网络环境？ 相同的静态资源是否可以缓存？ 能否减少请求http请求大小？ 减少http请求 服务端渲染重绘和回流css会让JavaScript变慢吗一个线程执行JavaScript一个线程执行渲染频繁触发重绘和回流，导致UI">
+  <meta name="description" content="资源合并与压缩-http请求的过程及潜在的性能优化浏览器的一个请求从发送到返回都经历了什么  思考  dns是否可以通过缓存减少dns查询时间？ 网络请求的过程走最近的网络环境？ 相同的静态资源是否可以缓存？ 能否减少请求http请求大小？ 减少http请求 服务端渲染重绘和回流css会让JavaScript变慢吗一个线程执行JavaScript一个线程执行渲染频繁触发重绘和回流，导致UI渲染频繁">
 <meta name="keywords" content="前端">
 <meta property="og:type" content="article">
 <meta property="og:title" content="前端性能优化">
 <meta property="og:url" content="http://yoursite.com/2019/05/11/font-end-optimize/index.html">
 <meta property="og:site_name" content="gdccwxx">
-<meta property="og:description" content="前端性能优化资源合并与压缩-http请求的过程及潜在的性能优化浏览器的一个请求从发送到返回都经历了什么思考  dns是否可以通过缓存减少dns查询时间？ 网络请求的过程走最近的网络环境？ 相同的静态资源是否可以缓存？ 能否减少请求http请求大小？ 减少http请求 服务端渲染重绘和回流css会让JavaScript变慢吗一个线程执行JavaScript一个线程执行渲染频繁触发重绘和回流，导致UI">
+<meta property="og:description" content="资源合并与压缩-http请求的过程及潜在的性能优化浏览器的一个请求从发送到返回都经历了什么  思考  dns是否可以通过缓存减少dns查询时间？ 网络请求的过程走最近的网络环境？ 相同的静态资源是否可以缓存？ 能否减少请求http请求大小？ 减少http请求 服务端渲染重绘和回流css会让JavaScript变慢吗一个线程执行JavaScript一个线程执行渲染频繁触发重绘和回流，导致UI渲染频繁">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2019/05/11/font-end-optimize/font-end-http-send.png">
 <meta property="og:image" content="http://yoursite.com/2019/05/11/font-end-optimize/font-end-cache.png">
-<meta property="og:updated_time" content="2019-05-11T15:51:40.035Z">
+<meta property="og:updated_time" content="2019-05-12T07:47:52.711Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端性能优化">
-<meta name="twitter:description" content="前端性能优化资源合并与压缩-http请求的过程及潜在的性能优化浏览器的一个请求从发送到返回都经历了什么思考  dns是否可以通过缓存减少dns查询时间？ 网络请求的过程走最近的网络环境？ 相同的静态资源是否可以缓存？ 能否减少请求http请求大小？ 减少http请求 服务端渲染重绘和回流css会让JavaScript变慢吗一个线程执行JavaScript一个线程执行渲染频繁触发重绘和回流，导致UI">
+<meta name="twitter:description" content="资源合并与压缩-http请求的过程及潜在的性能优化浏览器的一个请求从发送到返回都经历了什么  思考  dns是否可以通过缓存减少dns查询时间？ 网络请求的过程走最近的网络环境？ 相同的静态资源是否可以缓存？ 能否减少请求http请求大小？ 减少http请求 服务端渲染重绘和回流css会让JavaScript变慢吗一个线程执行JavaScript一个线程执行渲染频繁触发重绘和回流，导致UI渲染频繁">
 <meta name="twitter:image" content="http://yoursite.com/2019/05/11/font-end-optimize/font-end-http-send.png">
   
     <link rel="alternative" href="/atom.xml" title="gdccwxx" type="application/atom+xml">
@@ -183,7 +183,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="前端性能优化"><a href="#前端性能优化" class="headerlink" title="前端性能优化"></a>前端性能优化</h1><h3 id="资源合并与压缩-http请求的过程及潜在的性能优化"><a href="#资源合并与压缩-http请求的过程及潜在的性能优化" class="headerlink" title="资源合并与压缩-http请求的过程及潜在的性能优化"></a>资源合并与压缩-http请求的过程及潜在的性能优化</h3><p>浏览器的一个请求从发送到返回都经历了什么<br><img src="font-end-http-send.png" alt="Alt text"><br>思考</p>
+        <h3 id="资源合并与压缩-http请求的过程及潜在的性能优化"><a href="#资源合并与压缩-http请求的过程及潜在的性能优化" class="headerlink" title="资源合并与压缩-http请求的过程及潜在的性能优化"></a>资源合并与压缩-http请求的过程及潜在的性能优化</h3><p>浏览器的一个请求从发送到返回都经历了什么</p>
+<p><img src="/2019/05/11/font-end-optimize/./font-end-http-send.png" alt="http"></p>
+<p>思考</p>
 <ul>
 <li>dns是否可以通过缓存减少dns查询时间？</li>
 <li>网络请求的过程走最近的网络环境？</li>
@@ -204,7 +206,7 @@
 <h3 id="触发页面重绘的属性"><a href="#触发页面重绘的属性" class="headerlink" title="触发页面重绘的属性"></a>触发页面重绘的属性</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">color				border-style</span><br><span class="line">border-radius		visibility</span><br><span class="line">text-decoration		background</span><br><span class="line">background-image	background-position</span><br><span class="line">background-repeat	background-size</span><br><span class="line">outline-color		outline</span><br><span class="line">outline-style		outline-width</span><br><span class="line">box-shadow</span><br></pre></td></tr></table></figure>
 <h3 id="新建DOM过程"><a href="#新建DOM过程" class="headerlink" title="新建DOM过程"></a>新建DOM过程</h3><p>1、 获取DOM后分割为多个图层<br>2、 对每个图层的阶段计算样式结果(recalulate style — 样式重计算)<br>3、 为每个节点生成图形和位置(Layout— 回流和重布局)<br>4、 将每个节点绘制填充到图层位置中(Paint setup 和Paint — 重绘)<br>5、 图层作为纹理上传至gpu<br>6、 符合多个图层到页面上生成最终屏幕图像(composite layers — 图层重组)</p>
 <h3 id="减少重绘和回流"><a href="#减少重绘和回流" class="headerlink" title="减少重绘和回流"></a>减少重绘和回流</h3><p>避免重绘回流的css<br>将频繁重绘和回流的dom元素单独作为独立图层，那么这个dom元素只会影响这个独立图层</p>
-<h3 id="如何将DOM创建一个新的图层"><a href="#如何将DOM创建一个新的图层" class="headerlink" title="如何将DOM创建一个新的图层"></a>如何将DOM创建一个新的图层</h3><p>1、3D或者透视变化CSS属性(perspective transform)<br>2、 使用加速视屏解码的<video \="">节点<br>3、拥有3D(webGL)上下文或加速的2D上下文的<canvas \="">节点<br>4、混合插件(如flash)<br>5、对自己的opacity做css动画或使用一个动画webkit变换的元素<br>6、使用加速CSS过滤器的元素(translate3D..)<br>7、元素有一个包含复合层的后代节点(一个元素拥有一个子元素，该元素在自己的层里)<br>8、元素有一个z-index较低且包含一个符合层的兄弟元素(该元渲染在符合层上面渲染)</canvas></video></p>
+<h3 id="如何将DOM创建一个新的图层"><a href="#如何将DOM创建一个新的图层" class="headerlink" title="如何将DOM创建一个新的图层"></a>如何将DOM创建一个新的图层</h3><p>1、3D或者透视变化CSS属性(perspective transform)<br>2、 使用加速视屏解码的 video 节点<br>3、拥有3D(webGL)上下文或加速的2D上下文的 canvas 节点<br>4、混合插件(如flash)<br>5、对自己的opacity做css动画或使用一个动画webkit变换的元素<br>6、使用加速CSS过滤器的元素(translate3D..)<br>7、元素有一个包含复合层的后代节点(一个元素拥有一个子元素，该元素在自己的层里)<br>8、元素有一个z-index较低且包含一个符合层的兄弟元素(该元渲染在符合层上面渲染)</p>
 <h3 id="避免重绘回流"><a href="#避免重绘回流" class="headerlink" title="避免重绘回流"></a>避免重绘回流</h3><p>1、用translate替代top：top会触发回流而translate不会<br>2、用opacity替代visibility：visibility会触发重绘而opacity不会<br>3、不要一条条修改DOM修改样式，可以放在一个class内，替换class<br>4、离线修改，使用display-none修改元素再显示<br>5、不要把DOM节点属性值放在一个循环里的变量里（offsetHight， offsetWidth）<br>6、不使用table布局，可能很小的修改导致整个table重新布局<br>7、动画实现的速度的选择<br>8、对于动画新建图层 (git图加上will-change, transform)<br>9、使用GPU硬件加速(trasform: translateZ, trasform: transform3d(0,0,0))</p>
 <h2 id="localStorage"><a href="#localStorage" class="headerlink" title="localStorage"></a>localStorage</h2><ul>
 <li>HTML5设计出来专门用于浏览器存储的</li>
@@ -504,11 +506,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">code</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">code</a>
               </li>
              
               <li class="article-tag-list-item">

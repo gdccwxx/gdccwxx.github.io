@@ -3,10 +3,11 @@ title: 前端性能优化
 date: 2019-05-11 23:46:04
 tags: 前端
 ---
-# 前端性能优化
 ### 资源合并与压缩-http请求的过程及潜在的性能优化
 浏览器的一个请求从发送到返回都经历了什么
-![Alt text](font-end-http-send.png)
+
+![http](/2019/05/11/font-end-optimize/./font-end-http-send.png)
+
 思考
 * dns是否可以通过缓存减少dns查询时间？
 * 网络请求的过程走最近的网络环境？
@@ -65,8 +66,8 @@ box-shadow
 将频繁重绘和回流的dom元素单独作为独立图层，那么这个dom元素只会影响这个独立图层
 ### 如何将DOM创建一个新的图层
 1、3D或者透视变化CSS属性(perspective transform)
-2、 使用加速视屏解码的<video \>节点
-3、拥有3D(webGL)上下文或加速的2D上下文的<canvas \>节点
+2、 使用加速视屏解码的 video 节点
+3、拥有3D(webGL)上下文或加速的2D上下文的 canvas 节点
 4、混合插件(如flash)
 5、对自己的opacity做css动画或使用一个动画webkit变换的元素
 6、使用加速CSS过滤器的元素(translate3D..)
