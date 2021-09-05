@@ -183,6 +183,151 @@ ga('send', 'pageview');
             
 
   
+    <article id="post-best-practice-of-decorator" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2021/09/05/best-practice-of-decorator/" target="_blank">Decorator 这么好用，赶紧用起来！</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2021/09/05/best-practice-of-decorator/" class="archive-article-date">
+        <time datetime="2021-09-05T12:22:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-05</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>你是不是也会因入参和结果的而苦恼？是不是要添加数据检查而难受？是不是也为函数鉴权而郁闷？使用decorator 后，能让代码更优雅，编程跟快捷。</p>
+<h3 id="啥是-Decorator"><a href="#啥是-Decorator" class="headerlink" title="啥是 Decorator?"></a>啥是 Decorator?</h3><p>Decorator 是 ES6 中的提案之一，它实际上是个 wrapper，可以为类、属性或函数提供额外功能。举个栗子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">function f(key: string): any &#123;</span><br><span class="line">  console.log(&quot;evaluate: &quot;, key);</span><br><span class="line">  return function () &#123;</span><br><span class="line">    console.log(&quot;call: &quot;, key);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@f(&quot;Class Decorator&quot;)</span><br><span class="line">class A &#123;</span><br><span class="line">  constructor(@f(&quot;Constructor Parameter&quot;) foo) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  @f(&quot;Instance Method&quot;) // 1</span><br><span class="line">  method(@f(&quot;Instance Method Parameter&quot;) foo) &#123;&#125; // 2</span><br><span class="line"></span><br><span class="line">  @f(&quot;Instance Property&quot;)</span><br><span class="line">  prop?: number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 基本上，装饰器会的行为就是下面这样：</span><br><span class="line"></span><br><span class="line">@f()</span><br><span class="line">class A</span><br><span class="line"></span><br><span class="line">// 等同于</span><br><span class="line">A = f(A) || A</span><br></pre></td></tr></table></figure></p>
+<h2 id="使用前的准备"><a href="#使用前的准备" class="headerlink" title="使用前的准备"></a>使用前的准备</h2><p>虽然 Decorator 只是一个提案，但可通过工具来使用它：</p>
+<h3 id="Babel"><a href="#Babel" class="headerlink" title="Babel:"></a>Babel:</h3><blockquote>
+<p>babel-plugin-syntax-decorators<br>babel-plugin-transform-decorators-legacy</p>
+</blockquote>
+<h3 id="Typescript"><a href="#Typescript" class="headerlink" title="Typescript:"></a>Typescript:</h3><p>命令行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tsc --target ES5 --experimentalDecorators</span><br></pre></td></tr></table></figure></p>
+<p>tsconfig.json:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;compilerOptions&quot;: &#123;</span><br><span class="line">    &quot;target&quot;: &quot;ES5&quot;,</span><br><span class="line">    &quot;experimentalDecorators&quot;: true</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h2><p>不同类型的装饰器执行顺序是明确的：<br>1、 实例成员：参数装饰器 -&gt; 方法/访问器/属性 装饰器<br>2、 静态成员：参数装饰器 -&gt; 方法/访问器/属性 装饰器<br>3、 构造函数：参数装饰器<br>4、 类装饰器<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">function f(key: string): any &#123;</span><br><span class="line">  console.log(&quot;evaluate: &quot;, key);</span><br><span class="line">  return function () &#123;</span><br><span class="line">    console.log(&quot;call: &quot;, key);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@f(&quot;Class Decorator&quot;)</span><br><span class="line">class A &#123;</span><br><span class="line">  @f(&quot;Static Property&quot;)</span><br><span class="line">  static prop?: number;</span><br><span class="line"></span><br><span class="line">  @f(&quot;Static Method&quot;)</span><br><span class="line">  static method(@f(&quot;Static Method Parameter&quot;) foo) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  constructor(@f(&quot;Constructor Parameter&quot;) foo) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  @f(&quot;Instance Method&quot;)</span><br><span class="line">  method(@f(&quot;Instance Method Parameter&quot;) foo) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  @f(&quot;Instance Property&quot;)</span><br><span class="line">  prop?: number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 执行顺序</span><br><span class="line">evaluate:  Instance Method</span><br><span class="line">evaluate:  Instance Method Parameter</span><br><span class="line">call:  Instance Method Parameter</span><br><span class="line">call:  Instance Method</span><br><span class="line">evaluate:  Instance Property</span><br><span class="line">call:  Instance Property</span><br><span class="line">evaluate:  Static Property</span><br><span class="line">call:  Static Property</span><br><span class="line">evaluate:  Static Method</span><br><span class="line">evaluate:  Static Method Parameter</span><br><span class="line">call:  Static Method Parameter</span><br><span class="line">call:  Static Method</span><br><span class="line">evaluate:  Class Decorator</span><br><span class="line">evaluate:  Constructor Parameter</span><br><span class="line">call:  Constructor Parameter</span><br><span class="line">call:  Class Decorator</span><br></pre></td></tr></table></figure></p>
+<p>然而，在同一方法中的不同参数构造器顺序是相反的，最后参数回的装饰器会先被执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">function f(key: string): any &#123;</span><br><span class="line">  console.log(&quot;evaluate: &quot;, key);</span><br><span class="line">  return function () &#123;</span><br><span class="line">    console.log(&quot;call: &quot;, key);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class B &#123;</span><br><span class="line">  @f(&apos;first&apos;)</span><br><span class="line">  @f(&apos;second&apos;)</span><br><span class="line">  method() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 执行顺序</span><br><span class="line">evaluate:  first</span><br><span class="line">evaluate:  second</span><br><span class="line">call:  second</span><br><span class="line">call:  first</span><br></pre></td></tr></table></figure></p>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><h3 id="类装饰器"><a href="#类装饰器" class="headerlink" title="类装饰器"></a>类装饰器</h3><p>参数：</p>
+<ul>
+<li><code>target</code>: 类的 <code>构造器（constructor）</code><br>返回: undefined | 替代原有构造器</li>
+</ul>
+<p>因此，类装饰器适合用于继承一个现有类并添加一些属性和方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function rewirteClassConstructor&lt;T extends &#123; new (...args: any[]): &#123;&#125; &#125;&gt;(constructor: T) &#123;</span><br><span class="line">  return class extends constructor &#123;</span><br><span class="line">    words = &quot;rewrite constructor&quot;;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">@rewirteClassConstructor</span><br><span class="line">class Speak &#123;</span><br><span class="line">  words: string;</span><br><span class="line"> </span><br><span class="line">  constructor(t: string) &#123;</span><br><span class="line">    this.words = t;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">const say = new Speak(&quot;hello world&quot;);</span><br><span class="line">console.log(say.words) // rewrite constructor</span><br></pre></td></tr></table></figure></p>
+<h3 id="属性装饰器"><a href="#属性装饰器" class="headerlink" title="属性装饰器"></a>属性装饰器</h3><p>参数: </p>
+<ul>
+<li><code>target</code>: 对于静态成员来说是类的构造器，对于实例成员来说是类的原型链</li>
+<li><code>propertyKey</code>: 属性名称</li>
+</ul>
+<p>返回: 返回的结果将被忽略。</p>
+<p>除了用于收集信息外，属性装饰器也可以用来给类添加额外的方法和属性。 例如我们可以写一个装饰器来给某些属性添加监听器。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import &quot;reflect-metadata&quot;;</span><br><span class="line"></span><br><span class="line">function capitalizeFirstLetter(str: string) &#123;</span><br><span class="line">  return str.charAt(0).toUpperCase() + str.slice(1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function observable(target: any, key: string): any &#123;</span><br><span class="line">  // prop -&gt; onPropChange</span><br><span class="line">  const targetKey = &quot;on&quot; + capitalizeFirstLetter(key) + &quot;Change&quot;;</span><br><span class="line"></span><br><span class="line">  target[targetKey] = function (fn: (prev: any, next: any) =&gt; void) &#123;</span><br><span class="line">      let prev = this[key];</span><br><span class="line">      // tsconfig.json target to ES6</span><br><span class="line">      Reflect.defineProperty(this, key, &#123;</span><br><span class="line">        set(next) &#123;</span><br><span class="line">          fn(prev, next);</span><br><span class="line">          prev = next;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class C &#123;</span><br><span class="line">  </span><br><span class="line">  @observable</span><br><span class="line">  foo = -1;</span><br><span class="line"></span><br><span class="line">  onFooChange(arg0: (prev: any, next: any) =&gt; void) &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const c = new C();</span><br><span class="line"></span><br><span class="line">c.onFooChange((prev, next) =&gt; console.log(`prev: $&#123;prev&#125;, next: $&#123;next&#125;`))</span><br><span class="line"></span><br><span class="line">c.foo = 100; // -&gt; prev: -1, next: 100</span><br><span class="line">c.foo = -3.14; // -&gt; prev: 100, next: -3.14</span><br></pre></td></tr></table></figure></p>
+<h3 id="方法装饰器"><a href="#方法装饰器" class="headerlink" title="方法装饰器"></a>方法装饰器</h3><p>参数：</p>
+<ul>
+<li><code>target</code>: 对于静态成员来说是类的构造器，对于实例成员来说是类的原型链</li>
+<li><code>propertyKey</code>: 属性名称</li>
+<li><code>descriptor</code>: 属性的描述器<br>返回值：如果返回了值，它会被用于替代属性的描述器。</li>
+</ul>
+<p>通过这个参数我们可以修改方法原本的实现，添加一些共用逻辑。 例如我们可以给一些方法添加打印输入与输出的能力:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function logger(target: any, propertyKey: string, descriptor: PropertyDescriptor) &#123;</span><br><span class="line">  const original = descriptor.value;</span><br><span class="line"></span><br><span class="line">  descriptor.value = function (...args) &#123;</span><br><span class="line">    console.log(&apos;params: &apos;, ...args);</span><br><span class="line">    const result = original.call(this, ...args);</span><br><span class="line">    console.log(&apos;result: &apos;, result);</span><br><span class="line">    return result;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class C &#123;</span><br><span class="line">  @logger</span><br><span class="line">  add(x: number, y:number ) &#123;</span><br><span class="line">    return x + y;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const c = new C();</span><br><span class="line">c.add(1, 2);</span><br><span class="line">// -&gt; params: 1, 2</span><br><span class="line">// -&gt; result: 3</span><br></pre></td></tr></table></figure></p>
+<h3 id="访问器装饰器"><a href="#访问器装饰器" class="headerlink" title="访问器装饰器"></a>访问器装饰器</h3><p>访问器装饰器总体上讲和方法装饰器很接近，唯一的区别在于描述器中有的key不同：<br>方法装饰器的描述器的key为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">value</span><br><span class="line">writable</span><br><span class="line">enumerable</span><br><span class="line">configurable</span><br></pre></td></tr></table></figure></p>
+<p>访问器装饰器的描述器的key为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">get</span><br><span class="line">set</span><br><span class="line">enumerable</span><br><span class="line">configurable</span><br></pre></td></tr></table></figure></p>
+<p>例如，我们可以将某个属性设为不可变值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">function immutable(target: any, propertyKey: string, descriptor: PropertyDescriptor) &#123;</span><br><span class="line">  const original = descriptor.set;</span><br><span class="line"></span><br><span class="line">  descriptor.set = function (value: any) &#123;</span><br><span class="line">    return original.call(this, &#123; ...value &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class C &#123;</span><br><span class="line">  private _point = &#123; x: 0, y: 0 &#125;</span><br><span class="line"></span><br><span class="line">  @immutable</span><br><span class="line">  set point(value: &#123; x: number, y: number &#125;) &#123;</span><br><span class="line">    this._point = value;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  get point() &#123;</span><br><span class="line">    return this._point;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const c = new C();</span><br><span class="line">const point = &#123; x: 1, y: 1 &#125;</span><br><span class="line">c.point = point;</span><br><span class="line"></span><br><span class="line">console.log(c.point === point)</span><br><span class="line">// -&gt; false</span><br></pre></td></tr></table></figure></p>
+<h3 id="参数装饰器"><a href="#参数装饰器" class="headerlink" title="参数装饰器"></a>参数装饰器</h3><p>参数：</p>
+<ul>
+<li><code>target</code>: 对于静态成员来说是类的构造器，对于实例成员来说是类的原型链</li>
+<li><code>propertyKey</code>: 属性的名称(注意是方法的名称，而不是参数的名称)</li>
+<li><code>paramerterIndex</code>: 参数在方法中所处的位置的下标</li>
+</ul>
+<p>返回：返回的值将会被忽略。</p>
+<p>单独的参数装饰器能做的事情很有限，它一般都被用于记录可被其它装饰器使用的信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">// parameter.ts</span><br><span class="line">import &quot;reflect-metadata&quot;;</span><br><span class="line"></span><br><span class="line">function required(target: Object, propertyKey: string | symbol, parameterIndex: number) &#123;</span><br><span class="line">    let existingRequiredParameters: number[] = Reflect.getOwnMetadata(&apos;required&apos;, target, propertyKey) || [];</span><br><span class="line">    existingRequiredParameters.push(parameterIndex);</span><br><span class="line">    Reflect.defineMetadata(&apos;required&apos;, existingRequiredParameters, target, propertyKey);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function validate(target: any, propertyName: string, descriptor: TypedPropertyDescriptor&lt;Function&gt;) &#123;</span><br><span class="line">    let method = descriptor.value!;</span><br><span class="line">   </span><br><span class="line">    descriptor.value = function () &#123;</span><br><span class="line">      let requiredParameters: number[] = Reflect.getOwnMetadata(&apos;required&apos;, target, propertyName);</span><br><span class="line">      if (requiredParameters) &#123;</span><br><span class="line">        for (let parameterIndex of requiredParameters) &#123;</span><br><span class="line">          if (parameterIndex &gt;= arguments.length || arguments[parameterIndex] === undefined) &#123;</span><br><span class="line">            throw new Error(&quot;Missing required argument.&quot;);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      return method.apply(this, arguments);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">class BugReport &#123;</span><br><span class="line">    type = &quot;report&quot;;</span><br><span class="line">    title: string;</span><br><span class="line">   </span><br><span class="line">    constructor(t: string) &#123;</span><br><span class="line">      this.title = t;</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    @validate</span><br><span class="line">    print(@required verbose: boolean) &#123;</span><br><span class="line">      if (verbose) &#123;</span><br><span class="line">        return `type: $&#123;this.type&#125;\ntitle: $&#123;this.title&#125;`;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">       return this.title; </span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">export const report = new BugReport(&apos;mode error&apos;);</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// test.js</span><br><span class="line"></span><br><span class="line">const &#123; report &#125; = require(&apos;./paramerter.js&apos;);</span><br><span class="line">console.log(report.print()); // Error: Missing required argument.</span><br></pre></td></tr></table></figure>
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><ul>
+<li>Before/After钩子。</li>
+<li>监听属性改变或者方法调用。</li>
+<li>对方法的参数做转换。</li>
+<li>添加额外的方法和属性。</li>
+<li>运行时类型检查。</li>
+<li>自动编解码。</li>
+<li>依赖注入。</li>
+</ul>
+<h3 id="使用举例："><a href="#使用举例：" class="headerlink" title="使用举例："></a>使用举例：</h3><ul>
+<li><p>日志打印</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function f(): any &#123;</span><br><span class="line">  return function (target, key, descriptor) &#123;</span><br><span class="line">    let method = descriptor.value;</span><br><span class="line">    descriptor.value = function () &#123;</span><br><span class="line">      console.log(&apos;param: &apos;, Array.from(arguments));</span><br><span class="line">      const value = method.apply(this, arguments);</span><br><span class="line">      console.log(&apos;result: &apos;, value);</span><br><span class="line">      return value</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class B &#123;</span><br><span class="line">  @f()</span><br><span class="line">  say(name: string) &#123;</span><br><span class="line">      return `name is $&#123;name&#125;`;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>鉴权:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function auth(user) &#123;</span><br><span class="line">  return function(target, key, descriptor) &#123;</span><br><span class="line">    var originalMethod = descriptor.value; // 保留原有函数</span><br><span class="line">    if (!user.isAuth) &#123;</span><br><span class="line">      descriptor.value = function() &#123; // 未登录将返回提示</span><br><span class="line">        console.log(&apos;当前未登录，请登录!&apos;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      descriptor.value = function (...args) &#123; // 已登录将原有函数</span><br><span class="line">        originalMethod.apply(this, args);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return descriptor;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@auth(app.user)</span><br><span class="line">function handleStar(new) &#123;</span><br><span class="line">  new.like++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>类型检查</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import &quot;reflect-metadata&quot;;</span><br><span class="line">const stringMetaDataTag = &quot;IsString&quot;;</span><br><span class="line"> </span><br><span class="line">function IsString(target: Object, propertyKey: string | symbol, parameterIndex: number) &#123;</span><br><span class="line">  let existingRequiredParameters: number[] = Reflect.getOwnMetadata(stringMetaDataTag, target, propertyKey) || [];</span><br><span class="line">  existingRequiredParameters.push(parameterIndex);</span><br><span class="line">  Reflect.defineMetadata( stringMetaDataTag, existingRequiredParameters, target, propertyKey);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">function validate(target: any, propertyName: string, descriptor: TypedPropertyDescriptor&lt;Function&gt;) &#123;</span><br><span class="line">  let method = descriptor.value!;</span><br><span class="line"> </span><br><span class="line">  descriptor.value = function () &#123;</span><br><span class="line">    let stringMetaTags: number[] = Reflect.getOwnMetadata(stringMetaDataTag, target, propertyName);</span><br><span class="line">    if (stringMetaTags) &#123;</span><br><span class="line">      for (let parameterIndex of stringMetaTags) &#123;</span><br><span class="line">        const value = arguments[parameterIndex];</span><br><span class="line">        if (!(value instanceof String || typeof value === &apos;string&apos;)) &#123;</span><br><span class="line">            throw new Error(&apos;not string&apos;);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return method.apply(this, arguments);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">export class A &#123;</span><br><span class="line">    a: string = &apos;123&apos;;</span><br><span class="line">    </span><br><span class="line">    @validate</span><br><span class="line">    value (@IsString value: string) &#123;</span><br><span class="line">        console.log(value);</span><br><span class="line">        this.a = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">typescript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2021/09/05/best-practice-of-decorator/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-the-skills-of-develop" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1706,168 +1851,6 @@ ga('send', 'pageview');
 
 
   
-    <article id="post-you-dont-konwn-javascript-type" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2017/12/17/you-dont-konwn-javascript-type/" target="_blank">你不知道的javascript————类型和语法</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2017/12/17/you-dont-konwn-javascript-type/" class="archive-article-date">
-        <time datetime="2017-12-17T13:17:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-17</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h3><h4 id="七个内置类型"><a href="#七个内置类型" class="headerlink" title="七个内置类型"></a>七个内置类型</h4><ul>
-<li>空值 (null)</li>
-<li>未定义 (undefined)</li>
-<li>布尔值 (boolean)</li>
-<li>数字 (number)</li>
-<li>字符串 (string)</li>
-<li>对象 (object)</li>
-<li>符号 (symbol)</li>
-</ul>
-<h4 id="检测各个类型"><a href="#检测各个类型" class="headerlink" title="检测各个类型"></a>检测各个类型</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">typeof undefined		=== &quot;undefined&quot; 	// true</span><br><span class="line">typeof true 				=== &quot;boolean&quot;			// true</span><br><span class="line">typeof 42						=== &quot;number&quot;			// true</span><br><span class="line">typeof &quot;42&quot; 				=== &quot;string&quot;			// true</span><br><span class="line">typeof &#123;&quot;life&quot;: 42&#125;	=== &quot;object&quot;			// true</span><br><span class="line">typeof Symbol				=== &quot;symbol&quot;			// true</span><br><span class="line">typeof null 				=== &quot;object&quot;			// true</span><br><span class="line">typeof function()&#123;&#125;	=== &quot;function&quot; 		// true</span><br><span class="line">typeof [0,1]				=== &quot;object&quot;			// true</span><br></pre></td></tr></table></figure>
-<p>本身null对象里面代表空值，所以其为object也是合理。但应该typeof null 返回是 null才符合常理。由于这个bug在许多代码中已经这样做了，所以重新修回会导致更严重的bug。因此被修回的可能性很小。<br>因此，对null应该采用复合查询语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var a = null;</span><br><span class="line">(!a &amp;&amp; typeof a === &quot;object&quot;)	// true</span><br></pre></td></tr></table></figure></p>
-<p>而对于typeof function(){} === “function” 而言，因为本身function是object的一个子类型，具体的说，函数是一个可调用对象。<br>且typeof [0,1] === “object”,因为数组也是object的一个子类型</p>
-<p><em>ps：由于所有的typeof都会返回一个string，所以 typeof typeof 42会是”string”，因为typeof 42首先会变成一个“number”，是一个string类型，所以typeof “number”是一个string</em></p>
-<h4 id="undefined-amp-amp-undeclared-amp-amp-typeof-undeclared"><a href="#undefined-amp-amp-undeclared-amp-amp-typeof-undeclared" class="headerlink" title="undefined &amp;&amp; undeclared &amp;&amp; typeof undeclared"></a>undefined &amp;&amp; undeclared &amp;&amp; typeof undeclared</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var a;</span><br><span class="line">typeof a;			// &quot;undefined&quot;</span><br><span class="line">var b = 42;</span><br><span class="line">var c;</span><br><span class="line">b=c;</span><br><span class="line">typeof c			// &quot;undefined&quot;</span><br><span class="line">typeof b			// &quot;undefined&quot;</span><br><span class="line">a							// &quot;undefined&quot;</span><br><span class="line">d							// &quot;VM422:1 Uncaught ReferenceError: d is not defined at &lt;anonymous&gt;:1:1&quot;</span><br></pre></td></tr></table></figure>
-<p>从上述可以看出，undefined 和 undeclared 是两码事。undefined意思是定义但未赋值，或者赋值为undefined，而undeclared是未定义。因此两者不能画等号</p>
-<h4 id="typeof-undeclared"><a href="#typeof-undeclared" class="headerlink" title="typeof undeclared"></a>typeof undeclared</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">typeof a			// &quot;undefined&quot;</span><br></pre></td></tr></table></figure>
-<p>出现这种原因因为typeof有一个特殊的安全防范机制，因为多个脚本文件会在共享的全局变量命名空间中加载变量。如果typeof一个未命名的报错，会导致整段程序停止运行。对于typeof来检查undeclared变量，有时是一个不错的办法。</p>
-<h4 id="值"><a href="#值" class="headerlink" title="值"></a>值</h4><h5 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h5><p>js的数组可以容纳任何的值，甚至可以是另一个数组，因此多维数组就是这种方式来实现的。<br>由于数组本身就是一个特殊的对象，所以数组也可以包含字符串键值和属性，但是这并不计算在数组长度内。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var a = [];</span><br><span class="line">a[0] = 1;</span><br><span class="line">a[&quot;foobar&quot;] = 1;</span><br><span class="line">a.length 			// 1</span><br><span class="line">a[&quot;foobar&quot;];	// 1</span><br><span class="line">a.foobar			// 1</span><br><span class="line">a[&quot;13&quot;] = 42;</span><br><span class="line">a.length		// 14</span><br></pre></td></tr></table></figure></p>
-<p>为什么会这样呢？由于本身数组就是一个对象的子集合，因此在[]中，使用十进制字符串数字会直接强制类型转化成数字。a[“13”]就变成了a[13],因此在数组内会直接将其长度变化成14。同理，在属性给foobar加到a数组中，因为数组的界定是有数字来确定下标位置，而length是最后一个下标数字+1，因而加入的非数字就不在长度里面了。</p>
-<h5 id="类数组"><a href="#类数组" class="headerlink" title="类数组"></a>类数组</h5><p>对于es5而言，可以用slice,concat来实现类数组转数组，对于es6而言，可以用Array.from()来实现从类数组转换成数组。</p>
-<h5 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h5><p>字符串的一些方法indexOf(),concat(),toUpperCase(),reverse()等等。<br>字符串的一些方法：<br>|方法|描述|<br>|—|—|<br>|charAt() | 返回指定索引位置的字符|<br>|charCodeAt() | 返回指定索引位置字符的 Unicode 值|<br>|concat() | 连接两个或多个字符串，返回连接后的字符串|<br>|fromCharCode() | 将 Unicode 转换为字符串|<br>|indexOf() | 返回字符串中检索指定字符第一次出现的位置|<br>|lastIndexOf() | 返回字符串中检索指定字符最后一次出现的位置|<br>|localeCompare() | 用本地特定的顺序来比较两个字符串|<br>|match() | 找到一个或多个正则表达式的匹配|<br>|replace() | 替换与正则表达式匹配的子串|<br>|search() | 检索与正则表达式相匹配的值|<br>|slice() | 提取字符串的片断，并在新的字符串中返回被提取的部分|<br>|split() | 把字符串分割为子字符串数组|<br>|substr() | 从起始索引号提取字符串中指定数目的字符|<br>|substring() | 提取字符串中两个指定的索引号之间的字符|<br>|toLocaleLowerCase() | 根据主机的语言环境把字符串转换为小写，只有几种语言（如土耳其语）具有地方特有的大小写映射|<br>|toLocaleUpperCase() | 根据主机的语言环境把字符串转换为大写，只有几种语言（如土耳其语）具有地方特有的大小写映射|<br>|toLowerCase() | 把字符串转换为小写|<br>|toString() | 返回字符串对象值|<br>|toUpperCase() | 把字符串转换为大写|<br>|trim() | 移除字符串首尾空白|<br>|valueOf() | 返回某个字符串对象的原始值|</p>
-<p>如果需要经常一字符数组的方式来处理字符串的话，倒不如直接用数组。这样就不用在字符串和数组之间来回折腾。可以在有需要的时候使用join(“”)来将字符串数组转换为字符串</p>
-<h4 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h4><p>和大部分编程语言一样，js中的数字是基于IEE754标准来实现的。该标准通常也被称为“浮点数”。而js使用的是双精度单位(64位)格式。所以也会有iee754标准的通病，即浮点数之间相加会有奇妙的现象。<br>数字的一些方法：<br>toExponential()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var a = 5E10			// 可以通过这种方式赋值</span><br><span class="line">a									// 50000000000</span><br><span class="line">a.toExponential()	// &quot;5e+10&quot;</span><br><span class="line">var b = a * a;</span><br><span class="line">b 								// 2.5e+21</span><br><span class="line">```	</span><br><span class="line">toFixed()					// 精度</span><br><span class="line">```bash</span><br><span class="line">var a = 42.59</span><br><span class="line">a.toFixed(1)			// &quot;42.6&quot;</span><br><span class="line">// 无效</span><br><span class="line">42.toFixed(3)			// Uncaught SyntaxError: Invalid or unexpected token</span><br><span class="line">// 有效</span><br><span class="line">42..toFixed(3)		// &quot;42.000&quot;</span><br><span class="line">(42).toFixed(3)		// &quot;42.000&quot;</span><br><span class="line">0.42.toFixed(3)		// &quot;0.420&quot;</span><br><span class="line">42 .toFixed(3)		// &quot;42.000&quot;</span><br></pre></td></tr></table></figure></p>
-<p>因为.被视为常量42.的一部分。所以没有.属性访问运算符来调用toFixed()<br>toPrecision() // 执行有效位数的显示位数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var a = 42.59</span><br><span class="line">a.toPrecision(1)		// &quot;4e+1&quot;</span><br><span class="line">a.toPrecision(2)		// &quot;43&quot;</span><br><span class="line">a.toPrecision(3)		// &quot;42.6&quot;</span><br><span class="line">``` </span><br><span class="line">es6支持新格式</span><br><span class="line">```bash</span><br><span class="line">0B		0b					// 二进制</span><br><span class="line">0O		0o					// 八进制</span><br><span class="line">0X		0x					// 十六进制</span><br></pre></td></tr></table></figure></p>
-<p>EPSILON // 最小精度<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if(((0.1 + 0.2) - 0.3)&lt;Number.EPSILON)&#123;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>MAX_VALUE<br>MAX_SAFE_INTEGER<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Number.MAX_VALUE						// 1.7976931348623157e+308</span><br><span class="line">Number.MAX_SAFE_INTEGER			// 9007199254740991</span><br></pre></td></tr></table></figure></p>
-<p>isInteger<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Number.isInteger(1)					// true</span><br><span class="line">Number.isInteger(1.1)				// false</span><br><span class="line">Number.isInteger(1.0)				// true</span><br></pre></td></tr></table></figure></p>
-<h4 id="特殊数值"><a href="#特殊数值" class="headerlink" title="特殊数值"></a>特殊数值</h4><h5 id="undefined"><a href="#undefined" class="headerlink" title="undefined"></a>undefined</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var undefined = 2</span><br><span class="line">undefined 	// 2</span><br></pre></td></tr></table></figure>
-<p><em>ps：永远不要重新定义undefined</em></p>
-<h4 id="void-运算符"><a href="#void-运算符" class="headerlink" title="void 运算符"></a>void 运算符</h4><p>在不需要返回值的时候，可以void掉<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if(ready)&#123;</span><br><span class="line">	return void setTimeout(..)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这样做可以将setTimeout返回的id给void掉</p>
-<h4 id="NaN"><a href="#NaN" class="headerlink" title="NaN"></a>NaN</h4><p>NaN是一个数值型。意思指的是不是一个数值，并且NaN != NaN。可以使用isNaN来判断是否是NaN<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Number.isNaN(NaN)				// true</span><br><span class="line">Number.isNaN(1)					// false</span><br></pre></td></tr></table></figure></p>
-<h4 id="0值"><a href="#0值" class="headerlink" title="0值"></a>0值</h4><p>加法和减法运算永远不会有-0<br>使用toString和JSON.stringify()会将-0变成0<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">0/-1			// -0</span><br><span class="line">0/1				// 0</span><br><span class="line">var a = -0</span><br><span class="line">a 				// -0</span><br><span class="line">a.toString()		// 0</span><br><span class="line">JSON.stringify(a)	// 0</span><br></pre></td></tr></table></figure></p>
-<h4 id="特殊等式"><a href="#特殊等式" class="headerlink" title="特殊等式"></a>特殊等式</h4><p>Object.is<br>Object.is 可以判断是+0还是-0,而且可以判断是否为NaN<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object.is(+0, -0)	// false</span><br><span class="line">Object.is(NaN, NaN)		// true</span><br></pre></td></tr></table></figure></p>
-<h4 id="值和引用"><a href="#值和引用" class="headerlink" title="值和引用"></a>值和引用</h4><p>null，undefined，字符串，数字，布尔，symbol都是简单值<br>对象，函数都是复杂值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function foo(x) &#123;</span><br><span class="line">	x.push(4);	</span><br><span class="line">	x;							// [1,2,3,4]</span><br><span class="line">	x = [4,5,6];</span><br><span class="line">	x.push(7);</span><br><span class="line">	x;							// [4,5,6,7]</span><br><span class="line">&#125;</span><br><span class="line">var a = [1,2,3];</span><br><span class="line">foo(a);</span><br><span class="line">a;				// [1,2,3,4]</span><br><span class="line">由于一开始是引用赋值，然后x是a对应数组的一个引用，x在push一个4之后，重新引用一个新的数组，4.5.6,而a引用的数组变化成了[1,2,3,4];</span><br><span class="line">function foo(x)&#123;</span><br><span class="line">	x.push(4);</span><br><span class="line">	x;				// [1,2,3,4]</span><br><span class="line">	x.length = 0;	</span><br><span class="line">	x.push(4,5,6,7)</span><br><span class="line">	x;				// [4,5,6,7]</span><br><span class="line">&#125;</span><br><span class="line">var a = [1,2,3]</span><br><span class="line">foo(a)</span><br><span class="line">a;		// [4,5,6,7]</span><br><span class="line">和上面一开始一样，只是后面在x.length=0后，再push进去了4,5,6,7。所以x的引用没变，还是和a引用的一样。所以a和x一同变化</span><br></pre></td></tr></table></figure></p>
-<p><em>ps：我们无法自行决定使用值赋值还是引用赋值，一切由值的类型决定</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function foo(warpper)&#123;</span><br><span class="line">	warpper.a = 42</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">	a: 1</span><br><span class="line">&#125;</span><br><span class="line">foo(obj)</span><br><span class="line">obj.a			//42</span><br><span class="line">function foo (x) &#123;</span><br><span class="line">	x = x+1;</span><br><span class="line">	x;				// 3</span><br><span class="line">&#125;</span><br><span class="line">var a = 2;</span><br><span class="line">var b = new Number(a);</span><br><span class="line">foo(b)</span><br><span class="line">console.log(b)		// 2</span><br><span class="line">前者是引用赋值，后者是值赋值</span><br></pre></td></tr></table></figure></p>
-<h4 id="原生函数"><a href="#原生函数" class="headerlink" title="原生函数"></a>原生函数</h4><ul>
-<li>String</li>
-<li>Number</li>
-<li>Boolean</li>
-<li>Array</li>
-<li>Object</li>
-<li>Function</li>
-<li>RegExp</li>
-<li>Date</li>
-<li>Error</li>
-<li>Symbol</li>
-</ul>
-<h4 id="内部属性-Class"><a href="#内部属性-Class" class="headerlink" title="内部属性[[Class]]"></a>内部属性[[Class]]</h4><p>所有typeof返回值为“Object”的对象(如数组)都包含一个内部属性[[Class]]，这个属性通常无法直接访问，一般通过Object.prototype.toString查看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Object.prototype.toString.call([123])			// &quot;[object Array]&quot;</span><br><span class="line">Object.prototype.toString.call(null)			// &quot;[object Null]&quot;</span><br><span class="line">Object.prototype.toString.call(true)			// &quot;[object Boolean]&quot;</span><br><span class="line">Object.prototype.toString.call(undefined)	// &quot;[object Undefined]&quot;</span><br></pre></td></tr></table></figure></p>
-<p>虽然Null和undefined这样的原声构造函数不存在，但是内部Class属性值仍然是Null和Undefined。基本类型值被各自的封装对象自动包装，所以他们的内部[[Class]]属性值为Boolean。</p>
-<h4 id="封装对象包装"><a href="#封装对象包装" class="headerlink" title="封装对象包装"></a>封装对象包装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var a = &quot;abc&quot;;</span><br><span class="line">console.log(a);		// &quot;abc&quot;</span><br><span class="line">a.length 					// &quot;3&quot;</span><br><span class="line">var b = new String(&quot;abc&quot;)</span><br><span class="line">console.log(b)		// String &#123;[[PrimitiveValue]]: &quot;abc&quot;&#125; 0:&quot;a&quot; 1:&quot;b&quot; 2:&quot;c&quot; length:3 __proto__:String [[PrimitiveValue]]:&quot;abc&quot;</span><br></pre></td></tr></table></figure>
-<p>只是创建字面量基本值的时候，并没有其他的方法。当在使用其对象方法时，需要通过封装对象才能访问，此时js会自动为基本类型值包装(box或者wrap)一个封装对象。<br>但是为经常用到的.length方法直接new一个对象也不是一个好办法，因为浏览器对.length这样的常见情况做了优化，直接使用封装对象来“提前优化”反而会降低执行效率。</p>
-<h4 id="封装对象的释疑"><a href="#封装对象的释疑" class="headerlink" title="封装对象的释疑"></a>封装对象的释疑</h4><p>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var a = new Boolean(false);</span><br><span class="line">if (!a)&#123;</span><br><span class="line">	console.log(...)			// 执行不到这里</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>因为建立一个a之后，这个对象得到的是真值，得到的结果和使用false相反</p>
-<p>自行封装可以使用Object<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var a = &quot;abc&quot;</span><br><span class="line">var b = new String (a);</span><br><span class="line">var c = Object(a);</span><br><span class="line">typeof a 				// &quot;stirng&quot;</span><br><span class="line">typeof b				// &quot;object&quot;</span><br><span class="line">typeof c				// &quot;object&quot;</span><br><span class="line">b instanceof String 	// true</span><br><span class="line">c instanceof String 	// true</span><br><span class="line">Object.prototype.toString.call(b);		// &quot;[object String]&quot;</span><br><span class="line">Object.prototype.toString.call(c);		// &quot;[object String]&quot;</span><br></pre></td></tr></table></figure></p>
-<p>一般不直接使用封装对象，但是他们偶尔也会派上用场</p>
-<h4 id="拆封"><a href="#拆封" class="headerlink" title="拆封"></a>拆封</h4><p>如果想得到封装对象里面的值，可以使用valueOf函数，隐式拆封也是调用了valueOf函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var a = new String(&quot;abc&quot;)</span><br><span class="line">var b = new Number(11)</span><br><span class="line">var c = new Boolean(true)</span><br><span class="line">a.valueOf()	// &quot;abc&quot;</span><br><span class="line">b.valueOf()	// 11</span><br><span class="line">c.valueOf()	// true</span><br><span class="line">var d = a + &quot;&quot;;</span><br><span class="line">console.log(d)				// &quot;abc&quot;</span><br><span class="line">typeof a 			// &quot;object&quot;</span><br><span class="line">typeof d 			// &quot;string&quot;</span><br></pre></td></tr></table></figure></p>
-<h4 id="原生函数作为构造函数"><a href="#原生函数作为构造函数" class="headerlink" title="原生函数作为构造函数"></a>原生函数作为构造函数</h4><p>四种方式创建应该尽量避免构造函数，除非十分必要</p>
-<ul>
-<li>array 数组</li>
-<li>object 对象</li>
-<li>function 函数</li>
-<li>RegExp 正则表达式<h3 id="ARRAY"><a href="#ARRAY" class="headerlink" title="ARRAY(..)"></a>ARRAY(..)</h3>调用Array构造函数时，可以不需要加上new，效果一致。）且Array构造函数纸袋一个数字作为参数的时候，这个参数会当作数组的预设长度，而不是充当其中的一个元素<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 效果一致</span><br><span class="line">var a = new Array(1,2,3);</span><br><span class="line">a			// [1,2,3]</span><br><span class="line">var b = Array(1,2,3)</span><br><span class="line">b 		// [1,2,3]</span><br><span class="line">var c = [1,2,3]</span><br><span class="line">c 		// [1,2,3]</span><br><span class="line">// 不同方式创建出来空数组效果不一致</span><br><span class="line">var d = new Array(3);</span><br><span class="line">console.log(d)			// chrome上： (3) [empty × 3]</span><br><span class="line">d.length						// 3</span><br><span class="line">var e = [undefined,undefined,undefined];</span><br><span class="line">console.log(e)			// (3) [undefined, undefined, undefined]</span><br><span class="line">var f = []					</span><br><span class="line">f.length = 3;</span><br><span class="line">console.log(f);			// chrome上： (3) [empty × 3]</span><br><span class="line">// 直接以，创建。虽然长度是3令人费解，但是可以更好的复制粘贴</span><br><span class="line">var g = [,,,]</span><br><span class="line">console.log(g)			// chrome上： (3) [empty × 3]</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>由于创建方式不同，导致在chrome下不一致的显示，但是更难过的是，他们有时相同，有时呵呵<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var a = new Array(3)</span><br><span class="line">var b = [undefined,undefined,undefined]</span><br><span class="line">a.join(&quot;-&quot;)			// &quot;--&quot;</span><br><span class="line">b.join(&quot;-&quot;)			// &quot;--&quot;</span><br><span class="line">a.map(function(v,i)&#123;return i&#125;)		// (3) [empty × 3]</span><br><span class="line">a.map(function(v,i)&#123;return i&#125;)		// [0, 1, 2]</span><br></pre></td></tr></table></figure></p>
-<p>a.map之所以执行失败，是因为a中是没有元素的，而b里面有undefied。<br><strong>而join首先假定数组不为空，然后通过length属性值来便利其中的元素，而map并不做这种假定</strong><br>可以通过这种方式来创建包含undefined单元的数组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var a = Array.apply(null, &#123;length:3&#125;);</span><br><span class="line">console.log(a)			// (3) [undefined, undefined, undefined]</span><br></pre></td></tr></table></figure></p>
-<p><em>PS:永远不要创建和使用空单元数组</em></p>
-<h4 id="OBJECT、FUNCTION、REGEXP"><a href="#OBJECT、FUNCTION、REGEXP" class="headerlink" title="OBJECT、FUNCTION、REGEXP"></a>OBJECT、FUNCTION、REGEXP</h4><p><strong>除非玩不得已，尽量不要使用他们</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var c = new Object();</span><br><span class="line">c.foo = &quot;bar&quot;;</span><br><span class="line">c				// &#123;foo:&quot;bar&quot;&#125;</span><br><span class="line">var d = &#123;foo:&quot;bar&quot;&#125;</span><br><span class="line">d				// &#123;foo:&quot;bar&quot;&#125;</span><br><span class="line">var e = new Function(&quot;a&quot;,&quot;return a * 2&quot;);</span><br><span class="line">var f = function(a)&#123;return a*2&#125;;</span><br><span class="line">function g(a)&#123;return a*2&#125;</span><br><span class="line">var h = new RegExp(&quot;^a*b+&quot;,&quot;g&quot;);</span><br><span class="line">var i = /^a*b+/g</span><br></pre></td></tr></table></figure></p>
-<p>javascript对常量形式的代码会对他们进行预编译和缓存！</p>
-<h4 id="DATE、ERROR"><a href="#DATE、ERROR" class="headerlink" title="DATE、ERROR"></a>DATE、ERROR</h4><p>相较于其他原生构造函数，Date、Error的用处比其他的更多，因为没有其他对用的常量形式来作为他们的替代<br>引入生成当前时间戳，使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Date.now()</span><br><span class="line">// 使用new来生成时间</span><br><span class="line">new Date()</span><br><span class="line">// Thu Jan 04 2018 06:47:59 GMT+0800 (CST)</span><br></pre></td></tr></table></figure></p>
-<p>错误对象通常与throw一起使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function foo(x)&#123;</span><br><span class="line">	if(!x)&#123;</span><br><span class="line">		throw new Error(&quot;///&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	// -</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="SYMBOL"><a href="#SYMBOL" class="headerlink" title="SYMBOL"></a>SYMBOL</h4><p>Symbol可作为私有属性是一种简单标量基本类型</p>
-<h3 id="强制类型转换"><a href="#强制类型转换" class="headerlink" title="强制类型转换"></a>强制类型转换</h3><h4 id="抽象值操作"><a href="#抽象值操作" class="headerlink" title="抽象值操作"></a>抽象值操作</h4><p>如果对象有自己的toString()方法，字符串化就会调用该方法并使用其返回值。<br>数组的默认toString方法经过了重新定义<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var a = [1,2,3]</span><br><span class="line">a.toString()		// &quot;1,2,3&quot;</span><br></pre></td></tr></table></figure></p>
-<h4 id="JSON-字符串化"><a href="#JSON-字符串化" class="headerlink" title="JSON 字符串化"></a>JSON 字符串化</h4><p>JSON.stringify(42) // “42”<br>JSON.stringify(“42”) // “”42””<br>JSON.stringify(null) // “null”<br>JSON.stringify(true) // “true”</p>
-<p><em>JSON.stringify()在对象中遇到undefined、function和symbol时会自动将其忽略，在数组中则会返回null</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">JSON.stringify(undefined)			// undefined</span><br><span class="line">JSON.stringify(function()&#123;&#125;)	// undefined</span><br><span class="line">JSON.stringify([1,undefined, function()&#123;&#125;,4])	// &quot;[1,null,null,4]&quot;</span><br><span class="line">JSON.stringify(&#123;a:2, b: function()&#123;&#125;&#125;)				// &quot;&#123;&quot;a&quot;:2&#125;&quot;</span><br></pre></td></tr></table></figure></p>
-<p>循环引用会出错<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var o = &#123;&#125;;</span><br><span class="line">var a = &#123;</span><br><span class="line">	b:42,</span><br><span class="line">	c:o,</span><br><span class="line">	d:function()&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">o.e = a</span><br><span class="line">JSON.stringify(a)</span><br><span class="line">a.toJSON=function()&#123;</span><br><span class="line">	return &#123;b:this.b&#125;</span><br><span class="line">&#125;</span><br><span class="line">JSON.stringify(a)</span><br><span class="line"># Uncaught TypeError: Converting circular structure to JSON</span><br><span class="line">#     at JSON.stringify (&lt;anonymous&gt;)</span><br><span class="line">#     at &lt;anonymous&gt;:8:6</span><br></pre></td></tr></table></figure></p>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2017/12/17/you-dont-konwn-javascript-type/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1993,15 +1976,15 @@ ga('send', 'pageview');
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">ncuhome</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -2018,6 +2001,10 @@ ga('send', 'pageview');
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">typescript</a>
               </li>
             
             <div class="clearfix"></div>

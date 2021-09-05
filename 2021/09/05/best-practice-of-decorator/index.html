@@ -6,20 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://blog.gdccwxx.com">
-  <title>Archives: 2017/5 | gdccwxx</title>
+  <title>Decorator 这么好用，赶紧用起来！ | gdccwxx</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="个人博客分享，热爱生活，热爱探索">
-<meta property="og:type" content="website">
-<meta property="og:title" content="gdccwxx">
-<meta property="og:url" content="https://blog.gdccwxx.com/archives/2017/05/index.html">
+  <meta name="description" content="前言你是不是也会因入参和结果的而苦恼？是不是要添加数据检查而难受？是不是也为函数鉴权而郁闷？使用decorator 后，能让代码更优雅，编程跟快捷。 啥是 Decorator?Decorator 是 ES6 中的提案之一，它实际上是个 wrapper，可以为类、属性或函数提供额外功能。举个栗子：12345678910111213141516171819202122232425function f(">
+<meta name="keywords" content="typescript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Decorator 这么好用，赶紧用起来！">
+<meta property="og:url" content="https://blog.gdccwxx.com/2021/09/05/best-practice-of-decorator/index.html">
 <meta property="og:site_name" content="gdccwxx">
-<meta property="og:description" content="个人博客分享，热爱生活，热爱探索">
+<meta property="og:description" content="前言你是不是也会因入参和结果的而苦恼？是不是要添加数据检查而难受？是不是也为函数鉴权而郁闷？使用decorator 后，能让代码更优雅，编程跟快捷。 啥是 Decorator?Decorator 是 ES6 中的提案之一，它实际上是个 wrapper，可以为类、属性或函数提供额外功能。举个栗子：12345678910111213141516171819202122232425function f(">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-09-05T12:31:47.972Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="gdccwxx">
-<meta name="twitter:description" content="个人博客分享，热爱生活，热爱探索">
+<meta name="twitter:title" content="Decorator 这么好用，赶紧用起来！">
+<meta name="twitter:description" content="前言你是不是也会因入参和结果的而苦恼？是不是要添加数据检查而难受？是不是也为函数鉴权而郁闷？使用decorator 后，能让代码更优雅，编程跟快捷。 啥是 Decorator?Decorator 是 ES6 中的提案之一，它实际上是个 wrapper，可以为类、属性或函数提供额外功能。举个栗子：12345678910111213141516171819202122232425function f(">
   
   
     <link rel="icon" href="/img/favicon.ico">
@@ -176,194 +178,217 @@ ga('send', 'pageview');
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-best-practice-of-decorator" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2017/05/25/basic-computer-sience-chapter5/" class="archive-article-date">
-        <time datetime="2017-05-25T00:37:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-25</time>
-</a>
-
-        </div>
-    	 
+      <header class="article-header">
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2017/05/25/basic-computer-sience-chapter5/" target="_blank">计算机系统基础－－第五章(程序的执行)</a>
   
+    <h1 class="article-title" itemprop="name">
+      Decorator 这么好用，赶紧用起来！
     </h1>
   
 
 
-        <div class="article-info info-on-right">
-          
+  
+  
+<a href="/2021/09/05/best-practice-of-decorator/" class="archive-article-date">
+        <time datetime="2021-09-05T12:22:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-05</time>
+</a>
+
+  
+  
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">1.9k字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">9分</span>
+    </span>
+  </span>
+</div>
+
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>你是不是也会因入参和结果的而苦恼？是不是要添加数据检查而难受？是不是也为函数鉴权而郁闷？使用decorator 后，能让代码更优雅，编程跟快捷。</p>
+<h3 id="啥是-Decorator"><a href="#啥是-Decorator" class="headerlink" title="啥是 Decorator?"></a>啥是 Decorator?</h3><p>Decorator 是 ES6 中的提案之一，它实际上是个 wrapper，可以为类、属性或函数提供额外功能。举个栗子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">function f(key: string): any &#123;</span><br><span class="line">  console.log(&quot;evaluate: &quot;, key);</span><br><span class="line">  return function () &#123;</span><br><span class="line">    console.log(&quot;call: &quot;, key);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@f(&quot;Class Decorator&quot;)</span><br><span class="line">class A &#123;</span><br><span class="line">  constructor(@f(&quot;Constructor Parameter&quot;) foo) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  @f(&quot;Instance Method&quot;) // 1</span><br><span class="line">  method(@f(&quot;Instance Method Parameter&quot;) foo) &#123;&#125; // 2</span><br><span class="line"></span><br><span class="line">  @f(&quot;Instance Property&quot;)</span><br><span class="line">  prop?: number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 基本上，装饰器会的行为就是下面这样：</span><br><span class="line"></span><br><span class="line">@f()</span><br><span class="line">class A</span><br><span class="line"></span><br><span class="line">// 等同于</span><br><span class="line">A = f(A) || A</span><br></pre></td></tr></table></figure></p>
+<h2 id="使用前的准备"><a href="#使用前的准备" class="headerlink" title="使用前的准备"></a>使用前的准备</h2><p>虽然 Decorator 只是一个提案，但可通过工具来使用它：</p>
+<h3 id="Babel"><a href="#Babel" class="headerlink" title="Babel:"></a>Babel:</h3><blockquote>
+<p>babel-plugin-syntax-decorators<br>babel-plugin-transform-decorators-legacy</p>
+</blockquote>
+<h3 id="Typescript"><a href="#Typescript" class="headerlink" title="Typescript:"></a>Typescript:</h3><p>命令行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tsc --target ES5 --experimentalDecorators</span><br></pre></td></tr></table></figure></p>
+<p>tsconfig.json:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;compilerOptions&quot;: &#123;</span><br><span class="line">    &quot;target&quot;: &quot;ES5&quot;,</span><br><span class="line">    &quot;experimentalDecorators&quot;: true</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h2><p>不同类型的装饰器执行顺序是明确的：<br>1、 实例成员：参数装饰器 -&gt; 方法/访问器/属性 装饰器<br>2、 静态成员：参数装饰器 -&gt; 方法/访问器/属性 装饰器<br>3、 构造函数：参数装饰器<br>4、 类装饰器<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">function f(key: string): any &#123;</span><br><span class="line">  console.log(&quot;evaluate: &quot;, key);</span><br><span class="line">  return function () &#123;</span><br><span class="line">    console.log(&quot;call: &quot;, key);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@f(&quot;Class Decorator&quot;)</span><br><span class="line">class A &#123;</span><br><span class="line">  @f(&quot;Static Property&quot;)</span><br><span class="line">  static prop?: number;</span><br><span class="line"></span><br><span class="line">  @f(&quot;Static Method&quot;)</span><br><span class="line">  static method(@f(&quot;Static Method Parameter&quot;) foo) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  constructor(@f(&quot;Constructor Parameter&quot;) foo) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  @f(&quot;Instance Method&quot;)</span><br><span class="line">  method(@f(&quot;Instance Method Parameter&quot;) foo) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  @f(&quot;Instance Property&quot;)</span><br><span class="line">  prop?: number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 执行顺序</span><br><span class="line">evaluate:  Instance Method</span><br><span class="line">evaluate:  Instance Method Parameter</span><br><span class="line">call:  Instance Method Parameter</span><br><span class="line">call:  Instance Method</span><br><span class="line">evaluate:  Instance Property</span><br><span class="line">call:  Instance Property</span><br><span class="line">evaluate:  Static Property</span><br><span class="line">call:  Static Property</span><br><span class="line">evaluate:  Static Method</span><br><span class="line">evaluate:  Static Method Parameter</span><br><span class="line">call:  Static Method Parameter</span><br><span class="line">call:  Static Method</span><br><span class="line">evaluate:  Class Decorator</span><br><span class="line">evaluate:  Constructor Parameter</span><br><span class="line">call:  Constructor Parameter</span><br><span class="line">call:  Class Decorator</span><br></pre></td></tr></table></figure></p>
+<p>然而，在同一方法中的不同参数构造器顺序是相反的，最后参数回的装饰器会先被执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">function f(key: string): any &#123;</span><br><span class="line">  console.log(&quot;evaluate: &quot;, key);</span><br><span class="line">  return function () &#123;</span><br><span class="line">    console.log(&quot;call: &quot;, key);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class B &#123;</span><br><span class="line">  @f(&apos;first&apos;)</span><br><span class="line">  @f(&apos;second&apos;)</span><br><span class="line">  method() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 执行顺序</span><br><span class="line">evaluate:  first</span><br><span class="line">evaluate:  second</span><br><span class="line">call:  second</span><br><span class="line">call:  first</span><br></pre></td></tr></table></figure></p>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><h3 id="类装饰器"><a href="#类装饰器" class="headerlink" title="类装饰器"></a>类装饰器</h3><p>参数：</p>
+<ul>
+<li><code>target</code>: 类的 <code>构造器（constructor）</code><br>返回: undefined | 替代原有构造器</li>
+</ul>
+<p>因此，类装饰器适合用于继承一个现有类并添加一些属性和方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function rewirteClassConstructor&lt;T extends &#123; new (...args: any[]): &#123;&#125; &#125;&gt;(constructor: T) &#123;</span><br><span class="line">  return class extends constructor &#123;</span><br><span class="line">    words = &quot;rewrite constructor&quot;;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">@rewirteClassConstructor</span><br><span class="line">class Speak &#123;</span><br><span class="line">  words: string;</span><br><span class="line"> </span><br><span class="line">  constructor(t: string) &#123;</span><br><span class="line">    this.words = t;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">const say = new Speak(&quot;hello world&quot;);</span><br><span class="line">console.log(say.words) // rewrite constructor</span><br></pre></td></tr></table></figure></p>
+<h3 id="属性装饰器"><a href="#属性装饰器" class="headerlink" title="属性装饰器"></a>属性装饰器</h3><p>参数: </p>
+<ul>
+<li><code>target</code>: 对于静态成员来说是类的构造器，对于实例成员来说是类的原型链</li>
+<li><code>propertyKey</code>: 属性名称</li>
+</ul>
+<p>返回: 返回的结果将被忽略。</p>
+<p>除了用于收集信息外，属性装饰器也可以用来给类添加额外的方法和属性。 例如我们可以写一个装饰器来给某些属性添加监听器。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import &quot;reflect-metadata&quot;;</span><br><span class="line"></span><br><span class="line">function capitalizeFirstLetter(str: string) &#123;</span><br><span class="line">  return str.charAt(0).toUpperCase() + str.slice(1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function observable(target: any, key: string): any &#123;</span><br><span class="line">  // prop -&gt; onPropChange</span><br><span class="line">  const targetKey = &quot;on&quot; + capitalizeFirstLetter(key) + &quot;Change&quot;;</span><br><span class="line"></span><br><span class="line">  target[targetKey] = function (fn: (prev: any, next: any) =&gt; void) &#123;</span><br><span class="line">      let prev = this[key];</span><br><span class="line">      // tsconfig.json target to ES6</span><br><span class="line">      Reflect.defineProperty(this, key, &#123;</span><br><span class="line">        set(next) &#123;</span><br><span class="line">          fn(prev, next);</span><br><span class="line">          prev = next;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class C &#123;</span><br><span class="line">  </span><br><span class="line">  @observable</span><br><span class="line">  foo = -1;</span><br><span class="line"></span><br><span class="line">  onFooChange(arg0: (prev: any, next: any) =&gt; void) &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const c = new C();</span><br><span class="line"></span><br><span class="line">c.onFooChange((prev, next) =&gt; console.log(`prev: $&#123;prev&#125;, next: $&#123;next&#125;`))</span><br><span class="line"></span><br><span class="line">c.foo = 100; // -&gt; prev: -1, next: 100</span><br><span class="line">c.foo = -3.14; // -&gt; prev: 100, next: -3.14</span><br></pre></td></tr></table></figure></p>
+<h3 id="方法装饰器"><a href="#方法装饰器" class="headerlink" title="方法装饰器"></a>方法装饰器</h3><p>参数：</p>
+<ul>
+<li><code>target</code>: 对于静态成员来说是类的构造器，对于实例成员来说是类的原型链</li>
+<li><code>propertyKey</code>: 属性名称</li>
+<li><code>descriptor</code>: 属性的描述器<br>返回值：如果返回了值，它会被用于替代属性的描述器。</li>
+</ul>
+<p>通过这个参数我们可以修改方法原本的实现，添加一些共用逻辑。 例如我们可以给一些方法添加打印输入与输出的能力:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function logger(target: any, propertyKey: string, descriptor: PropertyDescriptor) &#123;</span><br><span class="line">  const original = descriptor.value;</span><br><span class="line"></span><br><span class="line">  descriptor.value = function (...args) &#123;</span><br><span class="line">    console.log(&apos;params: &apos;, ...args);</span><br><span class="line">    const result = original.call(this, ...args);</span><br><span class="line">    console.log(&apos;result: &apos;, result);</span><br><span class="line">    return result;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class C &#123;</span><br><span class="line">  @logger</span><br><span class="line">  add(x: number, y:number ) &#123;</span><br><span class="line">    return x + y;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const c = new C();</span><br><span class="line">c.add(1, 2);</span><br><span class="line">// -&gt; params: 1, 2</span><br><span class="line">// -&gt; result: 3</span><br></pre></td></tr></table></figure></p>
+<h3 id="访问器装饰器"><a href="#访问器装饰器" class="headerlink" title="访问器装饰器"></a>访问器装饰器</h3><p>访问器装饰器总体上讲和方法装饰器很接近，唯一的区别在于描述器中有的key不同：<br>方法装饰器的描述器的key为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">value</span><br><span class="line">writable</span><br><span class="line">enumerable</span><br><span class="line">configurable</span><br></pre></td></tr></table></figure></p>
+<p>访问器装饰器的描述器的key为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">get</span><br><span class="line">set</span><br><span class="line">enumerable</span><br><span class="line">configurable</span><br></pre></td></tr></table></figure></p>
+<p>例如，我们可以将某个属性设为不可变值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">function immutable(target: any, propertyKey: string, descriptor: PropertyDescriptor) &#123;</span><br><span class="line">  const original = descriptor.set;</span><br><span class="line"></span><br><span class="line">  descriptor.set = function (value: any) &#123;</span><br><span class="line">    return original.call(this, &#123; ...value &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class C &#123;</span><br><span class="line">  private _point = &#123; x: 0, y: 0 &#125;</span><br><span class="line"></span><br><span class="line">  @immutable</span><br><span class="line">  set point(value: &#123; x: number, y: number &#125;) &#123;</span><br><span class="line">    this._point = value;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  get point() &#123;</span><br><span class="line">    return this._point;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const c = new C();</span><br><span class="line">const point = &#123; x: 1, y: 1 &#125;</span><br><span class="line">c.point = point;</span><br><span class="line"></span><br><span class="line">console.log(c.point === point)</span><br><span class="line">// -&gt; false</span><br></pre></td></tr></table></figure></p>
+<h3 id="参数装饰器"><a href="#参数装饰器" class="headerlink" title="参数装饰器"></a>参数装饰器</h3><p>参数：</p>
+<ul>
+<li><code>target</code>: 对于静态成员来说是类的构造器，对于实例成员来说是类的原型链</li>
+<li><code>propertyKey</code>: 属性的名称(注意是方法的名称，而不是参数的名称)</li>
+<li><code>paramerterIndex</code>: 参数在方法中所处的位置的下标</li>
+</ul>
+<p>返回：返回的值将会被忽略。</p>
+<p>单独的参数装饰器能做的事情很有限，它一般都被用于记录可被其它装饰器使用的信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">// parameter.ts</span><br><span class="line">import &quot;reflect-metadata&quot;;</span><br><span class="line"></span><br><span class="line">function required(target: Object, propertyKey: string | symbol, parameterIndex: number) &#123;</span><br><span class="line">    let existingRequiredParameters: number[] = Reflect.getOwnMetadata(&apos;required&apos;, target, propertyKey) || [];</span><br><span class="line">    existingRequiredParameters.push(parameterIndex);</span><br><span class="line">    Reflect.defineMetadata(&apos;required&apos;, existingRequiredParameters, target, propertyKey);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function validate(target: any, propertyName: string, descriptor: TypedPropertyDescriptor&lt;Function&gt;) &#123;</span><br><span class="line">    let method = descriptor.value!;</span><br><span class="line">   </span><br><span class="line">    descriptor.value = function () &#123;</span><br><span class="line">      let requiredParameters: number[] = Reflect.getOwnMetadata(&apos;required&apos;, target, propertyName);</span><br><span class="line">      if (requiredParameters) &#123;</span><br><span class="line">        for (let parameterIndex of requiredParameters) &#123;</span><br><span class="line">          if (parameterIndex &gt;= arguments.length || arguments[parameterIndex] === undefined) &#123;</span><br><span class="line">            throw new Error(&quot;Missing required argument.&quot;);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      return method.apply(this, arguments);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">class BugReport &#123;</span><br><span class="line">    type = &quot;report&quot;;</span><br><span class="line">    title: string;</span><br><span class="line">   </span><br><span class="line">    constructor(t: string) &#123;</span><br><span class="line">      this.title = t;</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    @validate</span><br><span class="line">    print(@required verbose: boolean) &#123;</span><br><span class="line">      if (verbose) &#123;</span><br><span class="line">        return `type: $&#123;this.type&#125;\ntitle: $&#123;this.title&#125;`;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">       return this.title; </span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">export const report = new BugReport(&apos;mode error&apos;);</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// test.js</span><br><span class="line"></span><br><span class="line">const &#123; report &#125; = require(&apos;./paramerter.js&apos;);</span><br><span class="line">console.log(report.print()); // Error: Missing required argument.</span><br></pre></td></tr></table></figure>
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><ul>
+<li>Before/After钩子。</li>
+<li>监听属性改变或者方法调用。</li>
+<li>对方法的参数做转换。</li>
+<li>添加额外的方法和属性。</li>
+<li>运行时类型检查。</li>
+<li>自动编解码。</li>
+<li>依赖注入。</li>
+</ul>
+<h3 id="使用举例："><a href="#使用举例：" class="headerlink" title="使用举例："></a>使用举例：</h3><ul>
+<li><p>日志打印</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function f(): any &#123;</span><br><span class="line">  return function (target, key, descriptor) &#123;</span><br><span class="line">    let method = descriptor.value;</span><br><span class="line">    descriptor.value = function () &#123;</span><br><span class="line">      console.log(&apos;param: &apos;, Array.from(arguments));</span><br><span class="line">      const value = method.apply(this, arguments);</span><br><span class="line">      console.log(&apos;result: &apos;, value);</span><br><span class="line">      return value</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class B &#123;</span><br><span class="line">  @f()</span><br><span class="line">  say(name: string) &#123;</span><br><span class="line">      return `name is $&#123;name&#125;`;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>鉴权:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function auth(user) &#123;</span><br><span class="line">  return function(target, key, descriptor) &#123;</span><br><span class="line">    var originalMethod = descriptor.value; // 保留原有函数</span><br><span class="line">    if (!user.isAuth) &#123;</span><br><span class="line">      descriptor.value = function() &#123; // 未登录将返回提示</span><br><span class="line">        console.log(&apos;当前未登录，请登录!&apos;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      descriptor.value = function (...args) &#123; // 已登录将原有函数</span><br><span class="line">        originalMethod.apply(this, args);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return descriptor;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@auth(app.user)</span><br><span class="line">function handleStar(new) &#123;</span><br><span class="line">  new.like++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>类型检查</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">import &quot;reflect-metadata&quot;;</span><br><span class="line">const stringMetaDataTag = &quot;IsString&quot;;</span><br><span class="line"> </span><br><span class="line">function IsString(target: Object, propertyKey: string | symbol, parameterIndex: number) &#123;</span><br><span class="line">  let existingRequiredParameters: number[] = Reflect.getOwnMetadata(stringMetaDataTag, target, propertyKey) || [];</span><br><span class="line">  existingRequiredParameters.push(parameterIndex);</span><br><span class="line">  Reflect.defineMetadata( stringMetaDataTag, existingRequiredParameters, target, propertyKey);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">function validate(target: any, propertyName: string, descriptor: TypedPropertyDescriptor&lt;Function&gt;) &#123;</span><br><span class="line">  let method = descriptor.value!;</span><br><span class="line"> </span><br><span class="line">  descriptor.value = function () &#123;</span><br><span class="line">    let stringMetaTags: number[] = Reflect.getOwnMetadata(stringMetaDataTag, target, propertyName);</span><br><span class="line">    if (stringMetaTags) &#123;</span><br><span class="line">      for (let parameterIndex of stringMetaTags) &#123;</span><br><span class="line">        const value = arguments[parameterIndex];</span><br><span class="line">        if (!(value instanceof String || typeof value === &apos;string&apos;)) &#123;</span><br><span class="line">            throw new Error(&apos;not string&apos;);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return method.apply(this, arguments);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">export class A &#123;</span><br><span class="line">    a: string = &apos;123&apos;;</span><br><span class="line">    </span><br><span class="line">    @validate</span><br><span class="line">    value (@IsString value: string) &#123;</span><br><span class="line">        console.log(value);</span><br><span class="line">        this.a = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/alipay.jpg">
+                    <span class="reward-type">支付宝</span>
+                  </div>
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/wechat.png">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机系统基础</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">typescript</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2017/05/24/basic-computer-sience-chapter4/" class="archive-article-date">
-        <time datetime="2017-05-24T00:26:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-24</time>
-</a>
 
+
+<nav id="article-nav">
+  
+  
+    <a href="/2021/08/23/the-skills-of-develop/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">做需求搞明白这几点，和加班说再见</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2017/05/24/basic-computer-sience-chapter4/" target="_blank">计算机系统基础－－第四章(程序的链接)</a>
-  
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机系统基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2017/05/23/basic-computer-sience-chapter3/" class="archive-article-date">
-        <time datetime="2017-05-23T08:41:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-23</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2017/05/23/basic-computer-sience-chapter3/" target="_blank">计算机系统基础－－第三章(程序的转换及机器级表示)</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机系统基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2017/05/22/basic-computer-sience-chapter2/" class="archive-article-date">
-        <time datetime="2017-05-22T13:20:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-22</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2017/05/22/basic-computer-sience-chapter2/" target="_blank">计算机系统基础－－第二章(数据的机器级表示与处理)</a>
-  
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机系统基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
+
+
 
 
           </div>
@@ -392,8 +417,8 @@ ga('send', 'pageview');
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
