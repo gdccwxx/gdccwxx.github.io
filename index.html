@@ -212,7 +212,7 @@ ga('send', 'pageview');
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>你是不是也会因入参和结果的而苦恼？是不是要添加数据检查而难受？是不是也为函数鉴权而郁闷？使用decorator 后，能让代码更优雅，编程更快捷。</p>
+    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>你是不是因入参和结果的日志而苦恼？是不是为运行时的数据检查而难受？是不是为鉴权函数而郁闷？使用 decorator 后，能让代码更优雅，编程更快捷。</p>
 <h3 id="啥是-Decorator"><a href="#啥是-Decorator" class="headerlink" title="啥是 Decorator?"></a>啥是 Decorator?</h3><p>Decorator 是 ES6 中的提案之一，它实际上是个 wrapper，可以为类、属性或函数提供额外功能。举个🌰：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">key: <span class="built_in">string</span></span>): <span class="title">any</span> </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"evaluate: "</span>, key);</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"call: "</span>, key);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@f</span>(<span class="string">"Class Decorator"</span>)</span><br><span class="line"><span class="keyword">class</span> A &#123;</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"><span class="meta">@f</span>(<span class="string">"Constructor Parameter"</span>) foo</span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@f</span>(<span class="string">"Instance Method"</span>) <span class="comment">// 1</span></span><br><span class="line">  method(<span class="meta">@f</span>(<span class="string">"Instance Method Parameter"</span>) foo) &#123;&#125; <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line">  <span class="meta">@f</span>(<span class="string">"Instance Property"</span>)</span><br><span class="line">  prop?: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 基本上，装饰器会的行为就是下面这样：</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@f</span>()</span><br><span class="line"><span class="keyword">class</span> A</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line">A = f(A) || A</span><br></pre></td></tr></table></figure></p>
 <h2 id="使用前的准备"><a href="#使用前的准备" class="headerlink" title="使用前的准备"></a>使用前的准备</h2><p>虽然 Decorator 只是一个提案，但可通过工具来使用它：</p>
 <h3 id="Babel"><a href="#Babel" class="headerlink" title="Babel:"></a>Babel:</h3><blockquote>
@@ -2001,15 +2001,15 @@ ga('send', 'pageview');
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
               </li>
              
               <li class="article-tag-list-item">
