@@ -217,6 +217,7 @@ c.foo = -3.14; // -> prev: 100, next: -3.14
 - `target`: 对于静态成员来说是类的构造器，对于实例成员来说是类的原型链
 - `propertyKey`: 属性名称
 - `descriptor`: 属性的 [描述器](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor)
+
 ⬅️ 返回值：undefined | 替代属性的描述器。
 
 方法装饰器`descriptor`的key为：
@@ -258,6 +259,7 @@ c.add(1, 2);
 - `target`: 对于静态成员来说是类的构造器，对于实例成员来说是类的原型链
 - `propertyKey`: 属性名称
 - `descriptor`: 属性的 [描述器](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor)
+
 ⬅️ 返回值：undefined | 替代属性的描述器。
 
 

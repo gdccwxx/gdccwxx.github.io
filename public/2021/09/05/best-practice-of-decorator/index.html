@@ -19,7 +19,7 @@
 <meta property="og:description" content="前言你是不是因入参和结果的日志而苦恼？是不是为运行时的数据检查而难受？是不是为鉴权函数而郁闷？使用 decorator 后，能让代码更优雅，编程更快捷。 啥是 Decorator?Decorator 是 ES6 中的提案之一，它实际上是个 wrapper，可以为类、属性或函数提供额外功能。举个🌰：12345678910111213141516171819202122232425function">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://blog.gdccwxx.com/2021/09/05/best-practice-of-decorator/decorators.png">
-<meta property="og:updated_time" content="2021-09-05T13:20:15.696Z">
+<meta property="og:updated_time" content="2021-09-05T13:25:54.077Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Decorator 这么好用，赶紧用起来！">
 <meta name="twitter:description" content="前言你是不是因入参和结果的日志而苦恼？是不是为运行时的数据检查而难受？是不是为鉴权函数而郁闷？使用 decorator 后，能让代码更优雅，编程更快捷。 啥是 Decorator?Decorator 是 ES6 中的提案之一，它实际上是个 wrapper，可以为类、属性或函数提供额外功能。举个🌰：12345678910111213141516171819202122232425function">
@@ -257,16 +257,18 @@ ga('send', 'pageview');
 <ul>
 <li><code>target</code>: 对于静态成员来说是类的构造器，对于实例成员来说是类的原型链</li>
 <li><code>propertyKey</code>: 属性名称</li>
-<li><code>descriptor</code>: 属性的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor" target="_blank" rel="noopener">描述器</a><br>⬅️ 返回值：undefined | 替代属性的描述器。</li>
+<li><code>descriptor</code>: 属性的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor" target="_blank" rel="noopener">描述器</a></li>
 </ul>
+<p>⬅️ 返回值：undefined | 替代属性的描述器。</p>
 <p>方法装饰器<code>descriptor</code>的key为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">value</span><br><span class="line">writable</span><br><span class="line">enumerable</span><br><span class="line">configurable</span><br></pre></td></tr></table></figure></p>
 <p>通过这个参数我们可以修改方法原本的实现，添加一些共用逻辑。 例如我们可以给一些方法添加打印输入与输出的能力:<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">logger</span>(<span class="params">target: <span class="built_in">any</span>, propertyKey: <span class="built_in">string</span>, descriptor: PropertyDescriptor</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> original = descriptor.value;</span><br><span class="line"></span><br><span class="line">  descriptor.value = <span class="function"><span class="keyword">function</span> (<span class="params">...args</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'params: '</span>, ...args);</span><br><span class="line">    <span class="keyword">const</span> result = original.call(<span class="keyword">this</span>, ...args);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'result: '</span>, result);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> C &#123;</span><br><span class="line">  <span class="meta">@logger</span></span><br><span class="line">  add(x: <span class="built_in">number</span>, y:<span class="built_in">number</span> ) &#123;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> c = <span class="keyword">new</span> C();</span><br><span class="line">c.add(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line"><span class="comment">// -&gt; params: 1, 2</span></span><br><span class="line"><span class="comment">// -&gt; result: 3</span></span><br></pre></td></tr></table></figure></p>
 <h3 id="访问器装饰器"><a href="#访问器装饰器" class="headerlink" title="访问器装饰器"></a>访问器装饰器</h3><p>📌 参数：</p>
 <ul>
 <li><code>target</code>: 对于静态成员来说是类的构造器，对于实例成员来说是类的原型链</li>
 <li><code>propertyKey</code>: 属性名称</li>
-<li><code>descriptor</code>: 属性的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor" target="_blank" rel="noopener">描述器</a><br>⬅️ 返回值：undefined | 替代属性的描述器。</li>
+<li><code>descriptor</code>: 属性的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor" target="_blank" rel="noopener">描述器</a></li>
 </ul>
+<p>⬅️ 返回值：undefined | 替代属性的描述器。</p>
 <p>访问器装饰器<code>descriptor</code>的key为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">get</span><br><span class="line">set</span><br><span class="line">enumerable</span><br><span class="line">configurable</span><br></pre></td></tr></table></figure></p>
 <p>访问器装饰器总体上讲和方法装饰器很接近，唯一的区别在于描述器中有的key不同例如，我们可以将某个属性设为不可变值：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">immutable</span>(<span class="params">target: <span class="built_in">any</span>, propertyKey: <span class="built_in">string</span>, descriptor: PropertyDescriptor</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> original = descriptor.set;</span><br><span class="line"></span><br><span class="line">  descriptor.set = <span class="function"><span class="keyword">function</span> (<span class="params">value: <span class="built_in">any</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> original.call(<span class="keyword">this</span>, &#123; ...value &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> C &#123;</span><br><span class="line">  <span class="keyword">private</span> _point = &#123; x: <span class="number">0</span>, y: <span class="number">0</span> &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@immutable</span></span><br><span class="line">  <span class="keyword">set</span> point(value: &#123; x: <span class="built_in">number</span>, y: <span class="built_in">number</span> &#125;) &#123;</span><br><span class="line">    <span class="keyword">this</span>._point = value;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">get</span> point() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>._point;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> c = <span class="keyword">new</span> C();</span><br><span class="line"><span class="keyword">const</span> point = &#123; x: <span class="number">1</span>, y: <span class="number">1</span> &#125;</span><br><span class="line">c.point = point;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(c.point === point)</span><br><span class="line"><span class="comment">// -&gt; false</span></span><br></pre></td></tr></table></figure></p>
 <h3 id="参数装饰器"><a href="#参数装饰器" class="headerlink" title="参数装饰器"></a>参数装饰器</h3><p>📌 参数：</p>
@@ -532,7 +534,7 @@ ga('send', 'pageview');
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ncuhome</a>
+                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -540,19 +542,19 @@ ga('send', 'pageview');
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ncuhome</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">计算机网络</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">需求开发</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
             
             <div class="clearfix"></div>
