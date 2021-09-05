@@ -8,7 +8,7 @@ tags: typescript
 
 ### 啥是 Decorator?
 Decorator 是 ES6 中的提案之一，它实际上是个 wrapper，可以为类、属性或函数提供额外功能。举个栗子：
-```
+```ts
 function f(key: string): any {
   console.log("evaluate: ", key);
   return function () {
@@ -45,11 +45,11 @@ A = f(A) || A
 
 ### Typescript:
 命令行：
-```
+```bash
 tsc --target ES5 --experimentalDecorators
 ```
 tsconfig.json:
-```
+```json
 {
   "compilerOptions": {
     "target": "ES5",
@@ -66,7 +66,7 @@ tsconfig.json:
 3、 构造函数：参数装饰器
 4、 类装饰器
 例如：
-```
+```ts
 function f(key: string): any {
   console.log("evaluate: ", key);
   return function () {
@@ -111,7 +111,7 @@ call:  Class Decorator
 ```
 
 然而，在同一方法中的不同参数构造器顺序是相反的，最后参数回的装饰器会先被执行：
-```
+```ts
 
 function f(key: string): any {
   console.log("evaluate: ", key);
@@ -140,7 +140,7 @@ call:  first
 返回: undefined | 替代原有构造器
 
 因此，类装饰器适合用于继承一个现有类并添加一些属性和方法。
-```
+```ts
 function rewirteClassConstructor<T extends { new (...args: any[]): {} }>(constructor: T) {
   return class extends constructor {
     words = "rewrite constructor";
@@ -169,7 +169,7 @@ console.log(say.words) // rewrite constructor
 返回: 返回的结果将被忽略。
 
 除了用于收集信息外，属性装饰器也可以用来给类添加额外的方法和属性。 例如我们可以写一个装饰器来给某些属性添加监听器。
-```
+```ts
 import "reflect-metadata";
 
 function capitalizeFirstLetter(str: string) {
@@ -213,11 +213,11 @@ c.foo = -3.14; // -> prev: 100, next: -3.14
 参数：
 - `target`: 对于静态成员来说是类的构造器，对于实例成员来说是类的原型链
 - `propertyKey`: 属性名称
-- `descriptor`: 属性的描述器
+- `descriptor`: 属性的 [描述器](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor)
 返回值：如果返回了值，它会被用于替代属性的描述器。
 
 通过这个参数我们可以修改方法原本的实现，添加一些共用逻辑。 例如我们可以给一些方法添加打印输入与输出的能力:
-```
+```ts
 function logger(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   const original = descriptor.value;
 
@@ -259,7 +259,7 @@ enumerable
 configurable
 ```
 例如，我们可以将某个属性设为不可变值：
-```
+```ts
 function immutable(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   const original = descriptor.set;
 
@@ -298,7 +298,7 @@ console.log(c.point === point)
 返回：返回的值将会被忽略。
 
 单独的参数装饰器能做的事情很有限，它一般都被用于记录可被其它装饰器使用的信息。
-```
+```ts
 // parameter.ts
 import "reflect-metadata";
 
@@ -345,7 +345,7 @@ class BugReport {
 export const report = new BugReport('mode error');
 ```
 
-```
+```js
 // test.js
 
 const { report } = require('./paramerter.js');
@@ -363,7 +363,7 @@ console.log(report.print()); // Error: Missing required argument.
 
 ### 使用举例：
 - 日志打印
-```
+```ts
 function f(): any {
   return function (target, key, descriptor) {
     let method = descriptor.value;
@@ -384,7 +384,7 @@ class B {
 }
 ```
 - 鉴权:
-```
+```ts
 function auth(user) {
   return function(target, key, descriptor) {
     var originalMethod = descriptor.value; // 保留原有函数
@@ -408,7 +408,7 @@ function handleStar(new) {
 ```
 
 - 类型检查
-```
+```ts
 import "reflect-metadata";
 const stringMetaDataTag = "IsString";
  
@@ -446,3 +446,18 @@ export class A {
     }
 }
 ```
+
+## 写在最后
+笔者在 后台接口、Js Bridge、React 项目上都有实践过。不得不说，装饰器模式在面向切面编程(AOP)几乎是 “最佳实践”，极大的提升了编程效率。也希望这篇文章能帮助到你😊
+
+
+### npm 包
+[class-validator](https://github.com/typestack/class-validator)
+[core-decorators](https://github.com/jayphelps/core-decorators)
+[Nest 后台框架](https://github.com/nestjs/nest)
+
+### 参考链接
+[tc39-proposal](https://github.com/tc39/proposal-decorators)
+[typescript](https://www.typescriptlang.org/docs/handbook/decorators.html)
+[a-complete-guide-to-typescript-decorator](https://saul-mirone.github.io/a-complete-guide-to-typescript-decorator/)
+
