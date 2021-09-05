@@ -4,7 +4,7 @@ date: 2021-09-05 20:22:01
 tags: typescript
 ---
 ## 前言
-你是不是也会因入参和结果的而苦恼？是不是要添加数据检查而难受？是不是也为函数鉴权而郁闷？使用decorator 后，能让代码更优雅，编程跟快捷。
+你是不是也会因入参和结果的而苦恼？是不是要添加数据检查而难受？是不是也为函数鉴权而郁闷？使用decorator 后，能让代码更优雅，编程更快捷。
 
 ### 啥是 Decorator?
 Decorator 是 ES6 中的提案之一，它实际上是个 wrapper，可以为类、属性或函数提供额外功能。举个栗子：
@@ -66,6 +66,7 @@ tsconfig.json:
 3、 构造函数：参数装饰器
 4、 类装饰器
 例如：
+
 ```ts
 function f(key: string): any {
   console.log("evaluate: ", key);
@@ -134,6 +135,7 @@ call:  first
 ```
 
 ## 定义
+![decorators](decorators.png)
 ### 类装饰器
 参数：
 - `target`: 类的 `构造器（constructor）`
@@ -166,7 +168,7 @@ console.log(say.words) // rewrite constructor
 - `target`: 对于静态成员来说是类的构造器，对于实例成员来说是类的原型链
 - `propertyKey`: 属性名称
 
-返回: 返回的结果将被忽略。
+返回: 返回的结果将被忽略
 
 除了用于收集信息外，属性装饰器也可以用来给类添加额外的方法和属性。 例如我们可以写一个装饰器来给某些属性添加监听器。
 ```ts
@@ -214,7 +216,15 @@ c.foo = -3.14; // -> prev: 100, next: -3.14
 - `target`: 对于静态成员来说是类的构造器，对于实例成员来说是类的原型链
 - `propertyKey`: 属性名称
 - `descriptor`: 属性的 [描述器](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor)
-返回值：如果返回了值，它会被用于替代属性的描述器。
+返回值：undefined | 替代属性的描述器。
+
+方法装饰器`descriptor`的key为：
+```
+value
+writable
+enumerable
+configurable
+```
 
 通过这个参数我们可以修改方法原本的实现，添加一些共用逻辑。 例如我们可以给一些方法添加打印输入与输出的能力:
 ```ts
@@ -243,22 +253,22 @@ c.add(1, 2);
 ```
 
 ### 访问器装饰器
-访问器装饰器总体上讲和方法装饰器很接近，唯一的区别在于描述器中有的key不同：
-方法装饰器的描述器的key为：
-```
-value
-writable
-enumerable
-configurable
-```
-访问器装饰器的描述器的key为：
+参数：
+- `target`: 对于静态成员来说是类的构造器，对于实例成员来说是类的原型链
+- `propertyKey`: 属性名称
+- `descriptor`: 属性的 [描述器](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor)
+返回值：undefined | 替代属性的描述器。
+
+
+访问器装饰器`descriptor`的key为：
 ```
 get
 set
 enumerable
 configurable
 ```
-例如，我们可以将某个属性设为不可变值：
+
+访问器装饰器总体上讲和方法装饰器很接近，唯一的区别在于描述器中有的key不同例如，我们可以将某个属性设为不可变值：
 ```ts
 function immutable(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
   const original = descriptor.set;
