@@ -26,8 +26,8 @@ tags: 随笔
 
 **再次上镜！！**
 (贴两张帅照嘻嘻)
-[withMyGirl](me-with-my-girl.jpg)
-[me](me.jpg)
+![withMyGirl](me-with-my-girl.jpg)
+![me](me.jpg)
 
 看到很多人评论，其中有很多好兄弟好朋友们。好兄弟、我崇拜的学长、总监、高中老师等等都为我转发加油，内心也十分的自豪，被认可的感觉真好。
 
