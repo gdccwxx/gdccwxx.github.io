@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="typescript,">
+  <meta name="keywords" content="Typescript,Javascript,Decorator,装饰器">
 
 
 
@@ -80,19 +80,19 @@
 
 
 <meta name="description" content="前言你是不是因入参和结果的日志而苦恼？是不是为运行时的数据检查而难受？是不是为鉴权函数而郁闷？使用 decorator 后，能让代码更优雅，编程更快捷。 啥是 Decorator?Decorator 是 ES6 中的提案之一，它实际上是个 wrapper，可以为类、属性或函数提供额外功能。举个🌰：12345678910111213141516171819202122232425function">
-<meta name="keywords" content="typescript">
+<meta name="keywords" content="Typescript,Javascript,Decorator,装饰器">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Decorator 这么好用，赶紧用起来！">
-<meta property="og:url" content="https://blog.gdccwxx.com/typescript/best-practice-of-decorator/index.html">
+<meta property="og:url" content="https://blog.gdccwxx.com/Typescript/best-practice-of-decorator/index.html">
 <meta property="og:site_name" content="gdccwxx">
 <meta property="og:description" content="前言你是不是因入参和结果的日志而苦恼？是不是为运行时的数据检查而难受？是不是为鉴权函数而郁闷？使用 decorator 后，能让代码更优雅，编程更快捷。 啥是 Decorator?Decorator 是 ES6 中的提案之一，它实际上是个 wrapper，可以为类、属性或函数提供额外功能。举个🌰：12345678910111213141516171819202122232425function">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://blog.gdccwxx.com/typescript/best-practice-of-decorator/decorators.png">
-<meta property="og:updated_time" content="2021-09-11T05:01:29.233Z">
+<meta property="og:image" content="https://blog.gdccwxx.com/Typescript/best-practice-of-decorator/decorators.png">
+<meta property="og:updated_time" content="2021-09-11T05:43:41.116Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Decorator 这么好用，赶紧用起来！">
 <meta name="twitter:description" content="前言你是不是因入参和结果的日志而苦恼？是不是为运行时的数据检查而难受？是不是为鉴权函数而郁闷？使用 decorator 后，能让代码更优雅，编程更快捷。 啥是 Decorator?Decorator 是 ES6 中的提案之一，它实际上是个 wrapper，可以为类、属性或函数提供额外功能。举个🌰：12345678910111213141516171819202122232425function">
-<meta name="twitter:image" content="https://blog.gdccwxx.com/typescript/best-practice-of-decorator/decorators.png">
+<meta name="twitter:image" content="https://blog.gdccwxx.com/Typescript/best-practice-of-decorator/decorators.png">
 
 
 
@@ -122,7 +122,7 @@
 
 
 
-  <link rel="canonical" href="https://blog.gdccwxx.com/typescript/best-practice-of-decorator/">
+  <link rel="canonical" href="https://blog.gdccwxx.com/Typescript/best-practice-of-decorator/">
 
 
 
@@ -254,7 +254,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.gdccwxx.com/typescript/best-practice-of-decorator/">
+    <link itemprop="mainEntityOfPage" href="https://blog.gdccwxx.com/Typescript/best-practice-of-decorator/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="gdccwxx">
@@ -332,7 +332,7 @@
 <h2 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h2><p>不同类型的装饰器执行顺序是明确的：<br>1、 实例成员：参数装饰器 -&gt; 方法/访问器/属性 装饰器<br>2、 静态成员：参数装饰器 -&gt; 方法/访问器/属性 装饰器<br>3、 构造函数：参数装饰器<br>4、 类装饰器<br>例如：</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">key: <span class="built_in">string</span></span>): <span class="title">any</span> </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"evaluate: "</span>, key);</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"call: "</span>, key);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@f</span>(<span class="string">"Class Decorator"</span>)</span><br><span class="line"><span class="keyword">class</span> A &#123;</span><br><span class="line">  <span class="meta">@f</span>(<span class="string">"Static Property"</span>)</span><br><span class="line">  <span class="keyword">static</span> prop?: <span class="built_in">number</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@f</span>(<span class="string">"Static Method"</span>)</span><br><span class="line">  <span class="keyword">static</span> method(<span class="meta">@f</span>(<span class="string">"Static Method Parameter"</span>) foo) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"><span class="meta">@f</span>(<span class="string">"Constructor Parameter"</span>) foo</span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@f</span>(<span class="string">"Instance Method"</span>)</span><br><span class="line">  method(<span class="meta">@f</span>(<span class="string">"Instance Method Parameter"</span>) foo) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@f</span>(<span class="string">"Instance Property"</span>)</span><br><span class="line">  prop?: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 执行顺序</span></span><br><span class="line">evaluate:  Instance Method</span><br><span class="line">evaluate:  Instance Method Parameter</span><br><span class="line">call:  Instance Method Parameter</span><br><span class="line">call:  Instance Method</span><br><span class="line">evaluate:  Instance Property</span><br><span class="line">call:  Instance Property</span><br><span class="line">evaluate:  Static Property</span><br><span class="line">call:  Static Property</span><br><span class="line">evaluate:  Static Method</span><br><span class="line">evaluate:  Static Method Parameter</span><br><span class="line">call:  Static Method Parameter</span><br><span class="line">call:  Static Method</span><br><span class="line">evaluate:  Class Decorator</span><br><span class="line">evaluate:  Constructor Parameter</span><br><span class="line">call:  Constructor Parameter</span><br><span class="line">call:  Class Decorator</span><br></pre></td></tr></table></figure>
 <p>然而，在同一方法中的不同参数构造器顺序是相反的，最后参数回的装饰器会先被执行：<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">key: <span class="built_in">string</span></span>): <span class="title">any</span> </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"evaluate: "</span>, key);</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"call: "</span>, key);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> B &#123;</span><br><span class="line">  <span class="meta">@f</span>(<span class="string">'first'</span>)</span><br><span class="line">  <span class="meta">@f</span>(<span class="string">'second'</span>)</span><br><span class="line">  method() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 执行顺序</span></span><br><span class="line">evaluate:  first</span><br><span class="line">evaluate:  second</span><br><span class="line">call:  second</span><br><span class="line">call:  first</span><br></pre></td></tr></table></figure></p>
-<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p><img src="/typescript/best-practice-of-decorator/decorators.png" alt="decorators"></p>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p><img src="/Typescript/best-practice-of-decorator/decorators.png" alt="decorators"></p>
 <h3 id="类装饰器"><a href="#类装饰器" class="headerlink" title="类装饰器"></a>类装饰器</h3><p>📌 参数：</p>
 <ul>
 <li><code>target</code>: 类的 <code>构造器（constructor）</code></li>
@@ -442,7 +442,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/typescript/" rel="tag"># typescript</a>
+            <a href="/tags/Typescript/" rel="tag"># Typescript</a>
           
         </div>
       
