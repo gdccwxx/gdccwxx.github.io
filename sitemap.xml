@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.gdccwxx.com/Typescript/best-practice-of-decorator/</loc>
+    
+    <lastmod>2021-09-11T13:18:30.517Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.gdccwxx.com/%E5%89%8D%E7%AB%AF/font-end-optimize/</loc>
     
     <lastmod>2021-09-11T13:16:27.170Z</lastmod>
@@ -68,13 +75,6 @@
     <loc>https://blog.gdccwxx.com/HTTP/basic-cookies/</loc>
     
     <lastmod>2021-09-11T05:43:51.586Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.gdccwxx.com/Typescript/best-practice-of-decorator/</loc>
-    
-    <lastmod>2021-09-11T05:43:41.116Z</lastmod>
     
   </url>
   
