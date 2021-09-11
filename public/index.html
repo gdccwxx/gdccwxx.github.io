@@ -331,7 +331,7 @@
 <p>搭建的再好，也都交给其他同学负责了。人总是要成长，作为前端工程师也得做点纯前端的事情。但是总有些舍不得。谁忍心把自己一手抚养长大的 baby 给其他人照顾？更何况是我带着好几个同学打造出来的“杰作”？（至少对我来说是杰作！）</p>
 <p>不管咋样，好好休息一番，再加油搞事吧！</p>
 <h2 id="生活呢"><a href="#生活呢" class="headerlink" title="生活呢"></a>生活呢</h2><p>生活是发生了翻天覆地的变化。和我健身的好友相继离开了腾讯，一个归蜀，一个拥抱羊城了。说实话，他们离开深圳时，我真的有些动摇了。要不要离开深圳，要不要离开公司，成了我前两个月问自己最多的问题。好在我留下来了，生活也给我了些惊喜。</p>
-<p><strong>再次上镜！！</strong><br>(贴两张帅照嘻嘻)<br><img src="/随笔/2021-middle-summary/me-with-my-girl.jpg" alt="withMyGirl"><br><img src="/随笔/2021-middle-summary/me.jpg" alt="me"><br>(搜索 视频号 腾讯CSIG “我在鹅厂做To B” 第5期)</p>
+<p><strong>再次上镜！！</strong><br>(贴两张帅照嘻嘻. 视频号 腾讯CSIG “我在鹅厂做To B” 第5期)<br><img src="/随笔/2021-middle-summary/me-with-my-girl.jpg" alt="withMyGirl"><br><img src="/随笔/2021-middle-summary/me.jpg" alt="me"></p>
 <p>看到很多人评论，其中有很多好兄弟好朋友们。好兄弟、我崇拜的学长、总监、高中老师等等都为我转发加油，内心也十分的自豪，被认可的感觉真好。</p>
 <p>与此同时，我也开始写一些文章。虽然效果一般般，阅读的人不多，但是每当我探究多深入一次，我感觉自己的基础知识更加牢固。也让我有更多的动力写文章了。</p>
 <h2 id="说说兴趣吧"><a href="#说说兴趣吧" class="headerlink" title="说说兴趣吧"></a>说说兴趣吧</h2><p>自拔牙前后，体重从 142 -&gt; 134 -&gt; 140。从瘦了一圈又回来。我的兴趣也经历了一次过山车。</p>
@@ -851,7 +851,7 @@
         
           
             <h3 id="资源合并与压缩-http请求的过程及潜在的性能优化"><a href="#资源合并与压缩-http请求的过程及潜在的性能优化" class="headerlink" title="资源合并与压缩-http请求的过程及潜在的性能优化"></a>资源合并与压缩-http请求的过程及潜在的性能优化</h3><p>浏览器的一个请求从发送到返回都经历了什么</p>
-<p><img src="/2019/05/11/font-end-optimize/./font-end-http-send.png" alt="http"></p>
+<p><img src="./font-end-http-send.png" alt="http"></p>
 <p>思考</p>
 <ul>
 <li>dns是否可以通过缓存减少dns查询时间？</li>
@@ -1106,7 +1106,7 @@
 <h4 id="禁止第三方网站带来cookies"><a href="#禁止第三方网站带来cookies" class="headerlink" title="禁止第三方网站带来cookies"></a>禁止第三方网站带来cookies</h4><p>通过Cookie的SameSite禁止第三方访问</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: key=value; path=/; SameSite</span><br></pre></td></tr></table></figure>
 <p>由于SameSite兼容问题，对于大部分版本低的浏览器和部分浏览器不予支持。在使用中需考虑是否由于低版本问题而不生效，但SameSite不会因版本过低而报错，因此可放心使用</p>
-<p>详细<a href="http://blog.gdccwxx.com/2019/04/09/basic-cookies/">Cookie</a>可点击查看</p>
+<p>详细<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#browser_compatibility" target="_blank" rel="noopener">Cookie</a>可点击查看</p>
 <h4 id="增加验证码，token"><a href="#增加验证码，token" class="headerlink" title="增加验证码，token"></a>增加验证码，token</h4><p>由于生效机制是B网站访问A网站携带Cookie即获得信任，则可以通过增加必须操作时带入验证码及本地token携带</p>
 <h4 id="验证referer，禁止来自第三方的请求"><a href="#验证referer，禁止来自第三方的请求" class="headerlink" title="验证referer，禁止来自第三方的请求"></a>验证referer，禁止来自第三方的请求</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// koa</span><br><span class="line">let referer = ctx.request.headers.referer</span><br><span class="line">if (/^https?:\/\/example.com/.test(referer)) &#123;</span><br><span class="line">  // error</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>第三方访问的referer是第三方页面请求的referer，而非本身服务器请求的referer</p>

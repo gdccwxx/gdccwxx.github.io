@@ -232,7 +232,7 @@ Set-Cookie: key=value; path=/; SameSite
 
 由于SameSite兼容问题，对于大部分版本低的浏览器和部分浏览器不予支持。在使用中需考虑是否由于低版本问题而不生效，但SameSite不会因版本过低而报错，因此可放心使用
 
-详细[Cookie](http://blog.gdccwxx.com/2019/04/09/basic-cookies/)可点击查看
+详细[Cookie](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#browser_compatibility)可点击查看
 
 #### 增加验证码，token
 
