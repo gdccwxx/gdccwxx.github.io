@@ -137,7 +137,7 @@ call:  first
 ```
 
 ## 定义
-![decorators](decorators.png)
+![decorators](xmind.png)
 ### 类装饰器
 📌 参数：
 - `target`: 类的 `构造器（constructor）`
