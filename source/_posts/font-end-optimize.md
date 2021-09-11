@@ -8,7 +8,7 @@ keywords: 前端性能优化
 ### 资源合并与压缩-http请求的过程及潜在的性能优化
 浏览器的一个请求从发送到返回都经历了什么
 
-![http](./font-end-http-send.png)
+![http](./page-process.png)
 
 思考
 * dns是否可以通过缓存减少dns查询时间？

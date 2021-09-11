@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.gdccwxx.com/%E5%89%8D%E7%AB%AF/font-end-optimize/</loc>
+    
+    <lastmod>2021-09-11T13:16:27.170Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.gdccwxx.com/tags/index.html</loc>
     
     <lastmod>2021-09-11T12:03:00.851Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>https://blog.gdccwxx.com/HTTP/what-is-xss-csrf/</loc>
     
     <lastmod>2021-09-11T11:51:01.436Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.gdccwxx.com/%E5%89%8D%E7%AB%AF/font-end-optimize/</loc>
-    
-    <lastmod>2021-09-11T11:47:49.614Z</lastmod>
     
   </url>
   
