@@ -261,6 +261,150 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.gdccwxx.com/计算机网络/computer-network-chapter2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="gdccwxx">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="gdccwxx">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/计算机网络/computer-network-chapter2/" itemprop="url">计算机网络--物理层</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-17T21:53:49+08:00">
+                2018-01-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>物理层概念<br>机械特性：指明接口所用接线器的形状和尺寸、引线数目和排列、固定和锁定装置等等。<br>电气特性：指明在接口电缆的各条线上出现的电压的范围。<br>功能特性：指明某条线上出现的某一电平的电压表示何种意义。<br>过程特性：指明对于不同功能的各种可能事件的出现顺序。</p>
+</li>
+<li><p>物理层作用<br>计算机网络设备之间的连接必须依靠物理层的传输介质和相关协议进行。物理层主要负责在物理传输介质之上为“数据链路层”提供一个原始比特流（也就是数据是以一个个0或1的二进制代码形式表示的）的物理连接。其具体作用如下：</p>
+</li>
+<li><p>构建数据通路<br>“数据通路”就是完整的数据传输通道，可以是一段物理介质，也可以是由多段物理介质连接而成的。一次完整的数据传输，包括激活物理连接、传送数据、终止物理连接三个主要阶段。所谓“激活物理连接”，就是不管有多少段物理介质参与，在通信的两个数据终端设备间都要在电气上连接起来，形成一条可以在上面连续传输数据的通路。</p>
+</li>
+<li><p>透明传输<br>物理层中可用的传输介质类型（如不同类型的同轴电缆、双绞线和光纤等）非常多，各自又有相应的通信协议和标准来支持，这就决定了不同的计算机网络可能有不同的“路”。物理层除了要把这些不同的“路”修好外，还要确保这些不同的“路”能“连通”起来，形成通路，最终实现把比特流传输到对端“物理层”，然后向“数据链路层”提交的目的。</p>
+</li>
+<li><p>要实现上述功能，需要物理层具有屏蔽不同传输介质类型和通信协议的功能，让进行网络通信的各方只看到有“路”可行，而不管修这些“路”所用的具体“材料”和相关标准，这就是物理层的“透明传输”功能。</p>
+</li>
+<li><p>传输数据<br>无论是从网络体系结构中哪层发起的通信，最终的数据都得通过最低的“物理层”传输出去，因为这是网络通信的唯一物理通道。但“物理层”的传输单位是比特（bit，也就是“位”，数据中的一个二进制的0或1就代表1位）。“物理层”的基本作用是在发送端通过物理层接口和传输介质将数据按比特流的顺序传送到接收端的物理层。</p>
+</li>
+<li><p>数据编码<br>要使数据能在“物理层”上有效、可靠地传输，最关键的是要确保数据比特流能在对应的“信道”中正常通过。这就涉及“物理层”的数据编码功能，因为不同传输介质所支持的数据编码类型不一样（如归零码、非归零码、曼彻斯特码、差分曼彻斯特码等）。</p>
+</li>
+<li><p>信道的极限容量<br>任何信道中，码元的传输的速率是有上限的，传输的速率超过上限，就会出现严重的码建传绕问题，是的接受段对码元的判决成为不可能。因此有了香浓公式C = Wlog2(1+S/N);</p>
+</li>
+<li><p>数据传输管理<br>“物理层”还具有一定的数据传输管理功能，如基于比特流的数据传输流量控制、差错控制、物理线路的激活和释放等。<br><img src="/计算机网络/computer-network-chapter2/computer_internet.png" alt="computer_internet"></p>
+<h4 id="信道复用"><a href="#信道复用" class="headerlink" title="信道复用"></a>信道复用</h4><h5 id="频分复用（FDM）"><a href="#频分复用（FDM）" class="headerlink" title="频分复用（FDM）"></a>频分复用（FDM）</h5><p>载波带宽(请注意，这里的“带宽”是频率带宽而不是数据的发送速率，每个子信道可以并行传送一路信号。FDM 用于模拟传输过程。<br>e.g.——-广电HFC网络电视信号(FDM)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">OFDM 正交频分复用</span><br><span class="line">OFDM系统比FDM系统要求的带宽要小得多,效率更高</span><br><span class="line">e.g.——-非对称的数字用户环线(ADSL)、数字视频广播(DVB)、高清晰度电视(HDTV)、无线局域网(WLAN)和第4代(4G)移动通信系统</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="时分复用（TDM）"><a href="#时分复用（TDM）" class="headerlink" title="时分复用（TDM）"></a>时分复用（TDM）</h4><p>在交互时间间隔内在同一信道上传送多路信号。TDM 广泛用于数字传输过程。<br>可能造成线路浪费，TDM信号又称的等时信号。<br>e.g.——–SDH（同步数字体系），ATM(异步传输模式)，IP和HFC网络中CM（电缆调制解调器）与CMTS（电缆调制解调器终端系统）的通信</p>
+<h4 id="波分复用（WDM）"><a href="#波分复用（WDM）" class="headerlink" title="波分复用（WDM）"></a>波分复用（WDM）</h4><p>光的频分复用。在一根光纤上使用不同波长同时传送多路光波信号。WDM 用于光纤信道。WDM与FDM 基于相同原理但它应用于光纤信道的光波传输过程。</p>
+<h4 id="码分复用（CDM）"><a href="#码分复用（CDM）" class="headerlink" title="码分复用（CDM）"></a>码分复用（CDM）</h4><p>每个信道作为编码信道实现位传输（特定脉冲序列）。这种编码传输方式通过传输唯一的时间系列短脉冲完成，但在较长的位时间中则采用时间片断替代。每个信道，都有各自的代码，并可以在同一光纤上进行传输以及异步解除复用。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.gdccwxx.com/随笔/2017-summery/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1545,130 +1689,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.gdccwxx.com/JavaScript/read-javascript-again-chapter7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="gdccwxx">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="gdccwxx">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/JavaScript/read-javascript-again-chapter7/" itemprop="url">JavaScript高级程序设计重读---7章</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-13T16:01:13+08:00">
-                2017-07-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="函数表达式"><a href="#函数表达式" class="headerlink" title="函数表达式"></a>函数表达式</h3><p>函数表达式和函数声明中，有以下因为函数声明有函数声明提升器，因此大多数用函数声明，但是函数表达式也有其运用场景<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// 这种情况可能造成意想不到的情况</span><br><span class="line">if(condition)&#123;</span><br><span class="line">    function sayHi()&#123;</span><br><span class="line">        alert(&apos;hi&apos;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else &#123;</span><br><span class="line">    function sayHi()&#123;</span><br><span class="line">        alert(&apos;hello&apos;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">// 应该这样</span><br><span class="line">var sayHi</span><br><span class="line">if(condition)&#123;</span><br><span class="line">    sayHi = function ()&#123;</span><br><span class="line">        alert(&apos;hi&apos;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else &#123;</span><br><span class="line">    sayHi = function ()&#123;</span><br><span class="line">        alert(&apos;hello&apos;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">function factorial(num)&#123;</span><br><span class="line">    if(num &lt;= 1)&#123;        </span><br><span class="line">        return 1</span><br><span class="line">    &#125;else &#123;</span><br><span class="line">        return num* factorial(num-1)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">// 但是以下情况会出错</span><br><span class="line">var another = factorial</span><br><span class="line">factorial = null</span><br><span class="line">alert(another(4))   // 出错，因为factorial变量设置位null，结果现在factorial已经不再是函数</span><br><span class="line">//通过以下一种情况解决</span><br><span class="line">function factorial(num)&#123;</span><br><span class="line">    if(num &lt;= 1)&#123;        </span><br><span class="line">        return 1</span><br><span class="line">    &#125;else &#123;</span><br><span class="line">        return num* arguments.callee(num-1)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">// 上种情况在严格模式下有问题。这种情况可以代替函数名，在严格模式下依然可以生效</span><br><span class="line">var factorail = (function f(num)&#123;</span><br><span class="line">    if(num &lt;= 1)&#123;</span><br><span class="line">        return 1</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return num * f(num -1)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h4 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h4><p>闭包（closure）是Javascript语言的一个难点，也是它的特色，很多高级应用都要依靠闭包实现。<br>首先理解活动对象。活动对象是c语言里面称之为形参。在内存中，形参往往是在当前环境作用域的首位，其次是上一个环境，以此类推。因此其作用域链是由当前环境依次向上。<br>正常函数是执行完成之后，函数内参数和变量将会清除。因此无法访问该变量。闭包是一种将当前函数返回，导致当前活动对象无法被销毁，到函数外即可取到变量。上代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function create()&#123;</span><br><span class="line">    var result = new Array();</span><br><span class="line">    for(var i = 0;i &lt; 10; i++)&#123;</span><br><span class="line">        result[i] = function (num)&#123;</span><br><span class="line">            return function()&#123;</span><br><span class="line">                return num</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;(i)</span><br><span class="line">    &#125;</span><br><span class="line">    return result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>此函数可以获取到i的值。通过访问不同的result函数以达到目的<br>因此可以模仿块级作用域。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(function()&#123;</span><br><span class="line">// 这里是块级作用域</span><br><span class="line">&#125;())</span><br></pre></td></tr></table></figure></p>
-<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>通过这章学习，还是不明白几个模式。但是对闭包有了很大的了解，知道闭包的原理。也明白了闭包的大多数应用场景。对今后的学习更加自信了。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1719,7 +1739,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1732,7 +1752,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

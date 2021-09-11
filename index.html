@@ -261,6 +261,172 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.gdccwxx.com/nestJs/nest-js-tutorial-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="gdccwxx">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="gdccwxx">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/nestJs/nest-js-tutorial-1/" itemprop="url">NestJs 入门教程之一：初次上手</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-09-11T23:45:27+08:00">
+                2021-09-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>自从 Node 出世以来，许多 Javascript 后端框架都曾处不穷，需求也十分庞大。</p>
+<p><img src="/nestJs/nest-js-tutorial-1/./nodejs.png" alt="nodejs"></p>
+<p>Node 做后端已经成为前端的重要业务，随着前端业务的不断更迭，Node 也在前端领域也逐渐站稳脚跟，市场招聘需求逐渐旺盛，企业都抢着要。</p>
+<p>尽管 Node 框架已经逐渐完善，但是国外非常火的框架 NestJs 教程却十分稀缺，国内教程也都良莠不齐，对初次上手者十分不友好。</p>
+<p>本系列文章主要讲我在工作中遇到的问题与解决方案，并梳理成教程方式，希望对初学者有用。目标是经过此个系列文章，能搭建一套 NestJs 在日常编码过程中会用到的功能。</p>
+<p>考虑到 NestJs 功能比较多，本教程会选较为常用的功能，分为四次次连载。</p>
+<p><img src="/nestJs/nest-js-tutorial-1/./nestjs.png" alt="nestjs"></p>
+<h1 id="一、NestJs-是啥"><a href="#一、NestJs-是啥" class="headerlink" title="一、NestJs 是啥"></a>一、NestJs 是啥</h1><p>学习 NestJS 之前，先简单说一下，它到底是啥。</p>
+<p>字面意思来讲，它是一个以 JS 代码的方式运行 JS 的框架。</p>
+<p>从 <a href="https://nestjs.com/" target="_blank" rel="noopener">NestJs 官网</a> 来看，NestJS 是运行在服务端的一个 JS 框架。它运行时是 <code>JavaScript</code>，编程时使用<code>TypeScript</code>, 是结合灵活性、可扩展性的框架。并且结合了面向对象编程(OOP)、函数式编程(FP)和函数响应式编程(FRP)</p>
+<p>它的特殊之处在于，以前使用 JS 方式写后台代码，现在通过写 TS, 再编译成 JS 运行。既包含了 JS 的灵活性，又有 TS 的约束。</p>
+<h1 id="二、NestJS-的优势"><a href="#二、NestJS-的优势" class="headerlink" title="二、NestJS 的优势"></a>二、NestJS 的优势</h1><p>NestJS 最大的优势，是他基于 TypeScript。</p>
+<p>后台接口需要清晰的入参和出参，需要对函数和接口强约束，维护时才能保证接口的可靠性。</p>
+<p>而且，NestJs 的是基于 Express 的进行开发的，也就是说完美的复用成熟的生态，可以很方便的去市场找第三方包。</p>
+<h1 id="三、知识准备"><a href="#三、知识准备" class="headerlink" title="三、知识准备"></a>三、知识准备</h1><p>由于 NestJs 是基于 Node 的环境，因此需要具备基础的知识。</p>
+<ul>
+<li>HTTP: 了解基本的 Get、Post 请求</li>
+<li>Node：基本明白接口请求，知道服务与接口关系即可</li>
+<li>Typescript：基本懂语法，能大致知道装饰器和 interface</li>
+</ul>
+<p>最好之前用过 Node 相关服务，使用 Node 搭建过后台服务，但这不是必要的。</p>
+<h1 id="四、开发准备"><a href="#四、开发准备" class="headerlink" title="四、开发准备"></a>四、开发准备</h1><p>使用 NestJs 的第一步，是安装 Node 环境</p>
+<ol>
+<li><p>安装 Node 环境：访问 <a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">Node 下载地址</a><br>下载安装后，Node &gt;= 10.13.0 即可, 可通过命令行检查</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装 NestJS cli</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -g @nestjs/cli</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="五、Hello-World"><a href="#五、Hello-World" class="headerlink" title="五、Hello World"></a>五、Hello World</h1><h2 id="创建-nest-test-项目"><a href="#创建-nest-test-项目" class="headerlink" title="创建 nest-test 项目"></a>创建 nest-test 项目</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// step1</span><br><span class="line">nest new nest-test</span><br><span class="line"></span><br><span class="line">// step2 Which package manager would you</span><br><span class="line">选择: npm</span><br></pre></td></tr></table></figure>
+<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><p>这样就得到了 src/ 目录为这样的文件列表了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">src</span><br><span class="line">  |- app.controller.spec.ts // controller 的测试文件</span><br><span class="line">  |- app.controller.ts      // controller，路由和预处理</span><br><span class="line">  |- app.module.ts          // module，为模块注册用</span><br><span class="line">  |- app.service.ts         // service 真正的逻辑</span><br><span class="line">  |- main.ts                // 程序入口</span><br></pre></td></tr></table></figure></p>
+<p>NestJS 也主张的是 <a href="https://zh.wikipedia.org/wiki/MVC" target="_blank" rel="noopener">MVC</a> 的格式。会在后续的章节讲到</p>
+<h2 id="hello-world"><a href="#hello-world" class="headerlink" title="hello-world"></a>hello-world</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// step1: 进入目录</span><br><span class="line">cd nest-test</span><br><span class="line"></span><br><span class="line">// step2: 安装依赖或更新依赖</span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line">// step3: 运行程序</span><br><span class="line">npm run start</span><br></pre></td></tr></table></figure>
+<p>最后浏览器访问url<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">访问: http://localhost:3000/</span><br></pre></td></tr></table></figure></p>
+<p>✅ Hello World!</p>
+<p>说明程序已经成功访问了！</p>
+<h1 id="六、生成新模块"><a href="#六、生成新模块" class="headerlink" title="六、生成新模块"></a>六、生成新模块</h1><h2 id="执行命令"><a href="#执行命令" class="headerlink" title="执行命令"></a>执行命令</h2><p>能访问新模块了，再进一步期望生成文件夹和文件夹的模块。NestJS cli 也支持用命令行形式来创建，这样就不需要做重复的创建文件的动作了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nest g controller students</span><br><span class="line">nest g service students</span><br><span class="line">nest g module students</span><br></pre></td></tr></table></figure></p>
+<h2 id="目录结构-1"><a href="#目录结构-1" class="headerlink" title="目录结构"></a>目录结构</h2><p>再命令行分别执行以上三条命令，src/ 目录变成了如下样子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">src</span><br><span class="line">  |- app.controller.spec.ts</span><br><span class="line">  |- app.controller.ts     </span><br><span class="line">  |- app.module.ts         </span><br><span class="line">  |- app.service.ts        </span><br><span class="line">  |- main.ts               </span><br><span class="line">  |- students/</span><br><span class="line">        |- students.controller.spec.ts</span><br><span class="line">        |- students.controller.ts     </span><br><span class="line">        |- students.module.ts         </span><br><span class="line">        |- students.service.spec.ts</span><br><span class="line">        |- students.service.ts</span><br></pre></td></tr></table></figure></p>
+<h2 id="编辑文件"><a href="#编辑文件" class="headerlink" title="编辑文件"></a>编辑文件</h2><p>编辑如下文件:</p>
+<p>students.service.ts<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Injectable &#125; <span class="keyword">from</span> <span class="string">'@nestjs/common'</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Injectable</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> StudentsService &#123;</span><br><span class="line">    ImStudent() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'Im student'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>students.controller.ts<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Injectable &#125; <span class="keyword">from</span> <span class="string">'@nestjs/common'</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Injectable</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> StudentsService &#123;</span><br><span class="line">    ImStudent() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'Im student'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>重启服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run start</span><br></pre></td></tr></table></figure></p>
+<p>最后浏览器访问url<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:3000/students/who-are-you</span><br></pre></td></tr></table></figure></p>
+<p>✅ Im student</p>
+<p>这样模块添加完成了</p>
+<p>如果你看到了这里，说明你真的对 NestJS 很感兴趣。下章将会对接口再深入细化。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.gdccwxx.com/随笔/2021-middle-summary/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2146,150 +2312,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.gdccwxx.com/计算机网络/computer-network-chapter2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="gdccwxx">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="gdccwxx">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/计算机网络/computer-network-chapter2/" itemprop="url">计算机网络--物理层</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-17T21:53:49+08:00">
-                2018-01-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><p>物理层概念<br>机械特性：指明接口所用接线器的形状和尺寸、引线数目和排列、固定和锁定装置等等。<br>电气特性：指明在接口电缆的各条线上出现的电压的范围。<br>功能特性：指明某条线上出现的某一电平的电压表示何种意义。<br>过程特性：指明对于不同功能的各种可能事件的出现顺序。</p>
-</li>
-<li><p>物理层作用<br>计算机网络设备之间的连接必须依靠物理层的传输介质和相关协议进行。物理层主要负责在物理传输介质之上为“数据链路层”提供一个原始比特流（也就是数据是以一个个0或1的二进制代码形式表示的）的物理连接。其具体作用如下：</p>
-</li>
-<li><p>构建数据通路<br>“数据通路”就是完整的数据传输通道，可以是一段物理介质，也可以是由多段物理介质连接而成的。一次完整的数据传输，包括激活物理连接、传送数据、终止物理连接三个主要阶段。所谓“激活物理连接”，就是不管有多少段物理介质参与，在通信的两个数据终端设备间都要在电气上连接起来，形成一条可以在上面连续传输数据的通路。</p>
-</li>
-<li><p>透明传输<br>物理层中可用的传输介质类型（如不同类型的同轴电缆、双绞线和光纤等）非常多，各自又有相应的通信协议和标准来支持，这就决定了不同的计算机网络可能有不同的“路”。物理层除了要把这些不同的“路”修好外，还要确保这些不同的“路”能“连通”起来，形成通路，最终实现把比特流传输到对端“物理层”，然后向“数据链路层”提交的目的。</p>
-</li>
-<li><p>要实现上述功能，需要物理层具有屏蔽不同传输介质类型和通信协议的功能，让进行网络通信的各方只看到有“路”可行，而不管修这些“路”所用的具体“材料”和相关标准，这就是物理层的“透明传输”功能。</p>
-</li>
-<li><p>传输数据<br>无论是从网络体系结构中哪层发起的通信，最终的数据都得通过最低的“物理层”传输出去，因为这是网络通信的唯一物理通道。但“物理层”的传输单位是比特（bit，也就是“位”，数据中的一个二进制的0或1就代表1位）。“物理层”的基本作用是在发送端通过物理层接口和传输介质将数据按比特流的顺序传送到接收端的物理层。</p>
-</li>
-<li><p>数据编码<br>要使数据能在“物理层”上有效、可靠地传输，最关键的是要确保数据比特流能在对应的“信道”中正常通过。这就涉及“物理层”的数据编码功能，因为不同传输介质所支持的数据编码类型不一样（如归零码、非归零码、曼彻斯特码、差分曼彻斯特码等）。</p>
-</li>
-<li><p>信道的极限容量<br>任何信道中，码元的传输的速率是有上限的，传输的速率超过上限，就会出现严重的码建传绕问题，是的接受段对码元的判决成为不可能。因此有了香浓公式C = Wlog2(1+S/N);</p>
-</li>
-<li><p>数据传输管理<br>“物理层”还具有一定的数据传输管理功能，如基于比特流的数据传输流量控制、差错控制、物理线路的激活和释放等。<br><img src="/计算机网络/computer-network-chapter2/computer_internet.png" alt="computer_internet"></p>
-<h4 id="信道复用"><a href="#信道复用" class="headerlink" title="信道复用"></a>信道复用</h4><h5 id="频分复用（FDM）"><a href="#频分复用（FDM）" class="headerlink" title="频分复用（FDM）"></a>频分复用（FDM）</h5><p>载波带宽(请注意，这里的“带宽”是频率带宽而不是数据的发送速率，每个子信道可以并行传送一路信号。FDM 用于模拟传输过程。<br>e.g.——-广电HFC网络电视信号(FDM)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">OFDM 正交频分复用</span><br><span class="line">OFDM系统比FDM系统要求的带宽要小得多,效率更高</span><br><span class="line">e.g.——-非对称的数字用户环线(ADSL)、数字视频广播(DVB)、高清晰度电视(HDTV)、无线局域网(WLAN)和第4代(4G)移动通信系统</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="时分复用（TDM）"><a href="#时分复用（TDM）" class="headerlink" title="时分复用（TDM）"></a>时分复用（TDM）</h4><p>在交互时间间隔内在同一信道上传送多路信号。TDM 广泛用于数字传输过程。<br>可能造成线路浪费，TDM信号又称的等时信号。<br>e.g.——–SDH（同步数字体系），ATM(异步传输模式)，IP和HFC网络中CM（电缆调制解调器）与CMTS（电缆调制解调器终端系统）的通信</p>
-<h4 id="波分复用（WDM）"><a href="#波分复用（WDM）" class="headerlink" title="波分复用（WDM）"></a>波分复用（WDM）</h4><p>光的频分复用。在一根光纤上使用不同波长同时传送多路光波信号。WDM 用于光纤信道。WDM与FDM 基于相同原理但它应用于光纤信道的光波传输过程。</p>
-<h4 id="码分复用（CDM）"><a href="#码分复用（CDM）" class="headerlink" title="码分复用（CDM）"></a>码分复用（CDM）</h4><p>每个信道作为编码信道实现位传输（特定脉冲序列）。这种编码传输方式通过传输唯一的时间系列短脉冲完成，但在较长的位时间中则采用时间片断替代。每个信道，都有各自的代码，并可以在同一光纤上进行传输以及异步解除复用。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2340,7 +2362,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2353,7 +2375,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

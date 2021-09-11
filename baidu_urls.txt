@@ -1,3 +1,4 @@
+https://blog.gdccwxx.com/nestJs/nest-js-tutorial-1/
 https://blog.gdccwxx.com/随笔/2021-middle-summary/
 https://blog.gdccwxx.com/typescript/best-practice-of-decorator/
 https://blog.gdccwxx.com/需求开发/the-skills-of-develop/
@@ -7,4 +8,3 @@ https://blog.gdccwxx.com/HTTP/basic-cookies/
 https://blog.gdccwxx.com/随笔/《大型网站技术架》读书笔记/
 https://blog.gdccwxx.com/随笔/the-mythical-man-month/
 https://blog.gdccwxx.com/随笔/2018-tencent-practice/
-https://blog.gdccwxx.com/计算机网络/computer-network-chapter2/
