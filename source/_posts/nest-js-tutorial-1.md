@@ -48,7 +48,6 @@ NestJS 最大的优势，是他基于 TypeScript。
 最好之前用过 Node 相关服务，使用 Node 搭建过后台服务，但这不是必要的。
 
 # 四、开发准备
-使用 NestJs 的第一步，是安装 Node 环境
 
 1. 安装 Node 环境：访问 [Node 下载地址](https://nodejs.org/en/download/)
 下载安装后，Node >= 10.13.0 即可, 可通过命令行检查
