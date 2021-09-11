@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="vz1PrlmOl-C4FBrH_at-JOEneuzGOz7AfXa3QVThvy8">
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="code-4IMpMXQpb6">
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon.ico?v=5.1.4">
+
+
+
+
+
+
+  <meta name="keywords" content="前端,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="资源合并与压缩-http请求的过程及潜在的性能优化浏览器的一个请求从发送到返回都经历了什么  思考  dns是否可以通过缓存减少dns查询时间？ 网络请求的过程走最近的网络环境？ 相同的静态资源是否可以缓存？ 能否减少请求http请求大小？ 减少http请求 服务端渲染重绘和回流css会让JavaScript变慢吗一个线程执行JavaScript一个线程执行渲染频繁触发重绘和回流，导致UI渲染频繁">
+<meta name="keywords" content="前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端性能优化">
+<meta property="og:url" content="https://blog.gdccwxx.com/前端/font-end-optimize/index.html">
+<meta property="og:site_name" content="gdccwxx">
+<meta property="og:description" content="资源合并与压缩-http请求的过程及潜在的性能优化浏览器的一个请求从发送到返回都经历了什么  思考  dns是否可以通过缓存减少dns查询时间？ 网络请求的过程走最近的网络环境？ 相同的静态资源是否可以缓存？ 能否减少请求http请求大小？ 减少http请求 服务端渲染重绘和回流css会让JavaScript变慢吗一个线程执行JavaScript一个线程执行渲染频繁触发重绘和回流，导致UI渲染频繁">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://blog.gdccwxx.com/2019/05/11/font-end-optimize/font-end-http-send.png">
+<meta property="og:image" content="https://blog.gdccwxx.com/前端/font-end-optimize/font-end-cache.png">
+<meta property="og:updated_time" content="2021-09-11T05:01:23.141Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端性能优化">
+<meta name="twitter:description" content="资源合并与压缩-http请求的过程及潜在的性能优化浏览器的一个请求从发送到返回都经历了什么  思考  dns是否可以通过缓存减少dns查询时间？ 网络请求的过程走最近的网络环境？ 相同的静态资源是否可以缓存？ 能否减少请求http请求大小？ 减少http请求 服务端渲染重绘和回流css会让JavaScript变慢吗一个线程执行JavaScript一个线程执行渲染频繁触发重绘和回流，导致UI渲染频繁">
+<meta name="twitter:image" content="https://blog.gdccwxx.com/2019/05/11/font-end-optimize/font-end-http-send.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.gdccwxx.com/前端/font-end-optimize/">
+
+
+
+
+
+  <title>前端性能优化 | gdccwxx</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-118405225-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">gdccwxx</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">:)</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.gdccwxx.com/前端/font-end-optimize/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="gdccwxx">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="gdccwxx">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">前端性能优化</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-11T23:46:04+08:00">
+                2019-05-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="资源合并与压缩-http请求的过程及潜在的性能优化"><a href="#资源合并与压缩-http请求的过程及潜在的性能优化" class="headerlink" title="资源合并与压缩-http请求的过程及潜在的性能优化"></a>资源合并与压缩-http请求的过程及潜在的性能优化</h3><p>浏览器的一个请求从发送到返回都经历了什么</p>
+<p><img src="/2019/05/11/font-end-optimize/./font-end-http-send.png" alt="http"></p>
+<p>思考</p>
+<ul>
+<li>dns是否可以通过缓存减少dns查询时间？</li>
+<li>网络请求的过程走最近的网络环境？</li>
+<li>相同的静态资源是否可以缓存？</li>
+<li>能否减少请求http请求大小？</li>
+<li>减少http请求</li>
+<li>服务端渲染<h2 id="重绘和回流"><a href="#重绘和回流" class="headerlink" title="重绘和回流"></a>重绘和回流</h2><h3 id="css会让JavaScript变慢吗"><a href="#css会让JavaScript变慢吗" class="headerlink" title="css会让JavaScript变慢吗"></a>css会让JavaScript变慢吗</h3>一个线程执行JavaScript<br>一个线程执行渲染<br>频繁触发重绘和回流，导致UI渲染频繁，最重导致js变慢<h3 id="啥是重绘和回流"><a href="#啥是重绘和回流" class="headerlink" title="啥是重绘和回流"></a>啥是重绘和回流</h3><h4 id="回流"><a href="#回流" class="headerlink" title="回流"></a>回流</h4></li>
+<li>当render tree中的一部分或全部因为元素规模尺寸，布局，隐藏等改变需要重新构建，称作为回流（reflow）</li>
+<li>当页面布局和几何属性变化时，就需要回流<h4 id="重绘"><a href="#重绘" class="headerlink" title="重绘"></a>重绘</h4>当render tree中的一些元素需要更新属性，而这些属性只是影响元素外观，风格，而不会影响布局的，比如background-color，则称之为重绘</li>
+</ul>
+<p>回流一定会重绘，重绘不一定会回流</p>
+<h3 id="触发页面重布局的属性"><a href="#触发页面重布局的属性" class="headerlink" title="触发页面重布局的属性"></a>触发页面重布局的属性</h3><ul>
+<li>盒子模型相关属性会触发重布局</li>
+<li>定位属性及浮动会触发页面重布局</li>
+<li>改变节点内部文字结构会触发重布局<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">width			top			text-align</span><br><span class="line">height			bottom		overflow-y</span><br><span class="line">padding			left		font-weight</span><br><span class="line">margin			right		overflow</span><br><span class="line">display			position	font-family</span><br><span class="line">border-width	float		line-height</span><br><span class="line">border			clear		vertical-align</span><br><span class="line">min-height					white-space</span><br><span class="line">							font-size</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="触发页面重绘的属性"><a href="#触发页面重绘的属性" class="headerlink" title="触发页面重绘的属性"></a>触发页面重绘的属性</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">color				border-style</span><br><span class="line">border-radius		visibility</span><br><span class="line">text-decoration		background</span><br><span class="line">background-image	background-position</span><br><span class="line">background-repeat	background-size</span><br><span class="line">outline-color		outline</span><br><span class="line">outline-style		outline-width</span><br><span class="line">box-shadow</span><br></pre></td></tr></table></figure>
+<h3 id="新建DOM过程"><a href="#新建DOM过程" class="headerlink" title="新建DOM过程"></a>新建DOM过程</h3><p>1、 获取DOM后分割为多个图层<br>2、 对每个图层的阶段计算样式结果(recalulate style — 样式重计算)<br>3、 为每个节点生成图形和位置(Layout— 回流和重布局)<br>4、 将每个节点绘制填充到图层位置中(Paint setup 和Paint — 重绘)<br>5、 图层作为纹理上传至gpu<br>6、 符合多个图层到页面上生成最终屏幕图像(composite layers — 图层重组)</p>
+<h3 id="减少重绘和回流"><a href="#减少重绘和回流" class="headerlink" title="减少重绘和回流"></a>减少重绘和回流</h3><p>避免重绘回流的css<br>将频繁重绘和回流的dom元素单独作为独立图层，那么这个dom元素只会影响这个独立图层</p>
+<h3 id="如何将DOM创建一个新的图层"><a href="#如何将DOM创建一个新的图层" class="headerlink" title="如何将DOM创建一个新的图层"></a>如何将DOM创建一个新的图层</h3><p>1、3D或者透视变化CSS属性(perspective transform)<br>2、 使用加速视屏解码的 video 节点<br>3、拥有3D(webGL)上下文或加速的2D上下文的 canvas 节点<br>4、混合插件(如flash)<br>5、对自己的opacity做css动画或使用一个动画webkit变换的元素<br>6、使用加速CSS过滤器的元素(translate3D..)<br>7、元素有一个包含复合层的后代节点(一个元素拥有一个子元素，该元素在自己的层里)<br>8、元素有一个z-index较低且包含一个符合层的兄弟元素(该元渲染在符合层上面渲染)</p>
+<h3 id="避免重绘回流"><a href="#避免重绘回流" class="headerlink" title="避免重绘回流"></a>避免重绘回流</h3><p>1、用translate替代top：top会触发回流而translate不会<br>2、用opacity替代visibility：visibility会触发重绘而opacity不会<br>3、不要一条条修改DOM修改样式，可以放在一个class内，替换class<br>4、离线修改，使用display-none修改元素再显示<br>5、不要把DOM节点属性值放在一个循环里的变量里（offsetHight， offsetWidth）<br>6、不使用table布局，可能很小的修改导致整个table重新布局<br>7、动画实现的速度的选择<br>8、对于动画新建图层 (git图加上will-change, transform)<br>9、使用GPU硬件加速(trasform: translateZ, trasform: transform3d(0,0,0))</p>
+<h2 id="localStorage"><a href="#localStorage" class="headerlink" title="localStorage"></a>localStorage</h2><ul>
+<li>HTML5设计出来专门用于浏览器存储的</li>
+<li>大小为5M左右</li>
+<li>尽在客户端使用，不和服务端通信</li>
+<li>接口封装比较好</li>
+<li>浏览器本地缓存方案</li>
+</ul>
+<h2 id="SessionStorage"><a href="#SessionStorage" class="headerlink" title="SessionStorage"></a>SessionStorage</h2><ul>
+<li>会话级别的浏览器存储</li>
+<li>大小为5M左右</li>
+<li>仅在客户端使用，不和服务器端通信</li>
+<li>接口封装较好</li>
+<li>对于表单信息的维护</li>
+</ul>
+<h2 id="indexDB"><a href="#indexDB" class="headerlink" title="indexDB"></a>indexDB</h2><ul>
+<li>IndexedDB 是一种低级API，用于客户端存储大量结构化数据(包括, 文件/ blobs)。该API使用索引来实现对该数据的高性能搜索。虽然 Web Storage 对于存储较少量的数据很有用，但对于存储更大量的结构化数据来说，这种方法不太有用。IndexedDB提供了一个解决方案。</li>
+<li>为应用创建离线版本</li>
+</ul>
+<h2 id="PWA"><a href="#PWA" class="headerlink" title="PWA"></a>PWA</h2><p>Progressive Web App, 简称 PWA，是提升 Web App 的体验的一种新方法，能给用户原生应用的体验。</p>
+<p>PWA 能做到原生应用的体验不是靠特指某一项技术，而是经过应用一些新技术进行改进，在安全、性能和体验三个方面都有很大提升，PWA 本质上是 Web App，借助一些新技术也具备了 Native App 的一些特性，兼具 Web App 和 Native App 的优点。</p>
+<p>PWA 的主要特点包括下面三点：</p>
+<p>可靠 - 即使在不稳定的网络环境下，也能瞬间加载并展现<br>体验 - 快速响应，并且有平滑的动画响应用户的操作<br>粘性 - 像设备上的原生应用，具有沉浸式的用户体验，用户可以添加到桌面<br>PWA 本身强调渐进式，并不要求一次性达到安全、性能和体验上的所有要求，开发者可以通过 PWA Checklist 查看现有的特征。</p>
+<h2 id="Service-Worker"><a href="#Service-Worker" class="headerlink" title="Service Worker"></a>Service Worker</h2><p>1、使用拦截和处理网络请求能力，实现离线应用<br>2、使用Service Worker在后台运行同时和页面通信的能力，趋势线大规模后台数据处理</p>
+<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><h3 id="httpheader"><a href="#httpheader" class="headerlink" title="httpheader"></a>httpheader</h3><h4 id="Cache-Control"><a href="#Cache-Control" class="headerlink" title="Cache-Control"></a>Cache-Control</h4><ul>
+<li>max-age=”seconds”<br>设置缓存存储的最大周期，超过这个时间缓存被认为过期(单位秒)。与Expires相反，时间是相对于请求的时间。</li>
+<li>s-maxage=”seconds”<br>覆盖max-age 或者 Expires 头，但是仅适用于共享缓存(比如各个代理)，并且私有缓存中它被忽略。</li>
+<li>public<br>表明响应可以被任何对象（包括：发送请求的客户端，代理服务器，等等）缓存。</li>
+<li>private<br>表明响应只能被单个用户缓存，不能作为共享缓存（即代理服务器不能缓存它）,可以缓存响应内容。</li>
+<li>no-cache<br>在发布缓存副本之前，强制高速缓存将请求提交给原始服务器进行验证。</li>
+<li>no-store<br>缓存不应存储有关客户端请求或服务器响应的任何内容。<h4 id="Expires"><a href="#Expires" class="headerlink" title="Expires"></a>Expires</h4></li>
+<li>缓存过期时间，用来指定资源到期时间，是服务器端的具体的时间点</li>
+<li>告诉浏览器在过期时间前浏览器可以直接从浏览器缓存去数据，无需再次请求<h4 id="Last-Modified-If-Modified-Since"><a href="#Last-Modified-If-Modified-Since" class="headerlink" title="Last-Modified/If-Modified-Since"></a>Last-Modified/If-Modified-Since</h4><h5 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h5>The Last-Modified  是一个响应首部，其中包含源头服务器认定的资源做出修改的日期及时间。 它通常被用作一个验证器来判断接收到的或者存储的资源是否彼此一致<br>1、请求浏览器，给到缓存文件，response带有last-modified 给到浏览器存储为last-modified-since<br>2、浏览器再次请求文件，带有last-modiied-since, 服务器对比last-modified，若过期则给到新的文件，若不过期，则继续使用本地文件<h5 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h5>1、某些服务器不能获取精确的修改时间<br>2、文件修改时间改了，但文件内容却没有改变<h4 id="Etag-If-None-Match"><a href="#Etag-If-None-Match" class="headerlink" title="Etag/If-None-Match"></a>Etag/If-None-Match</h4></li>
+<li>文件内容的hash值</li>
+<li>etag——response header</li>
+<li>if-none-match —— request header</li>
+<li>需要和cache-control一起使用<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> ---------------------    </span><br><span class="line">					   当浏览器本地没有缓存或者下一层失效时，或者用户点击刷新</span><br><span class="line">\       200状态        /   浏览器直接去服务器下载最新数据</span><br><span class="line"></span><br><span class="line">  -------------------     </span><br><span class="line">					   这一层由 last-modified / Etag 控制,当下一层失效时，</span><br><span class="line">  \     304状态       /    或用户点击刷新，浏览器就会发送请求给服务器，如果文件无变</span><br><span class="line">					   化则返回304</span><br><span class="line">    ----------------      </span><br><span class="line">				       这层由expires/cache-control控制，expires(http 1.0     </span><br><span class="line">    \ 200(from disk) /    有效)是绝对时间，cache-control(http1.1版有效)相对</span><br><span class="line">					   时间，两者都存在，cache-control覆盖expires，没有失效</span><br><span class="line">      --------------      则直接访问自己缓存</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="/前端/font-end-optimize/./font-end-cache.png" alt="Alt text"></p>
+<h2 id="服务端性能优化"><a href="#服务端性能优化" class="headerlink" title="服务端性能优化"></a>服务端性能优化</h2><h3 id="多层次优化方案"><a href="#多层次优化方案" class="headerlink" title="多层次优化方案"></a>多层次优化方案</h3><ul>
+<li>构建层模版编译</li>
+<li>数据无关prerender方式</li>
+<li>服务端渲染</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/img/wechat.png" alt="gdccwxx WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/img/alipay.jpeg" alt="gdccwxx Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端/" rel="tag"># 前端</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/HTTP/what-is-xss-csrf/" rel="next" title="啥是XSS和CSRF?">
+                <i class="fa fa-chevron-left"></i> 啥是XSS和CSRF?
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/需求开发/the-skills-of-develop/" rel="prev" title="做需求搞明白这几点，和加班说再见">
+                做需求搞明白这几点，和加班说再见 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">gdccwxx</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gdccwxx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:765553928@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#资源合并与压缩-http请求的过程及潜在的性能优化"><span class="nav-number">1.</span> <span class="nav-text">资源合并与压缩-http请求的过程及潜在的性能优化</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#重绘和回流"><span class="nav-number"></span> <span class="nav-text">重绘和回流</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#css会让JavaScript变慢吗"><span class="nav-number">1.</span> <span class="nav-text">css会让JavaScript变慢吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#啥是重绘和回流"><span class="nav-number">2.</span> <span class="nav-text">啥是重绘和回流</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#回流"><span class="nav-number">2.1.</span> <span class="nav-text">回流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重绘"><span class="nav-number">2.2.</span> <span class="nav-text">重绘</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#触发页面重布局的属性"><span class="nav-number">3.</span> <span class="nav-text">触发页面重布局的属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#触发页面重绘的属性"><span class="nav-number">4.</span> <span class="nav-text">触发页面重绘的属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建DOM过程"><span class="nav-number">5.</span> <span class="nav-text">新建DOM过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#减少重绘和回流"><span class="nav-number">6.</span> <span class="nav-text">减少重绘和回流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何将DOM创建一个新的图层"><span class="nav-number">7.</span> <span class="nav-text">如何将DOM创建一个新的图层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#避免重绘回流"><span class="nav-number">8.</span> <span class="nav-text">避免重绘回流</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#localStorage"><span class="nav-number"></span> <span class="nav-text">localStorage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SessionStorage"><span class="nav-number"></span> <span class="nav-text">SessionStorage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#indexDB"><span class="nav-number"></span> <span class="nav-text">indexDB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PWA"><span class="nav-number"></span> <span class="nav-text">PWA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Service-Worker"><span class="nav-number"></span> <span class="nav-text">Service Worker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存"><span class="nav-number"></span> <span class="nav-text">缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#httpheader"><span class="nav-number">1.</span> <span class="nav-text">httpheader</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Cache-Control"><span class="nav-number">1.1.</span> <span class="nav-text">Cache-Control</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Expires"><span class="nav-number">1.2.</span> <span class="nav-text">Expires</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Last-Modified-If-Modified-Since"><span class="nav-number">1.3.</span> <span class="nav-text">Last-Modified/If-Modified-Since</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#特点"><span class="nav-number">1.3.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#缺点"><span class="nav-number">1.3.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Etag-If-None-Match"><span class="nav-number">1.4.</span> <span class="nav-text">Etag/If-None-Match</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务端性能优化"><span class="nav-number"></span> <span class="nav-text">服务端性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#多层次优化方案"><span class="nav-number">1.</span> <span class="nav-text">多层次优化方案</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">gdccwxx</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/exturl.js?v=5.1.4"></script>
+
+
+</body>
+</html>

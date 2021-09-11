@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="vz1PrlmOl-C4FBrH_at-JOEneuzGOz7AfXa3QVThvy8">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon.ico?v=5.1.4">
+
+
+
+
+
+
+  <meta name="keywords" content="随笔,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="写在前面实习后，发现自己一些薄弱的点，需要好好加固一些。好在现在又学校可回，索性逃回学校重新修炼，学一些想学的，加固自己薄弱的，至少不要在职场坑了队友。 《人月神话》一书，其主要介绍人/月等方面的项目管理，从项目经理角度对产品的一些想法及经验，帮助对产品的管理有了较深刻的理解。43年前出版至今依然畅销，不仅感叹作者的独特眼光、软件工程发展的缓慢。也使得我对这一学科有了更深的理解。 编程的乐趣 创建">
+<meta name="keywords" content="随笔">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《人月神话》整理">
+<meta property="og:url" content="https://blog.gdccwxx.com/[object Object]/the-mythical-man-month/index.html">
+<meta property="og:site_name" content="gdccwxx">
+<meta property="og:description" content="写在前面实习后，发现自己一些薄弱的点，需要好好加固一些。好在现在又学校可回，索性逃回学校重新修炼，学一些想学的，加固自己薄弱的，至少不要在职场坑了队友。 《人月神话》一书，其主要介绍人/月等方面的项目管理，从项目经理角度对产品的一些想法及经验，帮助对产品的管理有了较深刻的理解。43年前出版至今依然畅销，不仅感叹作者的独特眼光、软件工程发展的缓慢。也使得我对这一学科有了更深的理解。 编程的乐趣 创建">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://blog.gdccwxx.com/2018/09/24/the-mythical-man-month/mythical-team.jpeg">
+<meta property="og:updated_time" content="2021-08-24T01:49:51.298Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《人月神话》整理">
+<meta name="twitter:description" content="写在前面实习后，发现自己一些薄弱的点，需要好好加固一些。好在现在又学校可回，索性逃回学校重新修炼，学一些想学的，加固自己薄弱的，至少不要在职场坑了队友。 《人月神话》一书，其主要介绍人/月等方面的项目管理，从项目经理角度对产品的一些想法及经验，帮助对产品的管理有了较深刻的理解。43年前出版至今依然畅销，不仅感叹作者的独特眼光、软件工程发展的缓慢。也使得我对这一学科有了更深的理解。 编程的乐趣 创建">
+<meta name="twitter:image" content="https://blog.gdccwxx.com/2018/09/24/the-mythical-man-month/mythical-team.jpeg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://blog.gdccwxx.com/[object Object]/the-mythical-man-month/">
+
+
+
+
+
+  <title>《人月神话》整理 | gdccwxx</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-118405225-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">gdccwxx</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">:)</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.gdccwxx.com/[object Object]/the-mythical-man-month/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="gdccwxx">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="gdccwxx">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">《人月神话》整理</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-24T16:12:37+08:00">
+                2018-09-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>实习后，发现自己一些薄弱的点，需要好好加固一些。好在现在又学校可回，索性逃回学校重新修炼，学一些想学的，加固自己薄弱的，至少不要在职场坑了队友。</p>
+<p>《人月神话》一书，其主要介绍人/月等方面的项目管理，从项目经理角度对产品的一些想法及经验，帮助对产品的管理有了较深刻的理解。43年前出版至今依然畅销，不仅感叹作者的独特眼光、软件工程发展的缓慢。也使得我对这一学科有了更深的理解。</p>
+<h3 id="编程的乐趣"><a href="#编程的乐趣" class="headerlink" title="编程的乐趣"></a>编程的乐趣</h3><ul>
+<li>创建事物的快乐</li>
+<li>开发对其他人有用的乐趣</li>
+<li>将类似可以组装的零部件组装，这个过程本身具有魅力</li>
+<li>面对重复任务，不断学习的乐趣</li>
+<li>软件的存在形式不同于其他实际物体，工作在轻易驾驭的介质上的乐趣</li>
+</ul>
+<h3 id="编程的烦恼"><a href="#编程的烦恼" class="headerlink" title="编程的烦恼"></a>编程的烦恼</h3><ul>
+<li>将做事的方式调整到追求完美是<em>最困难</em>的部分</li>
+<li>有其他人来设定目标，必须依靠自己无法控制的程序来完成事情</li>
+<li>真正的权威来自于每次任务的完成</li>
+<li>伴随着枯燥艰苦的劳动</li>
+<li>越接近目标收敛越慢</li>
+<li>只有实际需要才会想到最新的设想</li>
+</ul>
+<h3 id="人月神话"><a href="#人月神话" class="headerlink" title="人月神话"></a>人月神话</h3><ul>
+<li>缺乏合理的时间进度是造成项目滞后最主要的原因——比其他原因都大</li>
+<li>某些任务在不损害结果的情况下加快速度</li>
+<li>所有编程人员都是乐观主义者——“一切都将良好运行”</li>
+<li><em>构思本身就有缺陷，因此总会有bug</em></li>
+<li>人员数量和时间是不可替换的——1个孕妇10月怀胎生子，10个孕妇不可能1个月生子</li>
+<li>分解任务会话费额外的时间——培训和相互沟通</li>
+<li>进度安排——1/3计划， 1/6编程， 1/4构建测试， 1/4系统测试</li>
+<li>Brooks法则：为进度落后的项目增加人手，只会似的进度更加落后 —— 重新分配任务的打断；培训新人；额外的沟通</li>
+</ul>
+<h3 id="团队的组建"><a href="#团队的组建" class="headerlink" title="团队的组建"></a>团队的组建</h3><p><img src="/2018/09/24/the-mythical-man-month/mythical-team.jpeg" alt="team"></p>
+<ul>
+<li><p>小型精干的团队是最好的</p>
+</li>
+<li><p>一位首席程序员、类似于外科手术队伍的团队架构提供了一种方法—既能获得由少数头脑产生的产品完整性，又能得到多位协助人员的总体生产率，还彻底地减少了沟通的工作量。</p>
+</li>
+<li><h4 id="结构师的使命"><a href="#结构师的使命" class="headerlink" title="结构师的使命"></a>结构师的使命</h4><p>​    结构师只能提出建议，牢记开发人员实现创造性的使命</p>
+<p>​    时刻准备为制定说明建议一种实现方法，准备接受任何可行方法</p>
+<p>​    对建议保持平静及低调</p>
+<p>​    准备对建议改进及坚持放弃</p>
+<p>​    听取开发人员在系统结构上的改进</p>
+</li>
+</ul>
+<h3 id="系统的设计"><a href="#系统的设计" class="headerlink" title="系统的设计"></a>系统的设计</h3><ul>
+<li><p>概念的完整性是重中之重</p>
+</li>
+<li><p>“功能与理解上的复杂程度比值才是系统设计最终目标”</p>
+</li>
+<li><p>将系统结构方面的工作与具体实现分离是获得概念完整性的最好方法</p>
+</li>
+<li><p>外部的体系结构规定实习上是增强小组的创造性</p>
+</li>
+<li><p>尽早交流和持续沟通能够使得结构师有较好的成本意识，是开发人员对设计有信心</p>
+</li>
+<li><p>第二个系统通常是人们所设计的最危险的系统，通常是过分的进行设计</p>
+</li>
+<li><p>为了概念完整性，设计必须又一个人或者具有共识的小型团队完成，设计结果必须由一个或者两个人来完成，以保证结果一致</p>
+</li>
+<li><p>必须明确定义系统结构中与先前定义不同的地方，重新定义详细程度应该与之前保持一致</p>
+</li>
+<li><p>出于精确性，需要形式化的定义，也需要一些记叙性的定义来加深理解</p>
+</li>
+<li><p>起初至少有两种以上的实现，定义会更加整洁和规范</p>
+</li>
+<li><p>结构师对实现人员的询问作出电话的解释和问答是非常重要的，必须进行日志整理和发布</p>
+</li>
+</ul>
+<h3 id="项目成功的要点"><a href="#项目成功的要点" class="headerlink" title="项目成功的要点"></a>项目成功的要点</h3><h4 id="交流"><a href="#交流" class="headerlink" title="交流"></a>交流</h4><ul>
+<li>因为团队之间不知道在做什么，从而出现进度灾难、功能不合理和系统缺陷。由于存在对他人进度的各种假设，团队之间成员开始理解出现偏差</li>
+<li>团队应该以尽可能多的方式进行相互之间的交流，非正式的进行简要技术趁熟的常规会议项目，共享的正式项目工作手册【以及电子邮件】</li>
+</ul>
+<h4 id="项目工作手册"><a href="#项目工作手册" class="headerlink" title="项目工作手册"></a>项目工作手册</h4><p>​        ——是对项目必须产生一系列文档进行的一种组织结构</p>
+<ul>
+<li>项目所有文档都是工作手册的一部分</li>
+<li>需要尽早仔细的设计工作手册结构</li>
+<li>项目成员应该只能看到自己需要的部分，没有人需要或者看到其他部分结构，只需要了解接口</li>
+<li>及时跟新十分重要</li>
+</ul>
+<h4 id="组织架构"><a href="#组织架构" class="headerlink" title="组织架构"></a>组织架构</h4><ul>
+<li><p>团队的目标是为了减少必要的交流和协作量</p>
+</li>
+<li><p>为了减少交流，组织结构包括了人力划分及限定职责范围</p>
+</li>
+<li><p>组织交流应该是网状的，而不是树状的</p>
+</li>
+<li><p>每个子产品应该具有两个领导角色——产品负责人，技术主管（结构师）</p>
+<p>​    —— 产品负责人和技术主管可以是同一个人</p>
+<p>​    —— 产品经理为总指挥，技术主管左右手</p>
+<p>​    —— 技术主管为总指挥，产品经理左右手</p>
+</li>
+</ul>
+<h4 id="未雨绸缪"><a href="#未雨绸缪" class="headerlink" title="未雨绸缪"></a>未雨绸缪</h4><ul>
+<li>软件工程师在着手发布产品之前，应该进行试验性系统的现场测试</li>
+<li>第一个开发的系统对于大多数项目可能并不太合用，太多问题，系统的丢弃和重新设计可以一步完成也可以一步步完成，但这是必须完成的步骤</li>
+<li>为舍弃而计划，这是无论如何要做的一个步</li>
+<li>用户的实际需要会随着程序的构件、测试和使用而变化</li>
+<li>由于软件产品易于掌握的特性和不可见性，导致构件人员面临着永恒的需求变更</li>
+<li>灵活的组织架构对于软件开发是一个长期有效的解决方案</li>
+<li>为变更组建团队比为变更进行设计更加困难</li>
+<li>每次修复之后应该重新编译一边系统，确保系统不会因为隐蔽的方式破坏</li>
+<li>所有修改都倾向于破坏系统的架构，增加了系统的混乱程度，以至于系统退化到必须重新设计</li>
+<li>一次分给某个小组连续的目标时间块被证明是最好的安排方法</li>
+</ul>
+<h4 id="项目相关知识点"><a href="#项目相关知识点" class="headerlink" title="项目相关知识点"></a>项目相关知识点</h4><ul>
+<li>仅仅通过对编码的部分时间估计，然后乘以其他部分相对系数，是无法得出整个工作精度估计的</li>
+<li>构件独立小型程序数据并不适应与编程系统项目</li>
+<li>程序开发随程序规模的增大而增长</li>
+<li>一些研究报告表明时间指数大约在1.5倍预计时间</li>
+<li>相对于其他活动，全职程序员50%时间在用于编程和调试</li>
+<li>对于广泛使用的产品，其维护总成本通常是开发成本的40%或更多</li>
+<li>用户越多，维护成本越多</li>
+<li>缺陷修复总会以20%～50%的几率引入新的bug</li>
+<li>大部分系统调试在夜间进行</li>
+<li>测试数据应该有一部分校验数据，一部分边界数据，一部分无效数据</li>
+</ul>
+<h3 id="项目的文档"><a href="#项目的文档" class="headerlink" title="项目的文档"></a>项目的文档</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">—— 应当包括：</span><br><span class="line"></span><br><span class="line">	 目的：功能是什么，开发原因是什么</span><br><span class="line">	 环境：运行在怎样的机器</span><br><span class="line">	 范围：有效输入范围，允许显示格式</span><br><span class="line">	 实现功能和使用算法：精确阐述它做什么</span><br><span class="line">	 输入——输出格式：必须确切完整</span><br><span class="line">	 操作指令：包括控制台输出正确及异常内容</span><br><span class="line">	 选项：用户功能有哪些，应该怎样进行挑选</span><br><span class="line">	 运行时间：特定运行时间</span><br><span class="line">	 精度和校验：期望精度和如何进行精度检测</span><br></pre></td></tr></table></figure>
+<ul>
+<li>软件开发关键文档应该包括：目标，用户手册，内部文档，进度，预算，组织机构图和工作空间分配</li>
+<li>项目经理应该在项目早期对项目一系列文档进行规范化</li>
+<li>对每个关键文档的维护提供状态监督及预警机制</li>
+<li>每个文档本身就可以作为检查列表或者数据库</li>
+<li>项目经理的主要日常工作是沟通，而不是作出决定；文档使个项目计划和决策在整个团队范围内得到交流</li>
+<li>即使是完全开发给自己的程序，描述性的文字也是必须的，因为会被遗忘</li>
+<li>文档能在整个生命周期客服克服懒惰和进度压力起促进和激励作用</li>
+<li>大多数文档缺少总结性的内容，必须放慢脚步，稳妥进行</li>
+<li>为了使文档易于维护，将他们合并到源程序至关重要，而不是独立文档进行保存</li>
+<li>程序修改人员所使用的文档之中，出了描述事情如何，还应该阐述为什么那样做，目的非常关键</li>
+</ul>
+<h3 id="项目的整体"><a href="#项目的整体" class="headerlink" title="项目的整体"></a>项目的整体</h3><h4 id="整体部分"><a href="#整体部分" class="headerlink" title="整体部分"></a>整体部分</h4><ul>
+<li><p>详尽体系结构工作不但使产品更加易用，而且使开发更容易进行，bug更不容易产生</p>
+</li>
+<li><p>许许多多失败源于产品未精确定义的地方</p>
+</li>
+<li><p>编写代码之前，规格说明必须提交外部测试小组，以详细的检查说明项目完整性和明确性，否则开发人员会自行摸索</p>
+</li>
+<li><p>自上而下的设计方式更容易细化，从四个方面减少bug</p>
+<p>—— 清晰结构</p>
+<p>—— 模块分割</p>
+<p>—— 细节的抑制</p>
+<p>—— 测试</p>
+</li>
+<li><p>大量的辅助性测试代码是有必要的</p>
+</li>
+<li><p>必须有人对变更和版本进行控制和文档化</p>
+</li>
+<li><p>系统测试期间，一次只增加一个构件</p>
+</li>
+<li><p>有时必须回退，推翻顶层设计</p>
+</li>
+</ul>
+<h4 id="祸起萧墙"><a href="#祸起萧墙" class="headerlink" title="祸起萧墙"></a>祸起萧墙</h4><ul>
+<li>一天天的进度落后比重大灾难更难以识别</li>
+<li>根据一个严格的进度表来控制大型项目，进度表由里程碑和日期组成</li>
+<li>里程碑必须是具体的特定的和可度量的事件进行清晰定义</li>
+<li>项目没两周进行仔细修订的活动时间估计，随着开始事件到临近结束不会有太大变化，否则过高或过低的估计在项目结束前三周左右才会有所变化</li>
+<li>如果错过了一个deadline 确保不会错过第二个deadline</li>
+<li>必须有评审机制，使得所有成员可以通过它了解真正的状态，出于这个目的，里程碑的进度和完成文档是关键</li>
+</ul>
+<h3 id="软件工程中根本及次要问题"><a href="#软件工程中根本及次要问题" class="headerlink" title="软件工程中根本及次要问题"></a>软件工程中根本及次要问题</h3><h5 id="根本困难："><a href="#根本困难：" class="headerlink" title="根本困难："></a>根本困难：</h5><p><em>软件开发中最困难的部分是规格说明、设计和测试这些概念上的结构，而不是对概念进行表达和实现逼真程度进行验证</em></p>
+<p>1、复杂度：由多方面形成，不仅仅是由于技术产生困难导致的管理问题，管理层面：全面理解问题变得困难-&gt;妨碍概念上的完整性-&gt;使所有离散出口难以寻找和控制-&gt;引起学习和理解上的负担</p>
+<p>2、一致性：由于兼容等问题，导致一致性降低</p>
+<p>3、可变性：由于平台变化，应用变化，用户等变化导致软件可变性</p>
+<p>4、不可见性：由于软件是不存在具有空间的形体特征，所以很难关联和理解依赖</p>
+<h5 id="解决的希望："><a href="#解决的希望：" class="headerlink" title="解决的希望："></a>解决的希望：</h5><p>1、OO编程：仅仅消除设计表达上的次要困难</p>
+<p>2、人工智能、专家系统：接收数据，对系统推论，诊断及构件，建议接口规则，制定测试策略，记录各种bug产生及优化（目前尚未出现？</p>
+<p>3、自动编程：通过较少的参数迅速描述特征，给定参数前提，制定清晰规则</p>
+<p>4、图形化编程：存在变量范围嵌套，交叉引用等多方面问题</p>
+<p>5、程序验证：进行技术规格测试</p>
+<p>6、环境和工具：统一接口和通用工具，只是消除语法错误</p>
+<p>7、工作站：强大的工作站并不能有魔术般的提高</p>
+<h5 id="概念上根本解决方案："><a href="#概念上根本解决方案：" class="headerlink" title="概念上根本解决方案："></a>概念上根本解决方案：</h5><p>1、购买及自行开发</p>
+<p>2、需求提炼和快速原型</p>
+<p>3、卓越的设计人员</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/img/wechat.png" alt="gdccwxx WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/img/alipay.jpeg" alt="gdccwxx Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/随笔/" rel="tag"># 随笔</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/[object Object]/2018-tencent-practice/" rel="next" title="腾讯三个月实习有感">
+                <i class="fa fa-chevron-left"></i> 腾讯三个月实习有感
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/[object Object]/《大型网站技术架》读书笔记/" rel="prev" title="《大型网站技术架》读书笔记">
+                《大型网站技术架》读书笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">gdccwxx</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gdccwxx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:765553928@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编程的乐趣"><span class="nav-number">2.</span> <span class="nav-text">编程的乐趣</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编程的烦恼"><span class="nav-number">3.</span> <span class="nav-text">编程的烦恼</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#人月神话"><span class="nav-number">4.</span> <span class="nav-text">人月神话</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#团队的组建"><span class="nav-number">5.</span> <span class="nav-text">团队的组建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#结构师的使命"><span class="nav-number">5.1.</span> <span class="nav-text">结构师的使命</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统的设计"><span class="nav-number">6.</span> <span class="nav-text">系统的设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目成功的要点"><span class="nav-number">7.</span> <span class="nav-text">项目成功的要点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#交流"><span class="nav-number">7.1.</span> <span class="nav-text">交流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#项目工作手册"><span class="nav-number">7.2.</span> <span class="nav-text">项目工作手册</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组织架构"><span class="nav-number">7.3.</span> <span class="nav-text">组织架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#未雨绸缪"><span class="nav-number">7.4.</span> <span class="nav-text">未雨绸缪</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#项目相关知识点"><span class="nav-number">7.5.</span> <span class="nav-text">项目相关知识点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目的文档"><span class="nav-number">8.</span> <span class="nav-text">项目的文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目的整体"><span class="nav-number">9.</span> <span class="nav-text">项目的整体</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#整体部分"><span class="nav-number">9.1.</span> <span class="nav-text">整体部分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#祸起萧墙"><span class="nav-number">9.2.</span> <span class="nav-text">祸起萧墙</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#软件工程中根本及次要问题"><span class="nav-number">10.</span> <span class="nav-text">软件工程中根本及次要问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#根本困难："><span class="nav-number">10.0.1.</span> <span class="nav-text">根本困难：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解决的希望："><span class="nav-number">10.0.2.</span> <span class="nav-text">解决的希望：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#概念上根本解决方案："><span class="nav-number">10.0.3.</span> <span class="nav-text">概念上根本解决方案：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">gdccwxx</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
