@@ -1,8 +1,8 @@
 ---
 title: Decorator 这么好用，赶紧用起来！
 date: 2021-09-05 20:22:01
-tags: Typescript
-dir: Typescript
+tags: typescript
+dir: typescript
 keywords: Typescript,Javascript,Decorator,装饰器
 ---
 ## 前言

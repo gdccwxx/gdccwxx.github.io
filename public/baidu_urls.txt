@@ -1,5 +1,5 @@
 https://blog.gdccwxx.com/随笔/2021-middle-summary/
-https://blog.gdccwxx.com/Typescript/best-practice-of-decorator/
+https://blog.gdccwxx.com/typescript/best-practice-of-decorator/
 https://blog.gdccwxx.com/需求开发/the-skills-of-develop/
 https://blog.gdccwxx.com/前端/font-end-optimize/
 https://blog.gdccwxx.com/HTTP/what-is-xss-csrf/
