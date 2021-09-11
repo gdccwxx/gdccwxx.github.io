@@ -2,6 +2,7 @@
 title: Decorator 这么好用，赶紧用起来！
 date: 2021-09-05 20:22:01
 tags: typescript
+dir: typescript
 ---
 ## 前言
 你是不是因入参和结果的日志而苦恼？是不是为运行时的数据检查而难受？是不是为鉴权函数而郁闷？使用 decorator 后，能让代码更优雅，编程更快捷。

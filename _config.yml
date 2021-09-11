@@ -6,6 +6,7 @@
 title: gdccwxx
 subtitle: ":)"
 description: 个人博客分享，热爱生活，热爱探索
+keyword: 前端开发者，喜欢折腾，喜欢搞事的gdccwxx
 author: gdccwxx
 language: zh-CN
 timezone: 
@@ -14,8 +15,9 @@ timezone:
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://blog.gdccwxx.com/
 root: /
-permalink: :year/:month/:day/:title/
+permalink: :dir/:title/
 permalink_defaults:
+  dir: post
 
 # Directory
 source_dir: source
@@ -72,7 +74,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: yilia-plus
+theme: next
 
 jsonContent:
   meta: false

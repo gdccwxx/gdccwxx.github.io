@@ -2,6 +2,7 @@
 title: 初识http
 date: 2017-08-01 16:05:59
 tags: HTTP
+dir: HTTP
 ---
 #### 初识http
 在刚刚开始学习前端ajax时，经常听说http协议，“不就是三次握手，四次挥手吗？”，一番言语过后。似懂非懂。近期由于开始学习nodejs，借此机会开始学习了一波http
