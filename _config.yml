@@ -108,4 +108,4 @@ deploy:
 - type: git
   repository: https://github.com/gdccwxx/gdccwxx.github.io.git
   branch: master
-- type: baidu_url_submitter
+# - type: baidu_url_submitter
