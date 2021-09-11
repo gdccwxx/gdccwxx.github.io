@@ -3,6 +3,7 @@ title: 啥是XSS和CSRF?
 date: 2019-04-18 18:18:49
 tags: HTTP
 dir: HTTP
+keywords: HTTP,XSS,CSRF
 ---
 
 本文通过介绍、原理、防御来讲解XSS以及CSRF。主要介绍及讲解攻击原理，及防御原理。

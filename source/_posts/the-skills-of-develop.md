@@ -3,6 +3,7 @@ title: 做需求搞明白这几点，和加班说再见
 date: 2021-08-23 13:39:15
 tags: 需求开发
 dir: 需求开发
+keywords: 需求开发，hint
 ---
 ![xmind](xmind.png)
 ## 写在前面

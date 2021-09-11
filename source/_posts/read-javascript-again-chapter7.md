@@ -3,6 +3,7 @@ title: JavaScript高级程序设计重读---7章
 date: 2017-07-13 16:01:13
 tags: JavaScript
 dir: JavaScript
+keywords: JavaScript高级程序设计
 ---
 ### 函数表达式
 函数表达式和函数声明中，有以下因为函数声明有函数声明提升器，因此大多数用函数声明，但是函数表达式也有其运用场景

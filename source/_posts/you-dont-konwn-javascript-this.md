@@ -3,6 +3,7 @@ title: 你不知道的javascript————this和对象原型
 date: 2017-09-06 20:29:15
 tags: JavaScript
 dir: JavaScript
+keywords: 你不知道的javascript————this和对象原型
 ---
 ### this误解
 从字面意思来看,this貌似是指向自身的.因此出现各种各样的误解.

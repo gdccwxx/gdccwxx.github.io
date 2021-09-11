@@ -3,6 +3,7 @@ title: JavaScript高级程序设计重读---6章
 date: 2017-07-13 15:43:38
 tags: JavaScript
 dir: JavaScript
+keywords: JavaScript高级程序设计
 ---
 ### 面向对象的程序设计
 #### 属性类型
