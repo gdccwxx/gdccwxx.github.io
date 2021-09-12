@@ -261,6 +261,126 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.gdccwxx.com/nestJs/nest-js-tutorial-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="gdccwxx">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="gdccwxx">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/nestJs/nest-js-tutorial-2/" itemprop="url">NestJs 入门教程之二：处理请求</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-09-12T10:06:06+08:00">
+                2021-09-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a href="/nestJs/nest-js-tutorial-1/" title="上一篇">上一篇</a>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.gdccwxx.com/nestJs/nest-js-tutorial-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -353,14 +473,10 @@
 <li>Typescript：基本懂语法，能大致知道装饰器和 interface</li>
 </ul>
 <p>最好之前用过 Node 相关服务，使用 Node 搭建过后台服务，但这不是必要的。</p>
-<h1 id="四、开发准备"><a href="#四、开发准备" class="headerlink" title="四、开发准备"></a>四、开发准备</h1><ol>
-<li><p>安装 Node 环境：访问 <a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">Node 下载地址</a><br>下载安装后，Node &gt;= 10.13.0 即可, 可通过命令行检查</p>
+<h1 id="四、开发准备"><a href="#四、开发准备" class="headerlink" title="四、开发准备"></a>四、开发准备</h1><p>1、安装 Node 环境：访问 <a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">Node 下载地址</a>. 下载安装后，Node &gt;= 10.13.0 即可, 可通过命令行检查</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>安装 NestJS cli</p>
+<p>2、安装 NestJS cli</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -g @nestjs/cli</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
 <h1 id="五、Hello-World"><a href="#五、Hello-World" class="headerlink" title="五、Hello World"></a>五、Hello World</h1><h2 id="创建-nest-test-项目"><a href="#创建-nest-test-项目" class="headerlink" title="创建 nest-test 项目"></a>创建 nest-test 项目</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// step1</span><br><span class="line">nest new nest-test</span><br><span class="line"></span><br><span class="line">// step2 Which package manager would you</span><br><span class="line">选择: npm</span><br></pre></td></tr></table></figure>
 <h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><p>这样就得到了 src/ 目录为这样的文件列表了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">src</span><br><span class="line">  |- app.controller.spec.ts // controller 的测试文件</span><br><span class="line">  |- app.controller.ts      // controller，路由和预处理</span><br><span class="line">  |- app.module.ts          // module，为模块注册用</span><br><span class="line">  |- app.service.ts         // service 真正的逻辑</span><br><span class="line">  |- main.ts                // 程序入口</span><br></pre></td></tr></table></figure></p>
 <p>NestJS 也主张的是 <a href="https://zh.wikipedia.org/wiki/MVC" target="_blank" rel="noopener">MVC</a> 的格式。</p>
@@ -382,7 +498,7 @@
 <p>最后浏览器访问url<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:3000/students/who-are-you</span><br></pre></td></tr></table></figure></p>
 <p>✅ Im student</p>
 <p>这样模块添加完成了</p>
-<p>如果你看到了这里，说明你真的对 NestJS 很感兴趣。下章将会对接口再深入细化。</p>
+<p>如果你看到了这里，说明你真的对 NestJS 很感兴趣。<a href="/nestJs/nest-js-tutorial-2/" title="下章">下章</a>将会对接口再深入细化。</p>
 
           
         
@@ -2156,166 +2272,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.gdccwxx.com/随笔/2018-tencent-practice/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="gdccwxx">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="gdccwxx">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/随笔/2018-tencent-practice/" itemprop="url">腾讯三个月实习有感</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-06T10:56:12+08:00">
-                2018-09-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>时间过得真快，8月31号离职，转眼一星期过去了…</p>
-<p>心情也沉淀了一些，将自己的一些感受记录下来吧～</p>
-<p>于今年三月底勉强的拿到了腾讯的船票，上了这条大船，有幸认识腾讯，接触腾讯和喜欢腾讯。</p>
-<p>于今年五月十九日加入腾讯，开始窥斑见豹之旅。</p>
-<h3 id="初见腾讯"><a href="#初见腾讯" class="headerlink" title="初见腾讯"></a>初见腾讯</h3><p>和大多数实习生一样，一同去滨海大厦办理入职。</p>
-<p>下了公车，在不知所措中猛然发现，原来附近高楼大厦中有一个格外显眼的大楼，便是腾讯滨海大厦了。</p>
-<p>一切都似乎在计划中执行，从签合同到办理证件，从结交朋友到一同入住酒店。似乎是一套标准流程，让人感觉安全和亲切。</p>
-<p>见过滨海后，公司又安排了内部培训。大家讨论方案，脑暴产品，学习借鉴，最终2周后也交上了一份满意的答卷，获得了金奖的好成绩～</p>
-<p>当然，要问我映像最深刻的是什么，要我说，一定是结交朋友了。</p>
-<p>初见腾讯，因为学校原因，自己比较自卑。因为身旁好学校的大把，而自己只是一个末流211。可是大家似乎也不问出身，都很和蔼可亲，让人舒服和信赖，在这里也结交了许多朋友，让我打开新世界的大门。</p>
-<h3 id="在腾讯生活"><a href="#在腾讯生活" class="headerlink" title="在腾讯生活"></a>在腾讯生活</h3><h5 id="在腾讯生活是孤独的"><a href="#在腾讯生活是孤独的" class="headerlink" title="在腾讯生活是孤独的"></a>在腾讯生活是孤独的</h5><p>似乎大家每天都在忙，未曾见过闲人；如果有，便是自己吧。大家似乎都在面对着电脑工作，自己偶尔有休息的时候，只能闲下来玩玩手机，或是逛逛内部贴吧，以迎接下一个需求。</p>
-<h5 id="在腾讯生活是自在的"><a href="#在腾讯生活是自在的" class="headerlink" title="在腾讯生活是自在的"></a>在腾讯生活是自在的</h5><p>在这里没有上班打卡的束缚，不需要早上8，9点必须到，若是自己有需要处理的事情，只需要和leader知会一声即可；没有上班工作服装的要求，可以穿着拖鞋，穿着背心（只要不怕空调冷）头发蓬蓬的来上班都行。</p>
-<p>每天8点半起床，洗漱后去公司吃早餐；下雨天穿拖鞋，即使鞋子湿了，也可以烘干；有时间就去健身，只需要下一层楼即是健身房的我，体重在3个月不变的情况下，体脂从16%到了10%。</p>
-<h3 id="在腾讯学习"><a href="#在腾讯学习" class="headerlink" title="在腾讯学习"></a>在腾讯学习</h3><p>虽然是web前端实习生，但是学习和开拓了不少眼界！</p>
-<h5 id="在腾讯学习机制下"><a href="#在腾讯学习机制下" class="headerlink" title="在腾讯学习机制下"></a>在腾讯学习机制下</h5><p>腾讯有很棒的内部资源，无论是腾讯学院，还是腾讯大学，还是面授课。都有很棒的学习资源。</p>
-<p>而我几乎每天都会花一部分时间听一听这些课程，不为学习精通，是想了解一下这个世界，这些大牛学习了哪些课程，研究了什么方向，到达了什么程度。顺便提升自己，编写代码过程中有哪些需要注意的；有哪些比较好提升效率的工具；学习方向或是整个大方向的运作。在为期3个月的积累上，确实对行业有了新的认知！</p>
-<h5 id="在周围同学中学习"><a href="#在周围同学中学习" class="headerlink" title="在周围同学中学习"></a>在周围同学中学习</h5><p>在这里最感谢四个人了。</p>
-<ul>
-<li><p>导师: 我是一个不爱表达的人，而她很会发现人的情绪波动，和导师畅聊一番后，度过了一段艰苦的日子；在专业方面，学到如何把一个点考虑的完整，如何把一段代码写的更好，还有对项目更深层次的认识；在生活方面，不论是一些小零食，周末加班福利，还是工作烦心后请客吃饭，都让初到公司的我感到许许多多温暖。</p>
-</li>
-<li><p>leader: 非常自豪地说，我有一个非常棒的leader！不论是专业知识，还是整个团队的氛围，都是非常棒！从每天开会的全局把控，到每个小点的细致分工；从团队的迭代速度，到团队技术提升；从团队文化建设，到每个人心态变化…做的非常棒，也在leader身上学到了很多处事原则。学到了心态，责任大于能力！</p>
-</li>
-<li><p>Roger: 如果说在导师身上学到的代码和诚以待人，leader身上学到职业素养和责任义务，那么在Roger身上学到的是为人处事的能力了，这似乎是一个非常虚的词，但是对我帮助却很大。初上职场难免会有一些不适应，不像学校里做的好不好无所谓；而是工作上精益求精，要让别人信赖你，敢放心把事情交给你做。对我处事有了非常大的帮助！</p>
-</li>
-<li><p>聪哥: 前三年的健身经验似乎都被这个暑假打败了，缺少健身教练瞎练，虽然有一些成就，但是发力不对导致身材变形，动作不标准导致事倍功半。而这一个暑假无疑是打破之前所有不标准的开始。也让我从饮食结构上改变，从最初的体脂率16%到现在的10%，而体重几乎没有变化！十分感谢聪哥的帮助！</p>
-</li>
-</ul>
-<h3 id="思考的转变"><a href="#思考的转变" class="headerlink" title="思考的转变"></a>思考的转变</h3><h5 id="对职业的思考"><a href="#对职业的思考" class="headerlink" title="对职业的思考"></a>对职业的思考</h5><p>程序员的代码能力，到了一定的程度似乎都大同小异，最终决定高度的，一定是代码能力相关的其他能力高度及职业素养的高度。</p>
-<ul>
-<li><p>程序员职业素养:   发生问题及时解决，对问题本身去深入探究，面对新东西不畏惧，对所在领域的持续学习……</p>
-</li>
-<li><p>要么不做，要么做好的态度：出自自己手的东西一定要做好，一开始上手时难免踩了不少坑，走了不少弯路，写了不少bug，既然选择要把需求做完，那一定要做好，这一版本下一版本都需要去考虑，虽然当前版本不上该功能，一定要留有接口</p>
-</li>
-<li><p>其他能力: 比如对编译器的理解，对内核的理解，对cpu的理解……</p>
-<p>   <em>这可能是许许多多的知识组合而成。例如：发生任何问题及代码如何调优，知道如何去优化和找到最佳方案；整个项目的架构及编码，知道这个项目使用什么方式去做是最佳选择；对外时完善内部接口，对内时贴好文档.</em></p>
-</li>
-</ul>
-<h5 id="对项目的思考"><a href="#对项目的思考" class="headerlink" title="对项目的思考"></a>对项目的思考</h5><p>实习后对项目的完整度，细致程度，后期维护程度还有功能完整性又了新的思考。</p>
-<p>一个成熟的商业项目一定是经过不断打磨，不断精致的，这段过程一定很幸苦。但是看到自己的产品时，会有自信感。对于以往的做完项目就完事的态度，是完全两回事。后期维护也尤为重要，这也表示写的代码可维护性要高，对于编写程序及软件工程含义又更深入了。</p>
-<h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>非常感谢有这个机会能够在腾讯和大家一起学习一起进步！在这个团体里学到了许多专业技能及专业技能之外的职业技能。也了解了成熟商业模式下大型互联网公司内部的运作方式。虽然只有三个月的实习时间，但是学习和成长是非常多的。抱着去当一颗零时螺丝钉的心态，也一不小心拿到了正式的offer～</p>
-<p>虽然每天加班很辛苦，但很开心～</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2366,7 +2322,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

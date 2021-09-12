@@ -49,13 +49,14 @@ NestJS 最大的优势，是他基于 TypeScript。
 
 # 四、开发准备
 
-1. 安装 Node 环境：访问 [Node 下载地址](https://nodejs.org/en/download/)
-下载安装后，Node >= 10.13.0 即可, 可通过命令行检查
+1、安装 Node 环境：访问 [Node 下载地址](https://nodejs.org/en/download/). 下载安装后，Node >= 10.13.0 即可, 可通过命令行检查
+
 ```bash
 node -v 
 ```
 
-2. 安装 NestJS cli
+2、安装 NestJS cli
+
 ```bash
 npm i -g @nestjs/cli
 ```
@@ -184,4 +185,4 @@ http://localhost:3000/students/who-are-you
 
 这样模块添加完成了
 
-如果你看到了这里，说明你真的对 NestJS 很感兴趣。下章将会对接口再深入细化。
+如果你看到了这里，说明你真的对 NestJS 很感兴趣。{% post_link nest-js-tutorial-2 下章 %}将会对接口再深入细化。
