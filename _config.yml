@@ -97,7 +97,7 @@ jsonContent:
 
 
 baidu_url_submit:
-  count: 10 ## 提交最新的x个链接
+  count: 1000 ## 提交最新的x个链接
   host: blog.gdccwxx.com ## 在百度搜索资源平台验证的站点
   token: yUjeI1LHmyCVMYla ## 在搜索资源平台申请的推送用的准入密钥
   path: baidu_urls.txt ## 文本文档的地址，新链接会保存在此文本文档里
