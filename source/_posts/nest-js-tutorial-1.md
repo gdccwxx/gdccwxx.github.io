@@ -111,10 +111,8 @@ npm run start
 最后浏览器访问url
 ```
 访问: http://localhost:3000/
+// => Hello World!  ✅ 
 ```
-
-✅ Hello World!
-
 说明程序已经成功访问了！
 
 # 六、生成新模块
@@ -146,9 +144,8 @@ src
 
 ## 编辑文件
 编辑如下文件:
-
-students.service.ts
 ```typescript
+// students.service.ts
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -159,8 +156,8 @@ export class StudentsService {
 }
 ```
 
-students.controller.ts
 ```typescript
+// students.controller.ts
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -171,18 +168,19 @@ export class StudentsService {
 }
 ```
 
-重启服务
+重启服务, 加上 dev 就能监听文件修改了。
 ```
-npm run start
+npm run start:dev
 ```
 
 最后浏览器访问url
 ```
 http://localhost:3000/students/who-are-you
+// => Im student  ✅ 
 ```
-
-✅ Im student
 
 这样模块添加完成了
 
 如果你看到了这里，说明你真的对 NestJS 很感兴趣。{% post_link nest-js-tutorial-2 下章 %}将会对接口再深入细化。
+
+完整示例可以在 [github](https://github.com/gdccwxx/nest-test) 找到
