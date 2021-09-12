@@ -88,7 +88,7 @@
 <meta property="og:description" content="这个系列的上一篇文章，实现了 Post 接口和对接口的基础操作。 本篇主要讲的是和数据库连接，使用数据库联表查询和操作记录。使用数据库将数据记录，就是一个完整的后台服务了。 完整示例可以在 github 找到。  本篇使用 mysql 作为数据库连接。使用 NestJs 内置的数据库连接 typeorm，可在 这里 查阅 typeorm 详细文档 一、开发准备 下载并安装 Mysql 创建 sch">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://blog.gdccwxx.com/nestJs/nest-js-tutorial-3/nestjs.png">
-<meta property="og:updated_time" content="2021-09-12T16:02:07.706Z">
+<meta property="og:updated_time" content="2021-09-12T16:03:00.663Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NestJs 入门教程之三：数据库">
 <meta name="twitter:description" content="这个系列的上一篇文章，实现了 Post 接口和对接口的基础操作。 本篇主要讲的是和数据库连接，使用数据库联表查询和操作记录。使用数据库将数据记录，就是一个完整的后台服务了。 完整示例可以在 github 找到。  本篇使用 mysql 作为数据库连接。使用 NestJs 内置的数据库连接 typeorm，可在 这里 查阅 typeorm 详细文档 一、开发准备 下载并安装 Mysql 创建 sch">
@@ -380,6 +380,7 @@
 <p>通过对 <code>service</code> 的调用, 再经调用调用产生如下结果</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 命令行访问</span><br><span class="line">curl -X POST http://127.0.0.1:3000/students/<span class="built_in">set</span>-student-name -H <span class="string">'Content-Type: application/json'</span> -d <span class="string">'&#123;"user": "gdccwxx"&#125;'</span></span><br><span class="line">// =&gt; &#123;<span class="string">"name"</span>:<span class="string">"gdccwxx"</span>,<span class="string">"id"</span>:1,<span class="string">"updateDate"</span>:<span class="string">"2021-09-12T15:57:14.599Z"</span>,<span class="string">"createDate"</span>:<span class="string">"2021-09-12T15:57:14.599Z"</span>&#125;%  ✅</span><br><span class="line"></span><br><span class="line">// 浏览器访问</span><br><span class="line">http://localhost:3000/students/get-name-by-id?id=1</span><br><span class="line"></span><br><span class="line">// =&gt; [&#123;</span><br><span class="line">//  id: 1,</span><br><span class="line">//  name: <span class="string">"gdccwxx"</span>,</span><br><span class="line">//  updateDate: <span class="string">"2021-09-12T15:57:14.599Z"</span>,</span><br><span class="line">//  createDate: <span class="string">"2021-09-12T15:57:14.599Z"</span></span><br><span class="line">// &#125;]  ✅</span><br></pre></td></tr></table></figure>
 <p>通过对 <code>service</code> 的 save、find 调用，就能将数据完整存入数据库了。</p>
+<p>// TODO: many-to-one  transaction<br>// TODO: sensitive save</p>
 
       
     </div>
