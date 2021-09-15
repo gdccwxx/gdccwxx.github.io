@@ -2,23 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.gdccwxx.com/nestJs/nest-js-tutorial-3/</loc>
+    <loc>https://blog.gdccwxx.com/nestJs/nest-js-tutorial-4/</loc>
     
-    <lastmod>2021-09-15T01:31:42.845Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.gdccwxx.com/nestJs/nest-js-tutorial-2/</loc>
-    
-    <lastmod>2021-09-15T01:27:32.349Z</lastmod>
+    <lastmod>2021-09-15T16:28:43.371Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.gdccwxx.com/nestJs/nest-js-tutorial-1/</loc>
     
-    <lastmod>2021-09-12T03:55:06.701Z</lastmod>
+    <lastmod>2021-09-15T16:28:22.100Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.gdccwxx.com/nestJs/nest-js-tutorial-2/</loc>
+    
+    <lastmod>2021-09-15T16:27:50.336Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.gdccwxx.com/nestJs/nest-js-tutorial-3/</loc>
+    
+    <lastmod>2021-09-15T16:26:33.385Z</lastmod>
     
   </url>
   

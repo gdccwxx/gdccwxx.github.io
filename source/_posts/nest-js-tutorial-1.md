@@ -108,10 +108,13 @@ npm install
 // step3: 运行程序
 npm run start
 ```
+
 最后浏览器访问url
+
 ```
+// ✅
 访问: http://localhost:3000/
-// => Hello World!  ✅ 
+// => Hello World!  
 ```
 说明程序已经成功访问了！
 
@@ -169,14 +172,16 @@ export class StudentsService {
 ```
 
 重启服务, 加上 dev 就能监听文件修改了。
-```
+```bash
 npm run start:dev
 ```
 
 最后浏览器访问url
-```
+
+```bash
+// ✅
 http://localhost:3000/students/who-are-you
-// => Im student  ✅ 
+// => Im student  
 ```
 
 这样模块添加完成了

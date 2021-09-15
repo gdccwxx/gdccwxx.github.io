@@ -8,13 +8,14 @@ tags:
 dir: nestJs
 keywords: NestJs 教程
 ---
+![nestjs](./nestjs.png)
+
 这个系列的{% post_link nest-js-tutorial-1 上一篇 %}文章，教大家写了 hello world 和 新建 students 模块。
 
 但是，那只是很干的 Get 请求。接着往下讲，如何给接口做参数检查、添加日志和使用 Post 方法。
 
 完整示例可以在 [github](https://github.com/gdccwxx/nest-test) 找到。
 
-![nestjs](./nestjs.png)
 
 # 一、Post 请求
 经过上篇的介绍，总体请求先会经过 students.controller.ts -> 再到 students.service.ts。
@@ -40,8 +41,9 @@ export class StudentsController {
 
 通过 curl 访问地址
 ```bash
+// ✅
 curl -X POST  http://127.0.0.1:3000/students/who-are-you
-// => Im student% ✅
+// => Im student%
 ```
 
 通过替换装饰器，就可以快速实现 `Post` 请求。
@@ -88,8 +90,9 @@ export class StudentsService {
 
 通过浏览器访问 url
 ```url
+// ✅
 http://localhost:3000/students/who-are-you?name=gdccwxx
-// => Im student gdccwxx  ✅ 
+// => Im student gdccwxx
 ```
 这样 Get 请求就能获取到 name 参数了
 
@@ -126,8 +129,9 @@ export class StudentsController {
 
 命令行访问
 ```
+// ✅
 curl -X POST -d"name=gdccwxx"  http://127.0.0.1:3000/students/who-are-you
-// => Im student gdccwxx%  ✅ 
+// => Im student gdccwxx%
 ```
 post 方法传递的参数是通过请求 body 给到后台的。需要通过 `@Body` 装饰器解析 Body 中的数据。
 
@@ -186,15 +190,17 @@ export class StudentsController {
 
 浏览器使用参数访问
 ```
+// ❌
 http://localhost:3000/students/get-name-by-id?id=gdccwxx
 // => {
 //     statusCode: 400,
 //     message: "Validation failed (numeric string is expected)",
 //     error: "Bad Request"
-// }  ❌
+// } 
 
+// ✅
 http://localhost:3000/students/get-name-by-id?id=1
-// => gdccwxx  ✅ 
+// => gdccwxx  
 ```
 
 当使用非法请求，导致无法转换时，NestJs 会将请求报错处理，而正确参数则会转换后调用调用相应函数。通过简单的装饰器引用， NestJs 框架就可以自动做了参数检查与转换了
@@ -237,14 +243,17 @@ export class StudentDto {
 
 通过命令行访问
 ```
+// ❌
 curl -X POST  http://127.0.0.1:3000/students/who-are-you
-// => {"statusCode":400,"message":["name must be a string","name should not be empty"],"error":"Bad Request"}% ❌
+// => {"statusCode":400,"message":["name must be a string","name should not be empty"],"error":"Bad Request"}%
 
+// ❌
 curl -X POST http://127.0.0.1:3000/students/who-are-you -H 'Content-Type: application/json' -d '{"name": 1}'
-// => {"statusCode":400,"message":["name must be a string"],"error":"Bad Request"}% ❌
+// => {"statusCode":400,"message":["name must be a string"],"error":"Bad Request"}% 
 
+// ✅
 curl -X POST http://127.0.0.1:3000/students/who-are-you -H 'Content-Type: application/json' -d '{"name": "gdccwxx"}'
-// => Im student gdccwxx% ✅
+// => Im student gdccwxx% 
 ```
 
 到此，参数校验部分也就完成。
@@ -290,8 +299,9 @@ export class StudentsController {
 
 命令行访问
 ```bash
+// ✅
 curl -X POST http://127.0.0.1:3000/students/who-is-request -H 'Content-Type: application/json' -d '{"user": "gdccwxx"}'
-// => gdccwxx% ✅
+// => gdccwxx% 
 ```
 
 通过自定义装饰器，并将其挂在函数上，代码就能优雅的获取是谁请求的借口。

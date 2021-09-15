@@ -8,13 +8,14 @@ tags:
 dir: nestJs
 keywords: NestJs 教程
 ---
+![nestjs](./nestjs.png)
+
 这个系列的{% post_link nest-js-tutorial-2 上一篇 %}文章，实现了 `Post` 接口和对接口的基础操作。
 
 本篇主要讲的是和数据库连接，使用数据库联表查询和操作记录。使用数据库将数据记录，就是一个完整的后台服务了。
 
 完整示例可以在 [github](https://github.com/gdccwxx/nest-test) 找到。
 
-![nestjs](./nestjs.png)
 
 本篇使用 `mysql` 作为数据库连接。使用 `NestJs` 内置的[数据库连接](https://docs.nestjs.com/techniques/database) `typeorm`，可在 [这里](https://typeorm.io/) 查阅 typeorm 详细文档
 
@@ -206,11 +207,11 @@ export class StudentsController {
 通过对 `service` 的调用, 再经 `controller` 调用产生如下结果
 
 ```bash
-// 命令行访问
+// ✅ 命令行访问
 curl -X POST http://127.0.0.1:3000/students/set-student-name -H 'Content-Type: application/json' -d '{"user": "gdccwxx"}'
-// => {"name":"gdccwxx","id":1,"updateDate":"2021-09-12T15:57:14.599Z","createDate":"2021-09-12T15:57:14.599Z"}%  ✅
+// => {"name":"gdccwxx","id":1,"updateDate":"2021-09-12T15:57:14.599Z","createDate":"2021-09-12T15:57:14.599Z"}%
 
-// 浏览器访问
+// ✅ 浏览器访问
 http://localhost:3000/students/get-name-by-id?id=1
 
 // => [{
@@ -218,7 +219,7 @@ http://localhost:3000/students/get-name-by-id?id=1
 //  name: "gdccwxx",
 //  updateDate: "2021-09-12T15:57:14.599Z",
 //  createDate: "2021-09-12T15:57:14.599Z"
-// }]  ✅
+// }]
 ```
 
 通过对 `service` 的 save、find 调用，就能将数据完整存入数据库了。
@@ -396,7 +397,7 @@ curl -X POST http://127.0.0.1:3000/students/set-student-name -H 'Content-Type: a
 // 插入 classes 数据
 curl -X POST http://127.0.0.1:3000/students/set-class -H 'Content-Type: application/json' -d '{"className": "blog", "students": [1,2]}'
 
-// 通过浏览器，查询长啥样
+// ✅ 通过浏览器，查询长啥样
 http://localhost:3000/students/get-class?id=1
 // => [{
 //  id: 1,
@@ -414,7 +415,7 @@ http://localhost:3000/students/get-class?id=1
         updateDate: "2021-09-15T01:05:38.000Z",
         createDate: "2021-09-15T01:05:28.084Z"
     }]
-}]   ✅
+}]
 ```
 
 
