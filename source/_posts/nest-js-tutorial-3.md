@@ -301,10 +301,10 @@ show create table classes;
 // ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 ```
 
-再引入表，详细操作看第四步。
+再引入表，详细操作可看第四步。
 
 
-- `students.module.ts` 引入表
+`students.module.ts` 引入表
 ```ts
 // students.module.ts
 import { Classes } from './entities/classes.entity';
@@ -318,7 +318,10 @@ import { Classes } from './entities/classes.entity';
 export class StudentsModule {}
 
 ```
-- `students.service.ts` 引入表, 并实现 `setClass`, `getClass` 方法
+
+
+`students.service.ts` 引入表, 并实现 `setClass`, `getClass` 方法
+
 ```ts
 import { Classes } from './entities/classes.entity';
 
@@ -349,7 +352,7 @@ export class StudentsService {
 }
 ```
 
-- `students.controller.ts` 修改
+`students.controller.ts` 修改
 ```typescript
 // students.controller.ts
 // import ...
@@ -381,7 +384,10 @@ export class ClassesDto {
     students: number[]
 }
 ```
-- 调用数据库，先插入数据再查询数据。
+
+
+`调用接口`，先插入数据再查询数据。
+
 ```bash
 // 再新增一条数据
 curl -X POST http://127.0.0.1:3000/students/set-student-name -H 'Content-Type: application/json' -d '{"user": "gdccwxx1"}'
