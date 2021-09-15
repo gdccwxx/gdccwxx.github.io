@@ -420,4 +420,6 @@ http://localhost:3000/students/get-class?id=1
 
 至此，我们使用 `typeorm` 和 `mysql` 连接数据库就完成了。
 
+完整示例可以在 [github](https://github.com/gdccwxx/nest-test) 找到。
+
 下章我们将主要讲 `NestJs` 的高级用法，包括 `管道`、`守卫`和`拦截器`。期待你的阅读。
