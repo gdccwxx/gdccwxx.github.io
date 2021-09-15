@@ -19,12 +19,11 @@ keywords: NestJs 教程
 
 完整示例可以在 [github](https://github.com/gdccwxx/nest-test) 找到。
 
+<!-- ![guard](./guard.png) -->
 
-# 使用守卫实现数据拦截
+# 守卫 Guards
 
-![guard](./guard.png)
-
-在 `请求到达业务逻辑前` 会经过 guard，这样在接口前可以做同意处理。
+在 `请求到达业务逻辑前` 会经过 guard，这样在接口前可以做统一处理。
 
 例如：检查登陆态、检查权限 ...
 
