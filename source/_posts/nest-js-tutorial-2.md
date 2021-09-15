@@ -353,4 +353,4 @@ curl -X POST http://127.0.0.1:3000/students/who-are-you -H 'Content-Type: applic
 
 完整示例可以在 [github](https://github.com/gdccwxx/nest-test) 找到。
 
-处理请求的基本方法就讲到这里，下一篇会讲解如何连接数据库并使用
+处理请求的基本方法就讲到这里，{% post_link nest-js-tutorial-3 下一篇 %}会讲解如何连接数据库并使用
