@@ -352,6 +352,21 @@ export class StudentsService {
 }
 ```
 
+新增 `ClassesDto`
+```ts
+// classes.dto.ts
+import { IsNotEmpty, IsString } from 'class-validator';
+
+export class ClassesDto {
+    @IsNotEmpty()
+    @IsString()
+    className: string;
+
+    students: number[]
+}
+```
+
+
 `students.controller.ts` 修改
 ```typescript
 // students.controller.ts
@@ -371,20 +386,6 @@ export class StudentsController {
 }
 
 ```
-- `ClassesDto`
-```ts
-// classes.dto.ts
-import { IsNotEmpty, IsString } from 'class-validator';
-
-export class ClassesDto {
-    @IsNotEmpty()
-    @IsString()
-    className: string;
-
-    students: number[]
-}
-```
-
 
 `调用接口`，先插入数据再查询数据。
 
