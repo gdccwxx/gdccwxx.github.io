@@ -12,17 +12,15 @@ keywords: NestJs 教程
 
 {% post_link nest-js-tutorial-3 上篇 %}文章，实现了 `数据库` 基础操作 和联表查询。
 
-本篇主要内容
-- 使用 `guard` 和 `decorator` 实现数据校验核查
-- 通过 `interceptor` 和 `decorator` 实现敏感操作录入
-- 自定义 `pipes` 实现数据转化
+本篇主要实现字段检查，敏感操作录入和 实现数据转化
+
+<!-- 本篇主要内容：guards 实现数据校验核查、interceptors 实现敏感操作录入、pipes 实现数据转化 -->
 
 完整示例可以在 [github](https://github.com/gdccwxx/nest-test) 找到。
 
-<!-- ![guard](./guard.png) -->
 
 # 守卫 Guards
-
+![guards](./guards.png)
 在 `请求到达业务逻辑前` 会经过 guard，这样在接口前可以做统一处理。
 
 例如：检查登陆态、检查权限 ...
@@ -36,6 +34,7 @@ keywords: NestJs 教程
 ## 新建守卫
 
 新建 `user.guard.ts` 文件
+
 ```ts
 // src/common/user.guard.ts
 import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
@@ -206,3 +205,5 @@ curl -X POST http://127.0.0.1:3000/students/who-are-you -H 'Content-Type: applic
 
 // TODO: interceptor
 // TODO: pipes
+
+# interceptor
