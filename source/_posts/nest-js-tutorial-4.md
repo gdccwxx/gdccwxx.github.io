@@ -12,12 +12,12 @@ keywords: NestJs 教程
 
 {% post_link nest-js-tutorial-3 上篇 %}文章，实现了 `数据库` 基础操作 和联表查询。
 
-本篇主要实现字段检查，敏感操作录入和 实现数据转化
-
-<!-- 本篇主要内容：guards 实现数据校验核查、interceptors 实现敏感操作录入、pipes 实现数据转化 -->
-
+本篇概要：
+- 使用 `guards` 和 `decorators` 实现数据校验核查
+- 通过 `interceptors` 和 `decorators` 实现敏感操作录入
+- 自定义 `pipes` 实现数据转化
+<!-- 这里不能删除，不然展示不完整 -->
 完整示例可以在 [github](https://github.com/gdccwxx/nest-test) 找到。
-
 
 # 守卫 Guards
 ![guards](./guards.png)
@@ -36,7 +36,7 @@ keywords: NestJs 教程
 新建 `user.guard.ts` 文件
 
 ```ts
-// src/common/user.guard.ts
+// src/common/guards/user.guard.ts
 import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
 import { Observable } from 'rxjs';
 
@@ -64,7 +64,7 @@ export class UserGuard implements CanActivate {
 在 `student.controller.ts` 中使用
 ```ts
 import {  UseGuards  /** ... **/} from '@nestjs/common';
-import { UserGuard } from '../common/guard/user.guard';
+import { UserGuard } from '../common/guards/user.guard';
 // ...
 
 @Controller('students')
@@ -97,7 +97,7 @@ curl -X POST http://127.0.0.1:3000/students/who-are-you -H 'Content-Type: applic
 全局使用仅需在 `app.module.ts` 的 `providers` 中引入。这样就对全局生效了
 ```ts
 import { APP_GUARD } from '@nestjs/core';
-import { UserGuard } from './common/guard/user.guard';
+import { UserGuard } from './common/guards/user.guard';
 // ...
 
 @Module({
@@ -196,14 +196,362 @@ export class StudentsController {
 
 ```
 
-这样再调用时
+再调用时，就不会再校验了。
+
 ```bash
 // ✅
 curl -X POST http://127.0.0.1:3000/students/who-are-you -H 'Content-Type: application/json' -d '{"name": "gdccwxx"}'
 // => Im student gdccwxx%
 ```
 
-// TODO: interceptor
-// TODO: pipes
+这样就实现了全局守卫，但是部分接口不需要守卫的情况。
 
-# interceptor
+特别适用于登录态的校验，只有登陆接口不需要登录态，其他接口都需要登陆态或鉴权。
+
+# 拦截器 Interceptors
+![interceptors](./interceptors.png)
+
+拦截器工作在 `请求前` 和 `响应后`。它的原理和 `decorator` 类似，不同的是能做全局级别。
+
+它的应用场景也非常广，例如：接口请求参数和请求结果的数据保存、设计模式中的 adapter 模式 等...
+
+我们来用它实现敏感信息的数据保存。
+
+它的原理和 `guards` 类似, 通过 `decorator` 加载到内存，知道哪些接口需要敏感操作记录，然后在调用接口时将 入参和结果存入。
+
+涉及到数据库操作，因此需要新增模块和数据库连接。
+
+## 新建敏感权限模块
+新建敏感权限模块，包括 controller、module 和 service
+```bash
+nest g controller sensitive
+nest g module sensitive
+nest g service sensitive
+```
+
+## 创建 entity 文件
+新建 `sensitive.entity.ts` 。
+
+这里会用到 `transformer`, 原因是 `mysql` 底层并没有 `Object` 类型。需要通过 JS 把它存成 `string` 格式，在读取时用 `object` 格式。这样代码就不需要感知是啥类型了。
+
+```ts
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
+import { SensitiveType } from '../constants';
+
+// to 写入数据库
+// from 从数据库读取
+const dataTransform = {
+    to: (value: any) => JSON.stringify(value || {}),
+    from: (value: any) => JSON.parse(value)
+}
+
+@Entity()
+export class Sensitive {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ type: 'enum', enum: SensitiveType })
+  type: string;
+
+  @Column({ type: 'varchar' })
+  pathname: string;
+
+  @Column({ type: 'text', transformer: dataTransform })
+  parameters: any;
+
+  @Column({ type: 'text', transformer: dataTransform })
+  results: any;
+
+  @CreateDateColumn()
+  createDate: Date;
+}
+```
+
+## 引用数据库
+和之前介绍数据库一样，在 `sensitive.module.ts` 中引入数据库
+```ts
+import { Module } from '@nestjs/common';
+import { SensitiveController } from './sensitive.controller';
+import { SensitiveService } from './sensitive.service';
+import { Sensitive } from './entities/sensitive.entity';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+@Module({
+  controllers: [SensitiveController],
+  imports: [TypeOrmModule.forFeature([Sensitive])],
+  providers: [Sensitive, SensitiveService],
+  exports: [SensitiveService],
+})
+export class SensitiveModule {}
+```
+
+## service 核心逻辑
+
+敏感操作比较简单，service 仅需实现新增和查询。
+
+先定义敏感操作类型
+```ts
+// src/sensitive/constants.ts
+export enum SensitiveType {
+    Modify = 'Modify',
+    Set = 'Set',
+    Create = 'Create',
+    Delete = 'Delete',
+}
+```
+
+在修改 service，引入db操作
+
+```ts
+// src/sensitive/sensitive.service.ts
+import { Injectable } from '@nestjs/common';
+import { Sensitive } from './entities/sensitive.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { SensitiveType } from './constants';
+
+@Injectable()
+export class SensitiveService {
+    constructor(
+        @InjectRepository(Sensitive)
+        private readonly sensitiveRepository: Repository<Sensitive>,
+    ) {}
+
+    async setSensitive(type: SensitiveType, pathname: string, parameters: any, results: any) {
+        return await this.sensitiveRepository.save({
+            type,
+            pathname,
+            parameters,
+            results,
+        }).catch(e => e);
+    }
+
+    async getSensitive(type: SensitiveType) {
+        return await this.sensitiveRepository.find({ 
+            where: {
+                type,
+            }
+        });
+    }
+}
+```
+
+## controller 修改
+controller 比较简单，只需要简单的查询即可。敏感信息写入则是通过 decorator + interceptor 来实现
+
+```ts
+// src/sensitive/sensitive.controller.ts
+import { Controller, Get, Query } from '@nestjs/common';
+import { SensitiveService } from './sensitive.service';
+import { SensitiveType } from './constants';
+
+@Controller('sensitive')
+export class SensitiveController {
+    constructor(private readonly sensitiveService: SensitiveService) {}
+
+    @Get('/get-by-type')
+    getSensitive(@Query('type') type: SensitiveType) {
+        return this.sensitiveService.getSensitive(type);
+    }
+}
+```
+## 新增装饰器
+装饰器的用场来了，只需要告诉某个接口需要敏感操作记录，并指定类型即可。
+
+```ts
+// src/common/decorators
+import { SetMetadata } from '@nestjs/common';
+import { SensitiveType } from '../sensitive/constants';
+
+export const SensitiveOperation = (type: SensitiveType) => SetMetadata('sensitive-operation', type);
+// ...
+```
+
+通过传参的方式，定义敏感操作的类型。在数据库中可以分类，通过索引的方式查找修改入参和结果。
+
+## 拦截器
+重点来了！！
+
+和守卫权限校验类似，通过 `reflector` 取出内存中的 sensitive-operation 类型。
+
+新建 `src/common/interceptors/sensitive.interceptor.ts`
+
+```ts
+// src/common/interceptors/sensitive.interceptor.ts
+import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common';
+import { Reflector } from '@nestjs/core';
+import { SensitiveService } from '../../sensitive/sensitive.service';
+import { SensitiveType } from '../../sensitive/constants';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
+@Injectable()
+export class SensitiveInterceptor implements NestInterceptor {
+  constructor(private reflector: Reflector, private sensitiveService: SensitiveService) {}
+
+  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+    const request = context.switchToHttp().getRequest();
+
+    const type = this.reflector.get<SensitiveType | undefined>('sensitive-operation', context.getHandler());
+
+    if (!type) {
+        return  next.handle();
+    }
+
+    return next
+      .handle()
+      .pipe(
+        tap((data) => this.sensitiveService.setSensitive(type, request.url, request.body, data)),
+      );
+  }
+}
+
+```
+
+并在 app.module.ts 中引入全局。
+```ts
+// app.module.ts
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
+import { SensitiveInterceptor } from './common/interceptors/sensitive.interceptor';
+// ...
+
+@Module({
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: SensitiveInterceptor,
+    },
+    // ...
+  ],
+  // ...
+})
+export class AppModule { }
+
+```
+
+## 其他模块引用
+student 模块引入
+```ts
+// src/students/students.controller.ts
+import { SensitiveOperation } from '../common/decorators';
+import { SensitiveType } from '../sensitive/constants';
+// ...
+
+@Controller('students')
+export class StudentsController {
+    constructor(private readonly studentsService: StudentsService) {}
+  
+
+    @SensitiveOperation(SensitiveType.Set)
+    @Post('set-student-name')
+    setStudentName(@User() user: string) {
+        return this.studentsService.setStudent(user);
+    }
+    // ...
+}
+
+```
+
+仅需要在接口前引入 `@SensitiveOperation(SensitiveType.Set)` 即可！是不是非常优美。
+
+再来调用下！
+```bash
+// ✅ 使用命令行调用
+curl -X POST http://127.0.0.1:3000/students/set-student-name -H 'Content-Type: application/json' -d '{"user": "gdccwxx1"}'
+// => {"name":"gdccwxx1","id":3,"updateDate":"2021-09-17T05:48:41.685Z","createDate":"2021-09-17T05:48:41.685Z"}%
+
+// ✅ 打开浏览器
+http://localhost:3000/sensitive/get-by-type?type=set
+// => [{
+//  id: 1,
+//  type: "Set",
+//  pathname: "/students/set-student-name",
+//  parameters: { user: "gdccwxx1" },
+//  results: { name: "gdccwxx1", id: 3, updateDate: "2021-09-17T05:48:41.685Z", createDate: "2021-09-17T05:48:41.685Z" },
+//  createDate: "2021-09-17T05:48:41.719Z"
+// }]
+```
+
+bingo！这样就达到了我们想要的目的！
+
+在不影响原有业务逻辑的情况下，仅是在接口处做标识的简单调用。实现了 `AOP` 的调用方式。对老代码的改造和新业务的编写都十分有用。
+
+
+# 管道 Pipes
+![pipes](./pipes.png)
+NestJs `Pipes` 的概念和 linux `shell` 的概念非常相似，都是通过前者的输出再做一些事情。
+
+它的应用场景也非常广，例如：数据转化，数据校验等...
+
+对数据输入时的操作非常有用。对复杂数据校验，例如表单数据等十分有用。
+
+我们没有复杂输入，我们来使用简单的数据转化，实现在名字前加上🇨🇳
+
+## 新建 Pipes
+新建 `src/common/pipes/name.pipes.ts`。
+```ts
+// src/common/pipes/name.pipes.ts
+import { PipeTransform, Injectable, ArgumentMetadata } from '@nestjs/common';
+
+@Injectable()
+export class TransformNamePipe implements PipeTransform {
+  transform(name: string, metadata: ArgumentMetadata) {
+    return `🇨🇳 ${name.trim()}`;
+  }
+}
+
+```
+
+和其他 NestJs 一样，都需要重载一边内置对象。`Pipes` 也需要重载 `PipeTransform`。
+
+## 使用管道
+在 `controller` 中使用 `pipes`。
+
+```ts
+import { TransformNamePipe } from '../common/pipes/name.pipes';
+// ...
+
+@Controller('students')
+export class StudentsController {
+    constructor(private readonly studentsService: StudentsService) {}
+  
+    @Get('who-are-you')
+    whoAreYou(@Query('name', TransformNamePipe) name: string) {
+        return this.studentsService.ImStudent(name);
+    }
+    // ...
+}
+
+```
+query 的第二个参数是 pipes, 也可以使用多个 pipes 对数据连续处理
+
+## 调用接口
+再浏览器访问
+```bash
+// ✅
+http://localhost:3000/students/who-are-you?name=gdccwxx
+// => Im student 🇨🇳 gdccwxx
+```
+
+这样就实现了简单版本的数据转换了！
+
+
+# 总结
+至此，NestJs 的入门篇章就结束了。
+
+简单回顾下教程内容：
+- 通过 `nest cli` 新建工程、新建模块
+- 通过 `@Get` 和 `@Post` 实现 get、post 请求
+- 通过 `dto` 限制对参数进行限制
+- 自定义 `decorator` 实现参数获取、设置 `metadata`
+- 调用内置 `log` 实现日志规范化
+- 使用 `typeorm` 对数据库连接和基础操作，并进行联表操作及查询
+- 使用 `guard` 对参数进行校验（可扩展成登录态）
+- 使用 `interceptor` 实现敏感数据落地
+- 使用 `pipes` 实现数据格式化
+
+笔者也在 NestJs 逐渐探索中。它不仅包括简单的数据服务，还支持 `GraphQL`、`SSE`、`Microservice` 等等，是综合性非常强的框架。
+
+btw：这是笔者用这么久以来最喜欢的 Node 框架了
+
+感谢你的阅读～

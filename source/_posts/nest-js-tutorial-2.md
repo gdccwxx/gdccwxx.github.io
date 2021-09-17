@@ -137,7 +137,7 @@ curl -X POST -d"name=gdccwxx"  http://127.0.0.1:3000/students/who-are-you
 
 
 # 三、参数限制与转换
-这部分其实用到了 [管道](https://docs.nestjs.com/pipes) 的概念，我们用基础管道来实现，更高阶用法将会放在第四章中
+这部分其实用到了 [管道](https://docs.nestjs.com/pipes) 的概念，我们用基础管道来实现，更高阶用法将会放在{% post_link nest-js-tutorial-4 第四章 %}中
 
 ## Get 请求
 get 请求需要用到 `ParseIntPipe`, 更多的内置管道列表可查看[这里](https://docs.nestjs.com/pipes#built-in-pipes)
