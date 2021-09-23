@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="这个系列的上一篇文章，实现了 Post 接口和对接口的基础操作。 本篇主要讲的是和数据库连接，使用数据库联表查询和操作记录。使用数据库将数据记录，就是一个完整的后台服务了。 完整示例可以在 github 找到。 本篇使用 mysql 作为数据库连接。使用 NestJs 内置的数据库连接 typeorm，可在 这里 查阅 typeorm 详细文档 一、开发准备 下载并安装 Mysql 创建 sch">
+<meta name="description" content="这个系列的上一篇文章，实现了 Post 接口和对接口的基础操作。 而真正的服务往往包括数据存储。 本篇将介绍如何建立 NestJs 的数据库连接、并使用数据库联表查询。这样就就是完整的后台服务了。 完整示例可以在 github 找到。 本篇使用 mysql 作为数据库连接。使用 NestJs 内置的数据库连接 typeorm，可在 这里 查阅 typeorm 详细文档 一、开发准备 下载并安装">
 <meta name="keywords" content="NestJs 教程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NestJs 入门教程之三：数据库">
 <meta property="og:url" content="https://blog.gdccwxx.com/nestJs/nest-js-tutorial-3/index.html">
 <meta property="og:site_name" content="gdccwxx">
-<meta property="og:description" content="这个系列的上一篇文章，实现了 Post 接口和对接口的基础操作。 本篇主要讲的是和数据库连接，使用数据库联表查询和操作记录。使用数据库将数据记录，就是一个完整的后台服务了。 完整示例可以在 github 找到。 本篇使用 mysql 作为数据库连接。使用 NestJs 内置的数据库连接 typeorm，可在 这里 查阅 typeorm 详细文档 一、开发准备 下载并安装 Mysql 创建 sch">
+<meta property="og:description" content="这个系列的上一篇文章，实现了 Post 接口和对接口的基础操作。 而真正的服务往往包括数据存储。 本篇将介绍如何建立 NestJs 的数据库连接、并使用数据库联表查询。这样就就是完整的后台服务了。 完整示例可以在 github 找到。 本篇使用 mysql 作为数据库连接。使用 NestJs 内置的数据库连接 typeorm，可在 这里 查阅 typeorm 详细文档 一、开发准备 下载并安装">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://blog.gdccwxx.com/nestJs/nest-js-tutorial-3/nestjs.png">
-<meta property="og:updated_time" content="2021-09-17T15:55:38.113Z">
+<meta property="og:updated_time" content="2021-09-23T05:37:54.812Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NestJs 入门教程之三：数据库">
-<meta name="twitter:description" content="这个系列的上一篇文章，实现了 Post 接口和对接口的基础操作。 本篇主要讲的是和数据库连接，使用数据库联表查询和操作记录。使用数据库将数据记录，就是一个完整的后台服务了。 完整示例可以在 github 找到。 本篇使用 mysql 作为数据库连接。使用 NestJs 内置的数据库连接 typeorm，可在 这里 查阅 typeorm 详细文档 一、开发准备 下载并安装 Mysql 创建 sch">
+<meta name="twitter:description" content="这个系列的上一篇文章，实现了 Post 接口和对接口的基础操作。 而真正的服务往往包括数据存储。 本篇将介绍如何建立 NestJs 的数据库连接、并使用数据库联表查询。这样就就是完整的后台服务了。 完整示例可以在 github 找到。 本篇使用 mysql 作为数据库连接。使用 NestJs 内置的数据库连接 typeorm，可在 这里 查阅 typeorm 详细文档 一、开发准备 下载并安装">
 <meta name="twitter:image" content="https://blog.gdccwxx.com/nestJs/nest-js-tutorial-3/nestjs.png">
 
 
@@ -333,7 +333,8 @@
       
         <p><img src="/nestJs/nest-js-tutorial-3/./nestjs.png" alt="nestjs"></p>
 <p>这个系列的<a href="/nestJs/nest-js-tutorial-2/" title="上一篇">上一篇</a>文章，实现了 <code>Post</code> 接口和对接口的基础操作。</p>
-<p>本篇主要讲的是和数据库连接，使用数据库联表查询和操作记录。使用数据库将数据记录，就是一个完整的后台服务了。</p>
+<p>而真正的服务往往包括数据存储。</p>
+<p>本篇将介绍如何建立 NestJs 的数据库连接、并使用数据库联表查询。这样就就是完整的后台服务了。</p>
 <p>完整示例可以在 <a href="https://github.com/gdccwxx/nest-test" target="_blank" rel="noopener">github</a> 找到。</p>
 <p>本篇使用 <code>mysql</code> 作为数据库连接。使用 <code>NestJs</code> 内置的<a href="https://docs.nestjs.com/techniques/database" target="_blank" rel="noopener">数据库连接</a> <code>typeorm</code>，可在 <a href="https://typeorm.io/" target="_blank" rel="noopener">这里</a> 查阅 typeorm 详细文档</p>
 <h1 id="一、开发准备"><a href="#一、开发准备" class="headerlink" title="一、开发准备"></a>一、开发准备</h1><ol>

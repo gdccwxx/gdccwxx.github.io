@@ -12,6 +12,10 @@ keywords: NestJs 教程
 
 {% post_link nest-js-tutorial-3 上篇 %}文章，实现了 `数据库` 基础操作 和联表查询。
 
+本篇是教程的最终篇，虽然我们实现了 NestJs 的基础功能，但是真正的服务器需要做全局的数据核查、敏感操作落库和数据转化。
+
+拥有这些能力才能让后台能力更加丰富，本篇将主要使用 NestJs 的高级能力，来实现这些功能。
+
 本篇概要：
 - 使用 `guards` 和 `decorators` 实现数据校验核查
 - 通过 `interceptors` 和 `decorators` 实现敏感操作录入

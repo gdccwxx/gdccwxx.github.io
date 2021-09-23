@@ -79,22 +79,22 @@
 
 
 
-<meta name="description" content="自从 Node 出世以来，许多 Javascript 后端框架都曾处不穷，需求也十分庞大。  Node 做后端已经成为前端的重要业务，随着前端业务的不断更迭，Node 也在前端领域也逐渐站稳脚跟，市场招聘需求逐渐旺盛，企业都抢着要。 尽管 Node 框架已经逐渐完善，但是国外非常火的框架 NestJs 教程却十分稀缺，国内教程也都良莠不齐，对初次上手者十分不友好。 本系列文章主要讲我在工作中遇到的">
+<meta name="description" content="自从 Node 出世以来，许多 Javascript 后端框架都曾处不穷，需求也十分庞大。  Node 做后端已经成为前端的重要业务，随着前端业务的不断更迭，Node 也在前端领域也逐渐站稳脚跟，市场招聘需求逐渐旺盛，企业都抢着要。 尽管 Node 框架已经逐渐完善，但是纯 TS 的框架却十分稀缺，国外的 NestJs 填补了这一空白。 可国内使用 NestJs 的团队并不是很多，而且教程、文档都">
 <meta name="keywords" content="NestJs 教程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NestJs 入门教程之一：初次上手">
 <meta property="og:url" content="https://blog.gdccwxx.com/nestJs/nest-js-tutorial-1/index.html">
 <meta property="og:site_name" content="gdccwxx">
-<meta property="og:description" content="自从 Node 出世以来，许多 Javascript 后端框架都曾处不穷，需求也十分庞大。  Node 做后端已经成为前端的重要业务，随着前端业务的不断更迭，Node 也在前端领域也逐渐站稳脚跟，市场招聘需求逐渐旺盛，企业都抢着要。 尽管 Node 框架已经逐渐完善，但是国外非常火的框架 NestJs 教程却十分稀缺，国内教程也都良莠不齐，对初次上手者十分不友好。 本系列文章主要讲我在工作中遇到的">
+<meta property="og:description" content="自从 Node 出世以来，许多 Javascript 后端框架都曾处不穷，需求也十分庞大。  Node 做后端已经成为前端的重要业务，随着前端业务的不断更迭，Node 也在前端领域也逐渐站稳脚跟，市场招聘需求逐渐旺盛，企业都抢着要。 尽管 Node 框架已经逐渐完善，但是纯 TS 的框架却十分稀缺，国外的 NestJs 填补了这一空白。 可国内使用 NestJs 的团队并不是很多，而且教程、文档都">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://blog.gdccwxx.com/nestJs/nest-js-tutorial-1/nodejs.png">
 <meta property="og:image" content="https://blog.gdccwxx.com/nestJs/nest-js-tutorial-1/nestjs.png">
 <meta property="og:image" content="https://blog.gdccwxx.com/nestJs/nest-js-tutorial-1/module.png">
 <meta property="og:image" content="https://blog.gdccwxx.com/nestJs/nest-js-tutorial-1/controllers.png">
-<meta property="og:updated_time" content="2021-09-15T16:28:22.100Z">
+<meta property="og:updated_time" content="2021-09-23T05:42:26.985Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NestJs 入门教程之一：初次上手">
-<meta name="twitter:description" content="自从 Node 出世以来，许多 Javascript 后端框架都曾处不穷，需求也十分庞大。  Node 做后端已经成为前端的重要业务，随着前端业务的不断更迭，Node 也在前端领域也逐渐站稳脚跟，市场招聘需求逐渐旺盛，企业都抢着要。 尽管 Node 框架已经逐渐完善，但是国外非常火的框架 NestJs 教程却十分稀缺，国内教程也都良莠不齐，对初次上手者十分不友好。 本系列文章主要讲我在工作中遇到的">
+<meta name="twitter:description" content="自从 Node 出世以来，许多 Javascript 后端框架都曾处不穷，需求也十分庞大。  Node 做后端已经成为前端的重要业务，随着前端业务的不断更迭，Node 也在前端领域也逐渐站稳脚跟，市场招聘需求逐渐旺盛，企业都抢着要。 尽管 Node 框架已经逐渐完善，但是纯 TS 的框架却十分稀缺，国外的 NestJs 填补了这一空白。 可国内使用 NestJs 的团队并不是很多，而且教程、文档都">
 <meta name="twitter:image" content="https://blog.gdccwxx.com/nestJs/nest-js-tutorial-1/nodejs.png">
 
 
@@ -337,8 +337,9 @@
         <p>自从 Node 出世以来，许多 Javascript 后端框架都曾处不穷，需求也十分庞大。</p>
 <p><img src="/nestJs/nest-js-tutorial-1/./nodejs.png" alt="nodejs"></p>
 <p>Node 做后端已经成为前端的重要业务，随着前端业务的不断更迭，Node 也在前端领域也逐渐站稳脚跟，市场招聘需求逐渐旺盛，企业都抢着要。</p>
-<p>尽管 Node 框架已经逐渐完善，但是国外非常火的框架 NestJs 教程却十分稀缺，国内教程也都良莠不齐，对初次上手者十分不友好。</p>
-<p>本系列文章主要讲我在工作中遇到的问题与解决方案，并梳理成教程方式，希望对初学者有用。目标是经过此个系列文章，能搭建一套 NestJs 在日常编码过程中会用到的功能。</p>
+<p>尽管 Node 框架已经逐渐完善，但是纯 TS 的框架却十分稀缺，国外的 NestJs 填补了这一空白。</p>
+<p>可国内使用 NestJs 的团队并不是很多，而且教程、文档都良莠不齐，对初次上手者十分不友好。恰好笔者有幸在工程中使用过 NestJs，踩过非常多的坑。本系列文章主要讲我在工作中遇到的问题与解决方案，并梳理成教程方式，希望对初学者有用。</p>
+<p>教程目标是经过此个系列文章，能搭建一套 NestJs 在日常编码过程中会用到的功能。</p>
 <p>考虑到 NestJs 功能比较多，本教程会选较为常用的功能，分为四次次连载。</p>
 <p><img src="/nestJs/nest-js-tutorial-1/./nestjs.png" alt="nestjs"></p>
 <h1 id="一、NestJs-是啥"><a href="#一、NestJs-是啥" class="headerlink" title="一、NestJs 是啥"></a>一、NestJs 是啥</h1><p>学习 NestJS 之前，先简单说一下，它到底是啥。</p>

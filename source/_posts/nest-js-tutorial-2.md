@@ -12,7 +12,9 @@ keywords: NestJs 教程
 
 这个系列的{% post_link nest-js-tutorial-1 上一篇 %}文章，教大家写了 hello world 和 新建 students 模块。
 
-但是，那只是很干的 Get 请求。接着往下讲，如何给接口做参数检查、添加日志和使用 Post 方法。
+但是，那只是很干的 Get 请求；即没有 Post 请求，也没有给参数做检查；更没有日志的使用。
+
+本篇接着往下讲，通过 NestJs 的原生能力，来实现 Post 请求，并做参数检查，最后利用原生日志模块实现标准化日志。
 
 完整示例可以在 [github](https://github.com/gdccwxx/nest-test) 找到。
 
