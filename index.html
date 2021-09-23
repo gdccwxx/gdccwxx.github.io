@@ -333,7 +333,7 @@
         
           
             <p><img src="/nestJs/nest-js-tutorial-4/./nestjs.png" alt="nestjs"></p>
-<a href="/nestJs/nest-js-tutorial-3/" title="上篇">上篇</a>文章，实现了 <code>数据库</code> 基础操作 和联表查询。<br><br>本篇概要：<br>- 使用 <code>guards</code> 和 <code>decorators</code> 实现数据校验核查<br>- 通过 <code>interceptors</code> 和 <code>decorators</code> 实现敏感操作录入<br>- 自定义 <code>pipes</code> 实现数据转化<br><!-- 这里不能删除，不然展示不完整 -->
+<a href="/nestJs/nest-js-tutorial-3/" title="上篇">上篇</a>文章，实现了 <code>数据库</code> 基础操作 和联表查询。<br><br>本篇是教程的最终篇，虽然我们实现了 NestJs 的基础功能，但是真正的服务器需要做全局的数据核查、敏感操作落库和数据转化。<br><br>拥有这些能力才能让后台能力更加丰富，本篇将主要使用 NestJs 的高级能力，来实现这些功能。<br><br>本篇概要：<br>- 使用 <code>guards</code> 和 <code>decorators</code> 实现数据校验核查<br>- 通过 <code>interceptors</code> 和 <code>decorators</code> 实现敏感操作录入<br>- 自定义 <code>pipes</code> 实现数据转化<br><!-- 这里不能删除，不然展示不完整 -->
 <p>完整示例可以在 <a href="https://github.com/gdccwxx/nest-test" target="_blank" rel="noopener">github</a> 找到。</p>
 <h1 id="守卫-Guards"><a href="#守卫-Guards" class="headerlink" title="守卫 Guards"></a>守卫 Guards</h1><p><img src="/nestJs/nest-js-tutorial-4/./guards.png" alt="guards"><br>在 <code>请求到达业务逻辑前</code> 会经过 guard，这样在接口前可以做统一处理。</p>
 <p>例如：检查登陆态、检查权限 …</p>
@@ -536,7 +536,8 @@
           
             <p><img src="/nestJs/nest-js-tutorial-3/./nestjs.png" alt="nestjs"></p>
 <p>这个系列的<a href="/nestJs/nest-js-tutorial-2/" title="上一篇">上一篇</a>文章，实现了 <code>Post</code> 接口和对接口的基础操作。</p>
-<p>本篇主要讲的是和数据库连接，使用数据库联表查询和操作记录。使用数据库将数据记录，就是一个完整的后台服务了。</p>
+<p>而真正的服务往往包括数据存储。</p>
+<p>本篇将介绍如何建立 NestJs 的数据库连接、并使用数据库联表查询。这样就就是完整的后台服务了。</p>
 <p>完整示例可以在 <a href="https://github.com/gdccwxx/nest-test" target="_blank" rel="noopener">github</a> 找到。</p>
 <p>本篇使用 <code>mysql</code> 作为数据库连接。使用 <code>NestJs</code> 内置的<a href="https://docs.nestjs.com/techniques/database" target="_blank" rel="noopener">数据库连接</a> <code>typeorm</code>，可在 <a href="https://typeorm.io/" target="_blank" rel="noopener">这里</a> 查阅 typeorm 详细文档</p>
 <h1 id="一、开发准备"><a href="#一、开发准备" class="headerlink" title="一、开发准备"></a>一、开发准备</h1><ol>
@@ -731,7 +732,8 @@
           
             <p><img src="/nestJs/nest-js-tutorial-2/./nestjs.png" alt="nestjs"></p>
 <p>这个系列的<a href="/nestJs/nest-js-tutorial-1/" title="上一篇">上一篇</a>文章，教大家写了 hello world 和 新建 students 模块。</p>
-<p>但是，那只是很干的 Get 请求。接着往下讲，如何给接口做参数检查、添加日志和使用 Post 方法。</p>
+<p>但是，那只是很干的 Get 请求；即没有 Post 请求，也没有给参数做检查；更没有日志的使用。</p>
+<p>本篇接着往下讲，通过 NestJs 的原生能力，来实现 Post 请求，并做参数检查，最后利用原生日志模块实现标准化日志。</p>
 <p>完整示例可以在 <a href="https://github.com/gdccwxx/nest-test" target="_blank" rel="noopener">github</a> 找到。</p>
 <h1 id="一、Post-请求"><a href="#一、Post-请求" class="headerlink" title="一、Post 请求"></a>一、Post 请求</h1><p>经过上篇的介绍，总体请求先会经过 students.controller.ts -&gt; 再到 students.service.ts。</p>
 <p>在 students.service.ts 上新增 <code>Post</code> 方法<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// students.service.ts</span></span><br><span class="line"><span class="keyword">import</span> &#123; Controller, Get, Post &#125; <span class="keyword">from</span> <span class="string">'@nestjs/common'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="meta">@Controller</span>(<span class="string">'students'</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> StudentsController &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> readonly studentsService: StudentsService</span>) &#123;&#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">// @Get('who-are-you') ...</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Post</span>(<span class="string">'who-are-you'</span>)</span><br><span class="line">    whoAreYouPost() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.studentsService.ImStudent();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -906,8 +908,9 @@
             <p>自从 Node 出世以来，许多 Javascript 后端框架都曾处不穷，需求也十分庞大。</p>
 <p><img src="/nestJs/nest-js-tutorial-1/./nodejs.png" alt="nodejs"></p>
 <p>Node 做后端已经成为前端的重要业务，随着前端业务的不断更迭，Node 也在前端领域也逐渐站稳脚跟，市场招聘需求逐渐旺盛，企业都抢着要。</p>
-<p>尽管 Node 框架已经逐渐完善，但是国外非常火的框架 NestJs 教程却十分稀缺，国内教程也都良莠不齐，对初次上手者十分不友好。</p>
-<p>本系列文章主要讲我在工作中遇到的问题与解决方案，并梳理成教程方式，希望对初学者有用。目标是经过此个系列文章，能搭建一套 NestJs 在日常编码过程中会用到的功能。</p>
+<p>尽管 Node 框架已经逐渐完善，但是纯 TS 的框架却十分稀缺，国外的 NestJs 填补了这一空白。</p>
+<p>可国内使用 NestJs 的团队并不是很多，而且教程、文档都良莠不齐，对初次上手者十分不友好。恰好笔者有幸在工程中使用过 NestJs，踩过非常多的坑。本系列文章主要讲我在工作中遇到的问题与解决方案，并梳理成教程方式，希望对初学者有用。</p>
+<p>教程目标是经过此个系列文章，能搭建一套 NestJs 在日常编码过程中会用到的功能。</p>
 <p>考虑到 NestJs 功能比较多，本教程会选较为常用的功能，分为四次次连载。</p>
 <p><img src="/nestJs/nest-js-tutorial-1/./nestjs.png" alt="nestjs"></p>
 <h1 id="一、NestJs-是啥"><a href="#一、NestJs-是啥" class="headerlink" title="一、NestJs 是啥"></a>一、NestJs 是啥</h1><p>学习 NestJS 之前，先简单说一下，它到底是啥。</p>

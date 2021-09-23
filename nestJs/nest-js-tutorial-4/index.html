@@ -79,22 +79,22 @@
 
 
 
-<meta name="description" content="上篇文章，实现了 数据库 基础操作 和联表查询。本篇概要：- 使用 guards 和 decorators 实现数据校验核查- 通过 interceptors 和 decorators 实现敏感操作录入- 自定义 pipes 实现数据转化 完整示例可以在 github 找到。 守卫 Guards在 请求到达业务逻辑前 会经过 guard，这样在接口前可以做统一处理。 例如：检查登陆态、检查权限">
+<meta name="description" content="上篇文章，实现了 数据库 基础操作 和联表查询。本篇是教程的最终篇，虽然我们实现了 NestJs 的基础功能，但是真正的服务器需要做全局的数据核查、敏感操作落库和数据转化。拥有这些能力才能让后台能力更加丰富，本篇将主要使用 NestJs 的高级能力，来实现这些功能。本篇概要：- 使用 guards 和 decorators 实现数据校验核查- 通过 interceptors 和 decorato">
 <meta name="keywords" content="NestJs 教程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NestJs 入门教程之四：高阶用法">
 <meta property="og:url" content="https://blog.gdccwxx.com/nestJs/nest-js-tutorial-4/index.html">
 <meta property="og:site_name" content="gdccwxx">
-<meta property="og:description" content="上篇文章，实现了 数据库 基础操作 和联表查询。本篇概要：- 使用 guards 和 decorators 实现数据校验核查- 通过 interceptors 和 decorators 实现敏感操作录入- 自定义 pipes 实现数据转化 完整示例可以在 github 找到。 守卫 Guards在 请求到达业务逻辑前 会经过 guard，这样在接口前可以做统一处理。 例如：检查登陆态、检查权限">
+<meta property="og:description" content="上篇文章，实现了 数据库 基础操作 和联表查询。本篇是教程的最终篇，虽然我们实现了 NestJs 的基础功能，但是真正的服务器需要做全局的数据核查、敏感操作落库和数据转化。拥有这些能力才能让后台能力更加丰富，本篇将主要使用 NestJs 的高级能力，来实现这些功能。本篇概要：- 使用 guards 和 decorators 实现数据校验核查- 通过 interceptors 和 decorato">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://blog.gdccwxx.com/nestJs/nest-js-tutorial-4/nestjs.png">
 <meta property="og:image" content="https://blog.gdccwxx.com/nestJs/nest-js-tutorial-4/guards.png">
 <meta property="og:image" content="https://blog.gdccwxx.com/nestJs/nest-js-tutorial-4/interceptors.png">
 <meta property="og:image" content="https://blog.gdccwxx.com/nestJs/nest-js-tutorial-4/pipes.png">
-<meta property="og:updated_time" content="2021-09-17T15:54:53.939Z">
+<meta property="og:updated_time" content="2021-09-23T05:33:03.273Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NestJs 入门教程之四：高阶用法">
-<meta name="twitter:description" content="上篇文章，实现了 数据库 基础操作 和联表查询。本篇概要：- 使用 guards 和 decorators 实现数据校验核查- 通过 interceptors 和 decorators 实现敏感操作录入- 自定义 pipes 实现数据转化 完整示例可以在 github 找到。 守卫 Guards在 请求到达业务逻辑前 会经过 guard，这样在接口前可以做统一处理。 例如：检查登陆态、检查权限">
+<meta name="twitter:description" content="上篇文章，实现了 数据库 基础操作 和联表查询。本篇是教程的最终篇，虽然我们实现了 NestJs 的基础功能，但是真正的服务器需要做全局的数据核查、敏感操作落库和数据转化。拥有这些能力才能让后台能力更加丰富，本篇将主要使用 NestJs 的高级能力，来实现这些功能。本篇概要：- 使用 guards 和 decorators 实现数据校验核查- 通过 interceptors 和 decorato">
 <meta name="twitter:image" content="https://blog.gdccwxx.com/nestJs/nest-js-tutorial-4/nestjs.png">
 
 
@@ -335,7 +335,7 @@
 
       
         <p><img src="/nestJs/nest-js-tutorial-4/./nestjs.png" alt="nestjs"></p>
-<a href="/nestJs/nest-js-tutorial-3/" title="上篇">上篇</a>文章，实现了 <code>数据库</code> 基础操作 和联表查询。<br><br>本篇概要：<br>- 使用 <code>guards</code> 和 <code>decorators</code> 实现数据校验核查<br>- 通过 <code>interceptors</code> 和 <code>decorators</code> 实现敏感操作录入<br>- 自定义 <code>pipes</code> 实现数据转化<br><!-- 这里不能删除，不然展示不完整 -->
+<a href="/nestJs/nest-js-tutorial-3/" title="上篇">上篇</a>文章，实现了 <code>数据库</code> 基础操作 和联表查询。<br><br>本篇是教程的最终篇，虽然我们实现了 NestJs 的基础功能，但是真正的服务器需要做全局的数据核查、敏感操作落库和数据转化。<br><br>拥有这些能力才能让后台能力更加丰富，本篇将主要使用 NestJs 的高级能力，来实现这些功能。<br><br>本篇概要：<br>- 使用 <code>guards</code> 和 <code>decorators</code> 实现数据校验核查<br>- 通过 <code>interceptors</code> 和 <code>decorators</code> 实现敏感操作录入<br>- 自定义 <code>pipes</code> 实现数据转化<br><!-- 这里不能删除，不然展示不完整 -->
 <p>完整示例可以在 <a href="https://github.com/gdccwxx/nest-test" target="_blank" rel="noopener">github</a> 找到。</p>
 <h1 id="守卫-Guards"><a href="#守卫-Guards" class="headerlink" title="守卫 Guards"></a>守卫 Guards</h1><p><img src="/nestJs/nest-js-tutorial-4/./guards.png" alt="guards"><br>在 <code>请求到达业务逻辑前</code> 会经过 guard，这样在接口前可以做统一处理。</p>
 <p>例如：检查登陆态、检查权限 …</p>

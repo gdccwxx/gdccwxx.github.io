@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="这个系列的上一篇文章，教大家写了 hello world 和 新建 students 模块。 但是，那只是很干的 Get 请求。接着往下讲，如何给接口做参数检查、添加日志和使用 Post 方法。 完整示例可以在 github 找到。 一、Post 请求经过上篇的介绍，总体请求先会经过 students.controller.ts -&amp;gt; 再到 students.service.ts。 在 s">
+<meta name="description" content="这个系列的上一篇文章，教大家写了 hello world 和 新建 students 模块。 但是，那只是很干的 Get 请求；即没有 Post 请求，也没有给参数做检查；更没有日志的使用。 本篇接着往下讲，通过 NestJs 的原生能力，来实现 Post 请求，并做参数检查，最后利用原生日志模块实现标准化日志。 完整示例可以在 github 找到。 一、Post 请求经过上篇的介绍，总体请求先">
 <meta name="keywords" content="NestJs 教程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NestJs 入门教程之二：处理请求">
 <meta property="og:url" content="https://blog.gdccwxx.com/nestJs/nest-js-tutorial-2/index.html">
 <meta property="og:site_name" content="gdccwxx">
-<meta property="og:description" content="这个系列的上一篇文章，教大家写了 hello world 和 新建 students 模块。 但是，那只是很干的 Get 请求。接着往下讲，如何给接口做参数检查、添加日志和使用 Post 方法。 完整示例可以在 github 找到。 一、Post 请求经过上篇的介绍，总体请求先会经过 students.controller.ts -&amp;gt; 再到 students.service.ts。 在 s">
+<meta property="og:description" content="这个系列的上一篇文章，教大家写了 hello world 和 新建 students 模块。 但是，那只是很干的 Get 请求；即没有 Post 请求，也没有给参数做检查；更没有日志的使用。 本篇接着往下讲，通过 NestJs 的原生能力，来实现 Post 请求，并做参数检查，最后利用原生日志模块实现标准化日志。 完整示例可以在 github 找到。 一、Post 请求经过上篇的介绍，总体请求先">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://blog.gdccwxx.com/nestJs/nest-js-tutorial-2/nestjs.png">
 <meta property="og:image" content="https://blog.gdccwxx.com/nestJs/nest-js-tutorial-2/log.png">
-<meta property="og:updated_time" content="2021-09-17T15:56:03.609Z">
+<meta property="og:updated_time" content="2021-09-23T05:36:00.436Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NestJs 入门教程之二：处理请求">
-<meta name="twitter:description" content="这个系列的上一篇文章，教大家写了 hello world 和 新建 students 模块。 但是，那只是很干的 Get 请求。接着往下讲，如何给接口做参数检查、添加日志和使用 Post 方法。 完整示例可以在 github 找到。 一、Post 请求经过上篇的介绍，总体请求先会经过 students.controller.ts -&amp;gt; 再到 students.service.ts。 在 s">
+<meta name="twitter:description" content="这个系列的上一篇文章，教大家写了 hello world 和 新建 students 模块。 但是，那只是很干的 Get 请求；即没有 Post 请求，也没有给参数做检查；更没有日志的使用。 本篇接着往下讲，通过 NestJs 的原生能力，来实现 Post 请求，并做参数检查，最后利用原生日志模块实现标准化日志。 完整示例可以在 github 找到。 一、Post 请求经过上篇的介绍，总体请求先">
 <meta name="twitter:image" content="https://blog.gdccwxx.com/nestJs/nest-js-tutorial-2/nestjs.png">
 
 
@@ -334,7 +334,8 @@
       
         <p><img src="/nestJs/nest-js-tutorial-2/./nestjs.png" alt="nestjs"></p>
 <p>这个系列的<a href="/nestJs/nest-js-tutorial-1/" title="上一篇">上一篇</a>文章，教大家写了 hello world 和 新建 students 模块。</p>
-<p>但是，那只是很干的 Get 请求。接着往下讲，如何给接口做参数检查、添加日志和使用 Post 方法。</p>
+<p>但是，那只是很干的 Get 请求；即没有 Post 请求，也没有给参数做检查；更没有日志的使用。</p>
+<p>本篇接着往下讲，通过 NestJs 的原生能力，来实现 Post 请求，并做参数检查，最后利用原生日志模块实现标准化日志。</p>
 <p>完整示例可以在 <a href="https://github.com/gdccwxx/nest-test" target="_blank" rel="noopener">github</a> 找到。</p>
 <h1 id="一、Post-请求"><a href="#一、Post-请求" class="headerlink" title="一、Post 请求"></a>一、Post 请求</h1><p>经过上篇的介绍，总体请求先会经过 students.controller.ts -&gt; 再到 students.service.ts。</p>
 <p>在 students.service.ts 上新增 <code>Post</code> 方法<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// students.service.ts</span></span><br><span class="line"><span class="keyword">import</span> &#123; Controller, Get, Post &#125; <span class="keyword">from</span> <span class="string">'@nestjs/common'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="meta">@Controller</span>(<span class="string">'students'</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> StudentsController &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> readonly studentsService: StudentsService</span>) &#123;&#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">// @Get('who-are-you') ...</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Post</span>(<span class="string">'who-are-you'</span>)</span><br><span class="line">    whoAreYouPost() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.studentsService.ImStudent();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
