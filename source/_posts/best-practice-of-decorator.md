@@ -1,12 +1,19 @@
 ---
-title: Decorator 这么好用，赶紧用起来！
+title: Decorator 最佳实践
 date: 2021-09-05 20:22:01
 tags: typescript
 dir: typescript
 keywords: Typescript,Javascript,Decorator,装饰器
 ---
 ## 前言
-你是不是因入参和结果的日志而苦恼？是不是为运行时的数据检查而难受？是不是为鉴权函数而郁闷？使用 decorator 后，能让代码更优雅，编程更快捷。
+很多语言和方法都有 AOP 编程。AOP 的好处是只需要写一次函数检查，在函数调用前只做引用即可。极大的减少了重复代码的编写。
+
+试想一下：在函数入参检查类型时需要反复用 `typeof parameter === '类型'` 来做检查时一件非常痛苦的事情。虽然用了 `Typescript`，但只是解决了编码时候的类型校验，而运行时的校验依旧需要编码来做检查。
+
+本篇介绍的 `Decorator` 用法，就是为了解决这一困扰而出现的。它不仅一行代码解决了运行时的入参类型检查；还能用一行代码做函数权限检查，只让有权限的人调用；更能一行代码解决入参和结果的日志打印。让代码更容易维护的同时，也更专注于业务的实现。
+
+如果您对例子感兴趣，可以直接到[使用举例](#使用举例)
+
 
 ### 啥是 Decorator?
 Decorator 是 ES6 中的提案之一，它实际上是个 wrapper，可以为类、属性或函数提供额外功能。举个🌰：
@@ -61,80 +68,6 @@ tsconfig.json:
 ```
 
 
-## 执行顺序
-不同类型的装饰器执行顺序是明确的：
-1、 实例成员：参数装饰器 -> 方法/访问器/属性 装饰器
-2、 静态成员：参数装饰器 -> 方法/访问器/属性 装饰器
-3、 构造函数：参数装饰器
-4、 类装饰器
-例如：
-
-```ts
-function f(key: string): any {
-  console.log("evaluate: ", key);
-  return function () {
-    console.log("call: ", key);
-  };
-}
-
-@f("Class Decorator")
-class A {
-  @f("Static Property")
-  static prop?: number;
-
-  @f("Static Method")
-  static method(@f("Static Method Parameter") foo) {}
-
-  constructor(@f("Constructor Parameter") foo) {}
-
-  @f("Instance Method")
-  method(@f("Instance Method Parameter") foo) {}
-
-  @f("Instance Property")
-  prop?: number;
-}
-
-// 执行顺序
-evaluate:  Instance Method
-evaluate:  Instance Method Parameter
-call:  Instance Method Parameter
-call:  Instance Method
-evaluate:  Instance Property
-call:  Instance Property
-evaluate:  Static Property
-call:  Static Property
-evaluate:  Static Method
-evaluate:  Static Method Parameter
-call:  Static Method Parameter
-call:  Static Method
-evaluate:  Class Decorator
-evaluate:  Constructor Parameter
-call:  Constructor Parameter
-call:  Class Decorator
-```
-
-然而，在同一方法中的不同参数构造器顺序是相反的，最后参数回的装饰器会先被执行：
-```ts
-
-function f(key: string): any {
-  console.log("evaluate: ", key);
-  return function () {
-    console.log("call: ", key);
-  };
-}
-
-class B {
-  @f('first')
-  @f('second')
-  method() {}
-}
-
-// 执行顺序
-evaluate:  first
-evaluate:  second
-call:  second
-call:  first
-```
 
 ## 定义
 ![decorators](xmind.png)
@@ -367,6 +300,82 @@ const { report } = require('./paramerter.js');
 console.log(report.print()); // Error: Missing required argument.
 ```
 
+## 执行顺序
+不同类型的装饰器执行顺序是明确的：
+1、 实例成员：参数装饰器 -> 方法/访问器/属性 装饰器
+2、 静态成员：参数装饰器 -> 方法/访问器/属性 装饰器
+3、 构造函数：参数装饰器
+4、 类装饰器
+例如：
+
+```ts
+function f(key: string): any {
+  console.log("evaluate: ", key);
+  return function () {
+    console.log("call: ", key);
+  };
+}
+
+@f("Class Decorator")
+class A {
+  @f("Static Property")
+  static prop?: number;
+
+  @f("Static Method")
+  static method(@f("Static Method Parameter") foo) {}
+
+  constructor(@f("Constructor Parameter") foo) {}
+
+  @f("Instance Method")
+  method(@f("Instance Method Parameter") foo) {}
+
+  @f("Instance Property")
+  prop?: number;
+}
+
+// 执行顺序
+evaluate:  Instance Method
+evaluate:  Instance Method Parameter
+call:  Instance Method Parameter
+call:  Instance Method
+evaluate:  Instance Property
+call:  Instance Property
+evaluate:  Static Property
+call:  Static Property
+evaluate:  Static Method
+evaluate:  Static Method Parameter
+call:  Static Method Parameter
+call:  Static Method
+evaluate:  Class Decorator
+evaluate:  Constructor Parameter
+call:  Constructor Parameter
+call:  Class Decorator
+```
+
+然而，在同一方法中的不同参数构造器顺序是相反的，最后参数回的装饰器会先被执行：
+```ts
+
+function f(key: string): any {
+  console.log("evaluate: ", key);
+  return function () {
+    console.log("call: ", key);
+  };
+}
+
+class B {
+  @f('first')
+  @f('second')
+  method() {}
+}
+
+// 执行顺序
+evaluate:  first
+evaluate:  second
+call:  second
+call:  first
+```
+
+
 ## 使用场景
 - Before/After钩子。
 - 监听属性改变或者方法调用。
@@ -376,7 +385,7 @@ console.log(report.print()); // Error: Missing required argument.
 - 自动编解码。
 - 依赖注入。
 
-### 使用举例：
+### 使用举例
 - 日志打印
 ```ts
 function f(): any {
