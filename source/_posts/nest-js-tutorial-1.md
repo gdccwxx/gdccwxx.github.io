@@ -8,7 +8,7 @@ tags:
 dir: nestJs
 keywords: NestJs 教程
 ---
-自从 Node 出世以来，许多 Javascript 后端框架都曾处不穷，需求也十分庞大。
+自从 Node 出世以来，许多 Javascript 后端框架都曾处不穷，前端开发后台的需求也逐渐庞大。
 
 ![nodejs](./nodejs.png)
 
