@@ -92,7 +92,7 @@
 <meta property="og:image" content="https://blog.gdccwxx.com/git/git-rebase-merge-commit/git-rebase-s.png">
 <meta property="og:image" content="https://blog.gdccwxx.com/git/git-rebase-merge-commit/modify-commit-message.png">
 <meta property="og:image" content="https://blog.gdccwxx.com/git/git-rebase-merge-commit/modified-git-log.png">
-<meta property="og:updated_time" content="2021-10-08T05:44:39.169Z">
+<meta property="og:updated_time" content="2021-10-08T05:48:47.431Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git —— 通过 rebase 合并 commit">
 <meta name="twitter:description" content="背景在项目开发时候，经常会遇到明明是同一个修改，在一些不可抗拒因素下，导致本应该是一次提交的 commit 被多次提交。在开源社区往往对commit message 有着强迫症似的提交。 本篇的目的就是通过 rebase 合并 commit。 场景再现分支: master提交次数: 2次git log:  初始化: 第二次提交 (当前最新commit) 初始化: 第一次提交(需要合并) 初始化:">
@@ -373,7 +373,9 @@
 <h4 id="5-查看修改后的内容"><a href="#5-查看修改后的内容" class="headerlink" title="5. 查看修改后的内容"></a>5. 查看修改后的内容</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span></span><br></pre></td></tr></table></figure>
 <p><img src="/git/git-rebase-merge-commit/./modified-git-log.png" alt="modified-git-log"></p>
 <p>已经将 <code>e4a5545b</code> 和 <code>1bc8133d</code> 合并成一条 <code>510bfd34</code>  ✅</p>
-<h4 id="6-同步到远端"><a href="#6-同步到远端" class="headerlink" title="6. 同步到远端"></a>6. 同步到远端</h4><p>使用 <code>git push -f</code> or <code>git push --force</code> 强制推送。git 记录本地已经改动，和远端有冲突，需要用 <code>force push</code> 解决<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git push -f</span><br><span class="line">// or</span><br><span class="line">git push --force</span><br></pre></td></tr></table></figure></p>
+<h4 id="6-同步到远端"><a href="#6-同步到远端" class="headerlink" title="6. 同步到远端"></a>6. 同步到远端</h4><p>使用 <code>git push -f</code> or <code>git push --force</code> 强制推送。</p>
+<p>由于本地 git commit 记录被改动，与远端的记录不匹配。因此需要用 <code>force push</code> 强制远端与本地记录同步。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git push -f</span><br><span class="line">// or</span><br><span class="line">git push --force</span><br></pre></td></tr></table></figure>
 <p>再看远端的仓库，记录已经改变～</p>
 
       

@@ -370,7 +370,9 @@
 <h4 id="5-查看修改后的内容"><a href="#5-查看修改后的内容" class="headerlink" title="5. 查看修改后的内容"></a>5. 查看修改后的内容</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span></span><br></pre></td></tr></table></figure>
 <p><img src="/git/git-rebase-merge-commit/./modified-git-log.png" alt="modified-git-log"></p>
 <p>已经将 <code>e4a5545b</code> 和 <code>1bc8133d</code> 合并成一条 <code>510bfd34</code>  ✅</p>
-<h4 id="6-同步到远端"><a href="#6-同步到远端" class="headerlink" title="6. 同步到远端"></a>6. 同步到远端</h4><p>使用 <code>git push -f</code> or <code>git push --force</code> 强制推送。git 记录本地已经改动，和远端有冲突，需要用 <code>force push</code> 解决<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git push -f</span><br><span class="line">// or</span><br><span class="line">git push --force</span><br></pre></td></tr></table></figure></p>
+<h4 id="6-同步到远端"><a href="#6-同步到远端" class="headerlink" title="6. 同步到远端"></a>6. 同步到远端</h4><p>使用 <code>git push -f</code> or <code>git push --force</code> 强制推送。</p>
+<p>由于本地 git commit 记录被改动，与远端的记录不匹配。因此需要用 <code>force push</code> 强制远端与本地记录同步。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git push -f</span><br><span class="line">// or</span><br><span class="line">git push --force</span><br></pre></td></tr></table></figure>
 <p>再看远端的仓库，记录已经改变～</p>
 
           

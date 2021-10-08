@@ -85,7 +85,10 @@ git log
 已经将 `e4a5545b` 和 `1bc8133d` 合并成一条 `510bfd34`  ✅
 
 #### 6. 同步到远端
-使用 `git push -f` or `git push --force` 强制推送。git 记录本地已经改动，和远端有冲突，需要用 `force push` 解决
+使用 `git push -f` or `git push --force` 强制推送。
+
+由于本地 git commit 记录被改动，与远端的记录不匹配。因此需要用 `force push` 强制远端与本地记录同步。
+
 ```bash
 git push -f
 // or
