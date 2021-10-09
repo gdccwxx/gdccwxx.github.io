@@ -154,7 +154,7 @@ links_layout: block
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.gif
 # in site  directory(source/uploads): /uploads/avatar.gif
-# avatar: /img/image.jpg
+avatar: /img/logo.png
 
 # Table Of Contents in the Sidebar
 toc:
