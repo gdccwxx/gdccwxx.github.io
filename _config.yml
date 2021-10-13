@@ -95,6 +95,12 @@ jsonContent:
     categories: false
     tags: true
 
+neat_enable: true
+
+lazyload:
+  enable: true
+  onlypost: false
+  loadingImg: /img/loading.gif
 
 baidu_url_submit:
   count: 1000 ## 提交最新的x个链接

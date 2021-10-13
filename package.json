@@ -15,6 +15,8 @@
     "hexo-generator-index": "^0.2.0",
     "hexo-generator-json-content": "^3.0.1",
     "hexo-generator-tag": "^0.2.0",
+    "hexo-lazyload-image": "^1.0.10",
+    "hexo-neat": "^1.0.9",
     "hexo-renderer-ejs": "^0.3.0",
     "hexo-renderer-marked": "^0.3.0",
     "hexo-renderer-stylus": "^0.3.1",
