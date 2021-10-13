@@ -2,9 +2,9 @@
 title: NestJs 入门教程之一：初次上手
 date: 2021-09-11 23:45:27
 tags:
-    - Javascript
-    - Typescript
-    - NestJs
+    - javascript
+    - typescript
+    - nestJs
 dir: nestJs
 keywords: NestJs 教程
 ---

@@ -1,8 +1,8 @@
 ---
 title: 你不知道的JavaScript————作用域和闭包篇
 date: 2017-08-19 20:20:32
-tags: JavaScript
-dir: JavaScript
+tags: javascript
+dir: javascript
 keywords: 你不知道的JavaScript————作用域和闭包篇
 ---
 ### 编译原理

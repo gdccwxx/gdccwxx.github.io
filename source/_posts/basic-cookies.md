@@ -1,9 +1,11 @@
 ---
 title: 管中窥豹看Cookie
 date: 2019-04-09 21:14:04
-tags: HTTP
-dir: HTTP
-keywords: HTTP,cookie
+tags: http
+dir: http
+keywords:
+  - http
+  - cookie
 ---
 
 本文主要介绍了什么是cookie、cookie的特性、cookie的作用及用途、cookie的安全策略。不涉及Cookie的[详细参数](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies)。

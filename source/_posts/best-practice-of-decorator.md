@@ -3,7 +3,11 @@ title: Decorator 最佳实践
 date: 2021-09-05 20:22:01
 tags: typescript
 dir: typescript
-keywords: Typescript,Javascript,Decorator,装饰器
+keywords:
+  - typescript
+  - javascript
+  - decorator
+  - 装饰器
 ---
 ## 前言
 很多语言和方法都有 AOP 编程。AOP 的好处是只需要写一次函数检查，在函数调用前只做引用即可。极大的减少了重复代码的编写。

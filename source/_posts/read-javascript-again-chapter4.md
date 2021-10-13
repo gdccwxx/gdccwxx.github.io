@@ -1,8 +1,8 @@
 ---
 title: JavaScript高级程序设计重读---4章
 date: 2017-07-11 11:54:31
-tags: JavaScript
-dir: JavaScript
+tags: javascript
+dir: javascript
 keywords: JavaScript高级程序设计
 ---
 ### 变量、作用域、和内存问题

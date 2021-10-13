@@ -2,9 +2,9 @@
 title: 使用 SSE 替代轮询
 date: 2021-10-09 22:00:50
 tags:
-    - Javascript
-    - NodeJs
-    - HTTP
+    - javascript
+    - nodejs
+    - http
 dir: http
 keywords:
     - Server-sent events

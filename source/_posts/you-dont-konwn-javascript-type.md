@@ -1,8 +1,8 @@
 ---
 title: 你不知道的javascript————类型和语法
 date: 2017-12-17 21:17:15
-tags: JavaScript
-dir: JavaScript
+tags: javascript
+dir: javascript
 keywords: 你不知道的javascript————类型和语法
 ---
 ### 类型

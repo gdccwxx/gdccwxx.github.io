@@ -1,8 +1,8 @@
 ---
 title: JavaScript高级程序设计重读---7章
 date: 2017-07-13 16:01:13
-tags: JavaScript
-dir: JavaScript
+tags: javascript
+dir: javascript
 keywords: JavaScript高级程序设计
 ---
 ### 函数表达式

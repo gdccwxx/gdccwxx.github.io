@@ -1,8 +1,8 @@
 ---
 title: 你不知道的javascript————this和对象原型
 date: 2017-09-06 20:29:15
-tags: JavaScript
-dir: JavaScript
+tags: javascript
+dir: javascript
 keywords: 你不知道的javascript————this和对象原型
 ---
 ### this误解

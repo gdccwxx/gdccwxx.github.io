@@ -1,8 +1,7 @@
 ---
 title: git —— 通过 rebase 合并 commit
 date: 2021-10-08 12:41:58
-tags:
-    - git
+tags: git
 dir: git
 keywords:
     - 合并commit

@@ -2,9 +2,9 @@
 title: NestJs 入门教程之三：数据库
 date: 2021-09-12 17:16:56
 tags:
-    - Javascript
-    - Typescript
-    - NestJs
+    - javascript
+    - typescript
+    - nestJs
 dir: nestJs
 keywords: NestJs 教程
 ---

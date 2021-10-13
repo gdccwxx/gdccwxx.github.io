@@ -1,8 +1,8 @@
 ---
 title: JavaScript高级程序设计重读—1-3章
 date: 2017-07-11 09:03:44
-tags: JavaScript
-dir: JavaScript
+tags: javascript
+dir: javascript
 keywords: JavaScript高级程序设计
 ---
 ### 基本概念

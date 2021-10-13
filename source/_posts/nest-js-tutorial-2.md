@@ -2,9 +2,9 @@
 title: NestJs 入门教程之二：处理请求
 date: 2021-09-12 10:06:06
 tags:
-    - Javascript
-    - Typescript
-    - NestJs
+    - javascript
+    - typescript
+    - nestJs
 dir: nestJs
 keywords: NestJs 教程
 ---

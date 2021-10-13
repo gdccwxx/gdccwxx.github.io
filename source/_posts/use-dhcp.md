@@ -1,9 +1,11 @@
 ---
 title: DPCH (DPCHCD)服务器的搭建与应用
 date: 2017-10-21 20:53:10
-tags: Linux
-dir: Linux
-keywords: Linux, DPCH
+tags: linux
+dir: linux
+keywords:
+  - linux
+  - DPCH
 ---
 ### 什么是DHCP？
 #### 1.DHCP简介
