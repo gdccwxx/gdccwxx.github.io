@@ -2,44 +2,86 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.gdccwxx.com/http/what-is-sse/</loc>
+    <loc>https://blog.gdccwxx.com/JavaScript/read-javascript-again-chapter6/</loc>
     
-    <lastmod>2021-10-13T14:53:35.863Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.gdccwxx.com/git/git-rebase-merge-commit/</loc>
-    
-    <lastmod>2021-10-08T05:48:47.431Z</lastmod>
+    <lastmod>2021-10-13T15:43:46.117Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://blog.gdccwxx.com/nestJs/nest-js-tutorial-1/</loc>
+    <loc>https://blog.gdccwxx.com/JavaScript/read-javascript-again-chapter5/</loc>
     
-    <lastmod>2021-10-06T12:58:09.262Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.gdccwxx.com/nestJs/nest-js-tutorial-3/</loc>
-    
-    <lastmod>2021-09-23T05:37:54.812Z</lastmod>
+    <lastmod>2021-10-13T15:43:23.407Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://blog.gdccwxx.com/nestJs/nest-js-tutorial-2/</loc>
+    <loc>https://blog.gdccwxx.com/JavaScript/read-javascript-again-chapter4/</loc>
     
-    <lastmod>2021-09-23T05:36:00.436Z</lastmod>
+    <lastmod>2021-10-13T15:43:16.163Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.gdccwxx.com/nestJs/nest-js-tutorial-4/</loc>
     
-    <lastmod>2021-09-23T05:33:03.273Z</lastmod>
+    <lastmod>2021-10-13T15:42:45.937Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.gdccwxx.com/nestJs/nest-js-tutorial-3/</loc>
+    
+    <lastmod>2021-10-13T15:42:12.309Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.gdccwxx.com/nestJs/nest-js-tutorial-2/</loc>
+    
+    <lastmod>2021-10-13T15:41:56.582Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.gdccwxx.com/nestJs/nest-js-tutorial-1/</loc>
+    
+    <lastmod>2021-10-13T15:41:43.044Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.gdccwxx.com/git/git-rebase-merge-commit/</loc>
+    
+    <lastmod>2021-10-13T15:41:31.325Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.gdccwxx.com/%E5%89%8D%E7%AB%AF/font-end-optimize/</loc>
+    
+    <lastmod>2021-10-13T15:41:25.643Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.gdccwxx.com/HTTP/basic-cookies/</loc>
+    
+    <lastmod>2021-10-13T15:41:02.125Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.gdccwxx.com/%E9%9A%8F%E7%AC%94/%E3%80%8A%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E6%9E%B6%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    
+    <lastmod>2021-10-13T15:40:26.151Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.gdccwxx.com/http/what-is-sse/</loc>
+    
+    <lastmod>2021-10-13T15:38:28.778Z</lastmod>
     
   </url>
   
@@ -47,13 +89,6 @@
     <loc>https://blog.gdccwxx.com/typescript/best-practice-of-decorator/</loc>
     
     <lastmod>2021-09-23T05:27:47.256Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.gdccwxx.com/%E5%89%8D%E7%AB%AF/font-end-optimize/</loc>
-    
-    <lastmod>2021-09-11T13:16:27.170Z</lastmod>
     
   </url>
   
@@ -75,13 +110,6 @@
     <loc>https://blog.gdccwxx.com/%E9%9A%8F%E7%AC%94/2021-middle-summary/</loc>
     
     <lastmod>2021-09-11T11:45:53.089Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.gdccwxx.com/%E9%9A%8F%E7%AC%94/%E3%80%8A%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%8A%80%E6%9C%AF%E6%9E%B6%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
-    
-    <lastmod>2021-09-11T11:42:57.893Z</lastmod>
     
   </url>
   
@@ -114,13 +142,6 @@
   </url>
   
   <url>
-    <loc>https://blog.gdccwxx.com/HTTP/basic-cookies/</loc>
-    
-    <lastmod>2021-09-11T05:43:51.586Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://blog.gdccwxx.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/computer-network-chapter2/</loc>
     
     <lastmod>2021-09-11T05:43:19.652Z</lastmod>
@@ -131,27 +152,6 @@
     <loc>https://blog.gdccwxx.com/JavaScript/read-javascript-again-chapter1-3/</loc>
     
     <lastmod>2021-09-11T05:42:56.591Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.gdccwxx.com/JavaScript/read-javascript-again-chapter4/</loc>
-    
-    <lastmod>2021-09-11T05:42:53.696Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.gdccwxx.com/JavaScript/read-javascript-again-chapter5/</loc>
-    
-    <lastmod>2021-09-11T05:42:49.048Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.gdccwxx.com/JavaScript/read-javascript-again-chapter6/</loc>
-    
-    <lastmod>2021-09-11T05:42:45.693Z</lastmod>
     
   </url>
   
