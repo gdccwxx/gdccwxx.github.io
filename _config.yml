@@ -99,7 +99,7 @@ neat_enable: true
 
 lazyload:
   enable: true
-  onlypost: false
+  onlypost: true
   loadingImg: /img/loading.gif
 
 baidu_url_submit:
