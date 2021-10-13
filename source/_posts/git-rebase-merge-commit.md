@@ -21,7 +21,7 @@ git log:
 - 初始化: 第一次提交(需要合并)
 - 初始化: init（不需要合并）
 
-![git-log](./git-log.png)
+![git-log](git-log.png)
 
 ### 期望场景
 合并commit: `e4a5545b` 和 `1bc8133d` 
@@ -40,7 +40,7 @@ git rebase -i HEAD~2
 ```
 
 键入命令后，commit 信息由最开始到最近提交。即：最上面是最开始的提交，最下面是最近提交。
-![git-rebase-pick](./git-rebase-pick.png)
+![git-rebase-pick](git-rebase-pick.png)
 
 ### Rebase
 #### 1. 命令解析：
@@ -53,7 +53,7 @@ git rebase -i HEAD~2
 - vi `:wq` 保存退出
 
 
-![git-rebase-s](./git-rebase-s.png)
+![git-rebase-s](git-rebase-s.png)
 
 #### 3. git rebase 基础操作(非必要无需此步)
 git 会压缩提交历史，若有冲突，需要进行修改，修改的时候保留最新的历史记录。
@@ -74,13 +74,13 @@ git rebase --abort
 
 修改 commit message， vi `:wq` 保存退出。
 
-![modify-commit-message](./modify-commit-message.png)
+![modify-commit-message](modify-commit-message.png)
 
 #### 5. 查看修改后的内容
 ```bash
 git log
 ```
-![modified-git-log](./modified-git-log.png)
+![modified-git-log](modified-git-log.png)
 
 已经将 `e4a5545b` 和 `1bc8133d` 合并成一条 `510bfd34`  ✅
 

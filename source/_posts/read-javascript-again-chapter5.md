@@ -10,13 +10,13 @@ keywords: JavaScript高级程序设计
 1、JavaScript会将对象的属性自动转换成字符串
 ```
 var person = {
-    "name":'dechen',
+    "name":'gdccwxx',
     "age": 29,
     5:true
 }
 全等于
 var person = {
-    "name":'dechen',
+    "name":'gdccwxx',
     "age": 29,
     "5": true
 }
@@ -29,11 +29,11 @@ _ps:最后一个属性后面是不添加逗号的，如果添加，在IE7即更�
 (2)使用['']来访问对象的属性
 ```
 var person = {
-    "name":'dechen',
+    "name":'gdccwxx',
     "age": 29
 }
-person.name         // dechen
-person['name']      // dechen
+person.name         // gdccwxx
+person['name']      // gdccwxx
 ```
 第二种方法有好处，在对象的属性有空格的时候，只能用第二种
 #### Array类型

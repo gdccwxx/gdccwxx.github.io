@@ -145,15 +145,15 @@ console.log(BMW.run());
 ##### 原型模式
 ```
 function Person(){}
-Person.prototype.name = "dechen";  
+Person.prototype.name = "gdccwxx";  
 Person.prototype.age =23;  
 Person.prototype.sayName = function(){  
     console.log(this.name)  
 };  
 var person1 = new Person();  
-person1.sayName()     // dechen
+person1.sayName()     // gdccwxx
 var person2 = new Person();
-person2.sayName()     // dechen
+person2.sayName()     // gdccwxx
 person1.sayName == person2.sayName  // true
 
 ```
@@ -169,20 +169,20 @@ Person.prototype.isPrototypeOf(person2) // true
 虽然对象实例访问保存在原型中的值，却不能通过对象实例重写原型中的值。如果在对象里面添加一个属性，该属性只会存在于对象实例中，而屏蔽原型。即
 ```
 function Person(){}
-Person.prototype.name = "dechen";  
+Person.prototype.name = "gdccwxx";  
 Person.prototype.age =23;  
 Person.prototype.sayName = function(){  
     console.log(this.name)  
 };  
 var person1 = new Person();  
-person1.sayName()     // dechen
+person1.sayName()     // gdccwxx
 var person2 = new Person();
-person2.sayName()     // dechen
+person2.sayName()     // gdccwxx
 person1.name = 'guo'
 person1.name    // guo
-person2.name    // dechen
+person2.name    // gdccwxx
 delete person1.name 
-person1.name    // dechen
+person1.name    // gdccwxx
 ```
 对象搜索属性中，先在实例中搜索，实例中有，则直接返回，实例中没有，则到其原型中查找。若在原型中未找到，则返回undefined；若找到则返回。因此，对person1实例添加name属性后，就屏蔽了原型里面的name，删除实例后的属性之后，又去原型里查找。
 _ps：原型属性不可被delete掉_
@@ -191,7 +191,7 @@ hasOwnProperty()确定属性是否在实例上的方法
 in有两种操作，第一种是在for-in循环中使用，另一种是会在通过对象能够访问的给定属性时返回true
 ```
 function Person(){}
-Person.prototype.name = "dechen";  
+Person.prototype.name = "gdccwxx";  
 Person.prototype.age =23;  
 Person.prototype.sayName = function(){  
     console.log(this.name)  
@@ -208,14 +208,14 @@ person2.name            // guo
 person2.hasOwnProperty('name')  //false
 'name' in person2       // true
 delete person1.name
-person1.name            // dechen
+person1.name            // gdccwxx
 person1.hasOwnProperty('name')  // 在原型上，返回false
 'name' in person1       //能够访问，true
 ```
 Object.keys()方法，获取对象所有可枚举实例属性
 ```
 function Person(){}
-Person.prototype.name = "dechen";  
+Person.prototype.name = "gdccwxx";  
 Person.prototype.age =23;  
 Person.prototype.sayName = function(){  
     console.log(this.name)  
@@ -233,7 +233,7 @@ keys    // ["constructor", "name", "age", "sayName"]
 // 也可以使用另一种原型定义方法，字面量方法
 function Person(){}
 Person.prototype = {
-    name : 'dechen',
+    name : 'gdccwxx',
     age : 20,
     sayName: function(){
         //
@@ -242,7 +242,7 @@ Person.prototype = {
 //如果constructor很重要，也可以特意设定
 Person.prototype = {
     constructor: Person,
-    name : 'dechen',
+    name : 'gdccwxx',
     age : 20,
     sayName: function(){
         //
@@ -270,7 +270,7 @@ Person.prototype = {
         console.log(this.name)
     }
 }
-var person1 = new Person('dechen', 20 ,'SoftWare')
+var person1 = new Person('gdccwxx', 20 ,'SoftWare')
 var person2 = new Person('guo', 10 ,'Doctor')
 person1.friends.push('van')
 person1.friend      // a,b,van

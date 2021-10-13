@@ -10,7 +10,7 @@ keywords: NestJs 教程
 ---
 自从 Node 出世以来，许多 Javascript 后端框架都曾处不穷，前端开发后台的需求也逐渐庞大。
 
-![nodejs](./nodejs.png)
+![nodejs](nodejs.png)
 
 Node 做后端已经成为前端的重要业务，随着前端业务的不断更迭，Node 也在前端领域也逐渐站稳脚跟，市场招聘需求逐渐旺盛，企业都抢着要。
 
@@ -22,7 +22,7 @@ Node 做后端已经成为前端的重要业务，随着前端业务的不断更
 
 考虑到 NestJs 功能比较多，本教程会选较为常用的功能，分为四次次连载。
 
-![nestjs](./nestjs.png)
+![nestjs](nestjs.png)
 
 # 一、NestJs 是啥
 学习 NestJS 之前，先简单说一下，它到底是啥。
@@ -86,12 +86,12 @@ src
 NestJS 也主张的是 [MVC](https://zh.wikipedia.org/wiki/MVC) 的格式。
 
 ## module
-![module](./module.png)
+![module](module.png)
 
 module 的作用是在程序运行时给模块处理依赖。好处是所有模块的依赖都可以在 module 中清晰明了的知道引用还是被引用
 
 ## controller
-![controller](./controllers.png)
+![controller](controllers.png)
 
 controller 的作用是处理请求，所有的请求会先到 controller，再经 controller 调用其他模块业务逻辑
 

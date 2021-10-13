@@ -8,7 +8,7 @@ tags:
 dir: nestJs
 keywords: NestJs 教程
 ---
-![nestjs](./nestjs.png)
+![nestjs](nestjs.png)
 
 这个系列的{% post_link nest-js-tutorial-2 上一篇 %}文章，实现了 `Post` 接口和对接口的基础操作。
 

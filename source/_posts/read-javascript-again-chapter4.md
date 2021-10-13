@@ -11,8 +11,8 @@ Javascript不允许直接访问内存中的位置，意思位不能直接操作�
 ```
 var obj1 = new Object();
 var obj2 = obj1;
-obj1.name = 'dechen'
-obj2.name   // dechen
+obj1.name = 'gdccwxx'
+obj2.name   // gdccwxx
 ```
 对象是存在堆中，JavaScript只能引用堆中的Object。如图
 ![heap](heapObject.png)
@@ -20,15 +20,15 @@ obj2.name   // dechen
 ##### 函数在对象的传递是按值传递
 ```
 unction setName(obj){
-    obj.name = 'dechen'
+    obj.name = 'gdccwxx'
     obj = new Object();
     obj.name = 'guo'
 }
 var person = new Object();
 setName(person)
-person.name     // dechen
+person.name     // gdccwxx
 ```
-解释：由于传入的person给obj复制了一份引用。因此一开始的时候是obj和person引用的是同一个。而第二段代码中，由于obj改变了新的引用。在改变之前，使person的name发生改变。而之后引用新的Object，因此person.name依然是dechen。在函数执行之后，obj立即被销毁。
+解释：由于传入的person给obj复制了一份引用。因此一开始的时候是obj和person引用的是同一个。而第二段代码中，由于obj改变了新的引用。在改变之前，使person的name发生改变。而之后引用新的Object，因此person.name依然是gdccwxx。在函数执行之后，obj立即被销毁。
 #### 检测类型
 利用typeof检查五个基本类型，而对于对象的类型检测，则采用instanceof
 result = variable instanceof constructor

@@ -24,7 +24,7 @@ keywords: HTTP,cookie
 
 Cookie的最初想法是当作小型文本文件，在HTTP请求中作为用户数据作为信息传递。最常规的用法是服务器给客户端一个唯一标识，客户端在与服务器互动时将标识回传给服务器，客户端即可判断用户登录态。
 
-<div style="width: 80%; margin: 0 auto;text-align:center">![cookies消息传递](./exchange-cookies.png)Cookies的传输</div>
+<div style="width: 80%; margin: 0 auto;text-align:center">![cookies消息传递](exchange-cookies.png)Cookies的传输</div>
 
 **注意**：_Cookie曾一度用于客户端数据的存储，因当时并没有其它合适的存储办法而作为唯一的存储手段，但现在随着现代浏览器开始支持各种各样的存储方式，cookie渐渐被淘汰。_
 
@@ -69,7 +69,7 @@ ctx.cookies.set(name, value, [options])
 ### 请求时通过http头传给后端
 
 以Google键入请求为例
-<div style="width: 80%; margin: 0 auto;text-align:center">![请求Google](./font-transfer-cookie.png)请求通过http头传送给后端</div>
+<div style="width: 80%; margin: 0 auto;text-align:center">![请求Google](font-transfer-cookie.png)请求通过http头传送给后端</div>
 
 ### 遵守同源策略
 
@@ -83,11 +83,11 @@ Domain 标识指定了哪些主机可以接受cookie。如果不指定，默认�
 **存储个性化设置**
 即使在相同的Domain下，不同的url可以存储不同区块下的cookie，即到达特定页面下可有页面自己的cookie。
 <div style="width: 80%; margin: 0 auto; text-align: center">
-	![在主页的cookie](./out-path-cookie.png)
+	![在主页的cookie](out-path-cookie.png)
 </br>
   在google.com的cookie
 </br>
-  ![在搜索的cookie](./in-path-cookie.png)
+  ![在搜索的cookie](in-path-cookie.png)
 </br>
   在google.com/search的cookie
 </br>
@@ -105,7 +105,7 @@ Domain 标识指定了哪些主机可以接受cookie。如果不指定，默认�
 
 以新浪微博为例：
 <div style="width: 80%; margin: 0 auto; text-align: center">
-![未登陆状态下的cookie](./unlogin-cookie.png)
+![未登陆状态下的cookie](unlogin-cookie.png)
 </br>
 未登录状态下的cookie：login_sid_t表示唯一标识
 </div>

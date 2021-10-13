@@ -8,7 +8,7 @@ tags:
 dir: nestJs
 keywords: NestJs 教程
 ---
-![nestjs](./nestjs.png)
+![nestjs](nestjs.png)
 
 {% post_link nest-js-tutorial-3 上篇 %}文章，实现了 `数据库` 基础操作 和联表查询。
 
@@ -24,7 +24,7 @@ keywords: NestJs 教程
 完整示例可以在 [github](https://github.com/gdccwxx/nest-test) 找到。
 
 # 守卫 Guards
-![guards](./guards.png)
+![guards](guards.png)
 在 `请求到达业务逻辑前` 会经过 guard，这样在接口前可以做统一处理。
 
 例如：检查登陆态、检查权限 ...
@@ -213,7 +213,7 @@ curl -X POST http://127.0.0.1:3000/students/who-are-you -H 'Content-Type: applic
 特别适用于登录态的校验，只有登陆接口不需要登录态，其他接口都需要登陆态或鉴权。
 
 # 拦截器 Interceptors
-![interceptors](./interceptors.png)
+![interceptors](interceptors.png)
 
 拦截器工作在 `请求前` 和 `响应后`。它的原理和 `decorator` 类似，不同的是能做全局级别。
 
@@ -482,7 +482,7 @@ bingo！这样就达到了我们想要的目的！
 
 
 # 管道 Pipes
-![pipes](./pipes.png)
+![pipes](pipes.png)
 NestJs `Pipes` 的概念和 linux `shell` 的概念非常相似，都是通过前者的输出再做一些事情。
 
 它的应用场景也非常广，例如：数据转化，数据校验等...

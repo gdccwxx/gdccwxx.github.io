@@ -8,7 +8,7 @@ tags:
 dir: nestJs
 keywords: NestJs 教程
 ---
-![nestjs](./nestjs.png)
+![nestjs](nestjs.png)
 
 这个系列的{% post_link nest-js-tutorial-1 上一篇 %}文章，教大家写了 hello world 和 新建 students 模块。
 
@@ -361,7 +361,7 @@ export class StudentsService {
 ```
 curl -X POST http://127.0.0.1:3000/students/who-are-you -H 'Content-Type: application/json' -d '{"name": "gdccwxx"}'
 ```
-![logger](./log.png)
+![logger](log.png)
 
 完整示例可以在 [github](https://github.com/gdccwxx/nest-test) 找到。
 

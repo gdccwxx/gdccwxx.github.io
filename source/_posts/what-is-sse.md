@@ -139,7 +139,7 @@ Content-Type: text/event-stream
 Cache-Control: no-cache
 Connection: keep-alive
 ```
-![header](./sse-header.png)
+![header](sse-header.png)
 
 
 ### 数据格式

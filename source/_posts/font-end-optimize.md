@@ -8,7 +8,7 @@ keywords: 前端性能优化
 ### 资源合并与压缩-http请求的过程及潜在的性能优化
 浏览器的一个请求从发送到返回都经历了什么
 
-![http](./page-process.png)
+![http](page-process.png)
 
 思考
 * dns是否可以通过缓存减少dns查询时间？
@@ -167,7 +167,7 @@ The Last-Modified  是一个响应首部，其中包含源头服务器认定的�
 						   时间，两者都存在，cache-control覆盖expires，没有失效
        --------------      则直接访问自己缓存
 ```
-![Alt text](./font-end-cache.png)
+![Alt text](font-end-cache.png)
 
 ## 服务端性能优化
 ### 多层次优化方案
