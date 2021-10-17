@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.gdccwxx.com/%E9%9A%8F%E7%AC%94/big-goal-2021/</loc>
+    
+    <lastmod>2021-10-17T16:31:59.618Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.gdccwxx.com/tags/index.html</loc>
     
     <lastmod>2021-10-14T01:07:02.325Z</lastmod>
@@ -58,14 +65,14 @@
   </url>
   
   <url>
-    <loc>https://blog.gdccwxx.com/http/touch-http/</loc>
+    <loc>https://blog.gdccwxx.com/linux/use-dhcp/</loc>
     
     <lastmod>2021-10-14T01:07:02.318Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://blog.gdccwxx.com/linux/use-dhcp/</loc>
+    <loc>https://blog.gdccwxx.com/http/touch-http/</loc>
     
     <lastmod>2021-10-14T01:07:02.318Z</lastmod>
     
@@ -79,7 +86,7 @@
   </url>
   
   <url>
-    <loc>https://blog.gdccwxx.com/javascript/read-javascript-again-chapter5/</loc>
+    <loc>https://blog.gdccwxx.com/javascript/read-javascript-again-chapter6/</loc>
     
     <lastmod>2021-10-14T01:07:02.315Z</lastmod>
     
@@ -107,7 +114,7 @@
   </url>
   
   <url>
-    <loc>https://blog.gdccwxx.com/javascript/read-javascript-again-chapter6/</loc>
+    <loc>https://blog.gdccwxx.com/javascript/read-javascript-again-chapter5/</loc>
     
     <lastmod>2021-10-14T01:07:02.315Z</lastmod>
     
@@ -198,14 +205,14 @@
   </url>
   
   <url>
-    <loc>https://blog.gdccwxx.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/basic-computer-sience-chapter4/</loc>
+    <loc>https://blog.gdccwxx.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/basic-computer-sience-chapter5/</loc>
     
     <lastmod>2021-10-14T01:07:02.284Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://blog.gdccwxx.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/basic-computer-sience-chapter5/</loc>
+    <loc>https://blog.gdccwxx.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/basic-computer-sience-chapter4/</loc>
     
     <lastmod>2021-10-14T01:07:02.284Z</lastmod>
     
@@ -226,13 +233,6 @@
   </url>
   
   <url>
-    <loc>https://blog.gdccwxx.com/%E9%9A%8F%E7%AC%94/2017-summery/</loc>
-    
-    <lastmod>2021-10-14T01:07:02.279Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://blog.gdccwxx.com/%E9%9A%8F%E7%AC%94/2021-middle-summary/</loc>
     
     <lastmod>2021-10-14T01:07:02.279Z</lastmod>
@@ -241,6 +241,13 @@
   
   <url>
     <loc>https://blog.gdccwxx.com/%E9%9A%8F%E7%AC%94/2018-tencent-practice/</loc>
+    
+    <lastmod>2021-10-14T01:07:02.279Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.gdccwxx.com/%E9%9A%8F%E7%AC%94/2017-summery/</loc>
     
     <lastmod>2021-10-14T01:07:02.279Z</lastmod>
     
