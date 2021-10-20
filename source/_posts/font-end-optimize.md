@@ -4,8 +4,9 @@ date: 2019-05-11 23:46:04
 tags: 前端
 dir: 前端
 keywords: 前端性能优化
+description: 从 http 请求过程、重绘和回流、各类前端存储（localStorage, sessionStorage, indexDB）、PWA、缓存、服务端性能优化的各种可能来探讨前端性能优化的手段。
 ---
-### 资源合并与压缩-http请求的过程及潜在的性能优化
+## 资源合并与压缩-http请求的过程及潜在的性能优化
 浏览器的一个请求从发送到返回都经历了什么
 
 ![http](page-process.png)
@@ -94,7 +95,7 @@ box-shadow
 * 接口封装比较好
 * 浏览器本地缓存方案
 
-## SessionStorage
+## sessionStorage
 * 会话级别的浏览器存储
 * 大小为5M左右
 * 仅在客户端使用，不和服务器端通信

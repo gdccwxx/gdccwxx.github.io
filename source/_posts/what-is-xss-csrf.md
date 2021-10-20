@@ -7,6 +7,7 @@ keywords:
   - http
   - csrf
   - xss
+description: 本文通过介绍、原理、防御来讲解XSS以及CSRF。主要介绍及讲解攻击原理，及防御原理。
 ---
 
 本文通过介绍、原理、防御来讲解XSS以及CSRF。主要介绍及讲解攻击原理，及防御原理。

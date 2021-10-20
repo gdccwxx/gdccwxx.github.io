@@ -6,6 +6,7 @@ dir: http
 keywords:
   - http
   - cookie
+description: 本文主要介绍了什么是cookie、cookie的特性、cookie的作用及用途、cookie的安全策略。
 ---
 
 本文主要介绍了什么是cookie、cookie的特性、cookie的作用及用途、cookie的安全策略。不涉及Cookie的[详细参数](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies)。
