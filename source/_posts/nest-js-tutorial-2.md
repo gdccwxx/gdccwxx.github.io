@@ -7,6 +7,7 @@ tags:
     - nestJs
 dir: nestJs
 keywords: NestJs 教程
+description: 这个系列的上一篇文章，教大家写了 hello world 和 新建 students 模块。但是，那只是很干的 Get 请求；即没有 Post 请求，也没有给参数做检查；更没有日志的使用。本篇接着往下讲，通过 NestJs 的原生能力，来实现 Post 请求，并做参数检查，最后利用原生日志模块实现标准化日志。
 ---
 ![nestjs](nestjs.png)
 

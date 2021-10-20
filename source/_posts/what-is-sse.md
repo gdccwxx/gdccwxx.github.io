@@ -9,6 +9,7 @@ dir: http
 keywords:
     - Server-sent events
     - 服务器发送事件
+description: 浏览器和服务端交互过程中，会有服务端向浏览器通信的场景。例如：服务端异步处理信息，处理成功后向浏览器推送。那有没有既不需要 `websocket` 通道，又不用`轮询`这么 “low” 的方法呢？本文介绍的 `SSE` (server-site events) 就足够简洁和优雅。
 ---
 
 # 🎓 背景

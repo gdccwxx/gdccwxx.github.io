@@ -7,6 +7,7 @@ tags:
     - nestJs
 dir: nestJs
 keywords: NestJs 教程
+description: 本篇是教程的最终篇，虽然我们实现了 NestJs 的基础功能，但是真正的服务器需要做全局的数据核查、敏感操作落库和数据转化。拥有这些能力才能让后台能力更加丰富，本篇将主要使用 NestJs 的高级能力，来实现这些功能。
 ---
 ![nestjs](nestjs.png)
 

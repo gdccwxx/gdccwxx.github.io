@@ -6,6 +6,7 @@ dir: git
 keywords:
     - 合并commit
     - git rebase 合并 commit
+description: 在项目开发时候，经常会遇到明明是同一个修改，在一些不可抗拒因素下，导致本应该是一次提交的 commit 被多次提交。在开源社区往往对commit message 有着强迫症似的提交。本篇的目的就是通过 rebase 合并 commit。
 ---
 ## 背景
 在项目开发时候，经常会遇到明明是同一个修改，在一些不可抗拒因素下，导致本应该是一次提交的 commit 被多次提交。在开源社区往往对commit message 有着强迫症似的提交。

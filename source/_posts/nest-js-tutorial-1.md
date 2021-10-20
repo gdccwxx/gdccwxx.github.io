@@ -7,6 +7,7 @@ tags:
     - nestJs
 dir: nestJs
 keywords: NestJs 教程
+description: 自从 Node 出世以来，许多 Javascript 后端框架都曾处不穷，前端开发后台的需求也逐渐庞大。Node 做后端已经成为前端的重要业务，随着前端业务的不断更迭，Node 也在前端领域也逐渐站稳脚跟，市场招聘需求逐渐旺盛，企业都抢着要。尽管 Node 框架已经逐渐完善，但是纯 TS 的框架却十分稀缺，国外的 NestJs 填补了这一空白。
 ---
 自从 Node 出世以来，许多 Javascript 后端框架都曾处不穷，前端开发后台的需求也逐渐庞大。
 

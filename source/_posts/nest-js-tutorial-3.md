@@ -7,6 +7,7 @@ tags:
     - nestJs
 dir: nestJs
 keywords: NestJs 教程
+description: 这个系列的上一篇文章，实现了 Post 接口和对接口的基础操作。而真正的服务往往包括数据存储。本篇将介绍如何建立 NestJs 的数据库连接、并使用数据库联表查询。这样就就是完整的后台服务了。
 ---
 ![nestjs](nestjs.png)
 
