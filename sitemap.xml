@@ -2,9 +2,72 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.gdccwxx.com/%E9%9C%80%E6%B1%82%E5%BC%80%E5%8F%91/the-skills-of-develop/</loc>
+    
+    <lastmod>2021-10-20T05:33:10.361Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.gdccwxx.com/typescript/best-practice-of-decorator/</loc>
+    
+    <lastmod>2021-10-20T05:31:42.145Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.gdccwxx.com/%E9%9A%8F%E7%AC%94/2021-middle-summary/</loc>
+    
+    <lastmod>2021-10-20T05:30:07.832Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.gdccwxx.com/nestJs/nest-js-tutorial-1/</loc>
+    
+    <lastmod>2021-10-20T05:28:29.161Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.gdccwxx.com/nestJs/nest-js-tutorial-2/</loc>
+    
+    <lastmod>2021-10-20T05:27:57.983Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.gdccwxx.com/nestJs/nest-js-tutorial-3/</loc>
+    
+    <lastmod>2021-10-20T05:27:27.437Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.gdccwxx.com/nestJs/nest-js-tutorial-4/</loc>
+    
+    <lastmod>2021-10-20T05:25:49.425Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.gdccwxx.com/git/git-rebase-merge-commit/</loc>
+    
+    <lastmod>2021-10-20T05:25:03.232Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.gdccwxx.com/http/what-is-sse/</loc>
+    
+    <lastmod>2021-10-20T05:24:14.481Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.gdccwxx.com/%E9%9A%8F%E7%AC%94/big-goal-2021/</loc>
     
-    <lastmod>2021-10-17T16:31:59.618Z</lastmod>
+    <lastmod>2021-10-20T05:21:50.132Z</lastmod>
     
   </url>
   
@@ -51,13 +114,6 @@
   </url>
   
   <url>
-    <loc>https://blog.gdccwxx.com/http/what-is-sse/</loc>
-    
-    <lastmod>2021-10-14T01:07:02.319Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://blog.gdccwxx.com/http/what-is-xss-csrf/</loc>
     
     <lastmod>2021-10-14T01:07:02.319Z</lastmod>
@@ -75,13 +131,6 @@
     <loc>https://blog.gdccwxx.com/linux/use-dhcp/</loc>
     
     <lastmod>2021-10-14T01:07:02.318Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.gdccwxx.com/%E9%9C%80%E6%B1%82%E5%BC%80%E5%8F%91/the-skills-of-develop/</loc>
-    
-    <lastmod>2021-10-14T01:07:02.316Z</lastmod>
     
   </url>
   
@@ -135,44 +184,9 @@
   </url>
   
   <url>
-    <loc>https://blog.gdccwxx.com/nestJs/nest-js-tutorial-4/</loc>
-    
-    <lastmod>2021-10-14T01:07:02.313Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.gdccwxx.com/nestJs/nest-js-tutorial-3/</loc>
-    
-    <lastmod>2021-10-14T01:07:02.312Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.gdccwxx.com/nestJs/nest-js-tutorial-2/</loc>
-    
-    <lastmod>2021-10-14T01:07:02.310Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://blog.gdccwxx.com/ncuhome/meet-ncuhomer/</loc>
     
     <lastmod>2021-10-14T01:07:02.309Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.gdccwxx.com/nestJs/nest-js-tutorial-1/</loc>
-    
-    <lastmod>2021-10-14T01:07:02.309Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.gdccwxx.com/git/git-rebase-merge-commit/</loc>
-    
-    <lastmod>2021-10-14T01:07:02.294Z</lastmod>
     
   </url>
   
@@ -187,13 +201,6 @@
     <loc>https://blog.gdccwxx.com/%E5%89%8D%E7%AB%AF/font-end-optimize/</loc>
     
     <lastmod>2021-10-14T01:07:02.293Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.gdccwxx.com/typescript/best-practice-of-decorator/</loc>
-    
-    <lastmod>2021-10-14T01:07:02.291Z</lastmod>
     
   </url>
   
@@ -241,13 +248,6 @@
   
   <url>
     <loc>https://blog.gdccwxx.com/%E9%9A%8F%E7%AC%94/2018-tencent-practice/</loc>
-    
-    <lastmod>2021-10-14T01:07:02.279Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.gdccwxx.com/%E9%9A%8F%E7%AC%94/2021-middle-summary/</loc>
     
     <lastmod>2021-10-14T01:07:02.279Z</lastmod>
     
