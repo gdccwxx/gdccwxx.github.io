@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.gdccwxx.com/about/index.html</loc>
+    
+    <lastmod>2021-10-20T14:51:14.083Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.gdccwxx.com/%E9%9A%8F%E7%AC%94/2018-tencent-practice/</loc>
     
     <lastmod>2021-10-20T14:45:24.481Z</lastmod>
@@ -121,13 +128,6 @@
   </url>
   
   <url>
-    <loc>https://blog.gdccwxx.com/about/index.html</loc>
-    
-    <lastmod>2021-10-14T01:07:02.321Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://blog.gdccwxx.com/javascript/you-dont-konwn-javascript-this/</loc>
     
     <lastmod>2021-10-14T01:07:02.320Z</lastmod>
@@ -135,14 +135,14 @@
   </url>
   
   <url>
-    <loc>https://blog.gdccwxx.com/javascript/you-dont-konwn-javascript-type/</loc>
+    <loc>https://blog.gdccwxx.com/javascript/you-dont-konwn-javascript-scope/</loc>
     
     <lastmod>2021-10-14T01:07:02.320Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://blog.gdccwxx.com/javascript/you-dont-konwn-javascript-scope/</loc>
+    <loc>https://blog.gdccwxx.com/javascript/you-dont-konwn-javascript-type/</loc>
     
     <lastmod>2021-10-14T01:07:02.320Z</lastmod>
     
@@ -191,14 +191,14 @@
   </url>
   
   <url>
-    <loc>https://blog.gdccwxx.com/javascript/read-javascript-again-chapter4/</loc>
+    <loc>https://blog.gdccwxx.com/javascript/read-javascript-again-chapter1-3/</loc>
     
     <lastmod>2021-10-14T01:07:02.314Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://blog.gdccwxx.com/javascript/read-javascript-again-chapter1-3/</loc>
+    <loc>https://blog.gdccwxx.com/javascript/read-javascript-again-chapter4/</loc>
     
     <lastmod>2021-10-14T01:07:02.314Z</lastmod>
     
@@ -219,14 +219,14 @@
   </url>
   
   <url>
-    <loc>https://blog.gdccwxx.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/basic-computer-sience-chapter4/</loc>
+    <loc>https://blog.gdccwxx.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/basic-computer-sience-chapter5/</loc>
     
     <lastmod>2021-10-14T01:07:02.284Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://blog.gdccwxx.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/basic-computer-sience-chapter5/</loc>
+    <loc>https://blog.gdccwxx.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/basic-computer-sience-chapter4/</loc>
     
     <lastmod>2021-10-14T01:07:02.284Z</lastmod>
     
