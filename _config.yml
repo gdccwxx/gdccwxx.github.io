@@ -3,13 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: gdccwxx
-subtitle: ":)"
+title: gdccwxx 的布洛阁
 description: 个人博客分享，热爱生活，热爱探索
-keyword: 前端开发者，喜欢折腾，喜欢搞事的gdccwxx
+keyword: gdccwxx 是前端开发者，喜欢折腾，喜欢搞事
 author: gdccwxx
 language: zh-Hans
-timezone: 
+# timezone: 
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
