@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.gdccwxx.com/docker/why-web-need-docker/</loc>
+    
+    <lastmod>2021-12-13T11:51:48.755Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.gdccwxx.com/http/the-types-of-web-data-transform/</loc>
     
     <lastmod>2021-12-11T10:04:40.168Z</lastmod>
@@ -135,7 +142,7 @@
   </url>
   
   <url>
-    <loc>https://blog.gdccwxx.com/javascript/you-dont-konwn-javascript-scope/</loc>
+    <loc>https://blog.gdccwxx.com/javascript/you-dont-konwn-javascript-type/</loc>
     
     <lastmod>2021-10-14T01:07:02.320Z</lastmod>
     
@@ -149,7 +156,7 @@
   </url>
   
   <url>
-    <loc>https://blog.gdccwxx.com/javascript/you-dont-konwn-javascript-type/</loc>
+    <loc>https://blog.gdccwxx.com/javascript/you-dont-konwn-javascript-scope/</loc>
     
     <lastmod>2021-10-14T01:07:02.320Z</lastmod>
     
@@ -170,13 +177,6 @@
   </url>
   
   <url>
-    <loc>https://blog.gdccwxx.com/javascript/read-javascript-again-chapter6/</loc>
-    
-    <lastmod>2021-10-14T01:07:02.315Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://blog.gdccwxx.com/javascript/read-javascript-again-chapter5/</loc>
     
     <lastmod>2021-10-14T01:07:02.315Z</lastmod>
@@ -184,7 +184,7 @@
   </url>
   
   <url>
-    <loc>https://blog.gdccwxx.com/javascript/read-javascript-again-chapter7/</loc>
+    <loc>https://blog.gdccwxx.com/javascript/read-javascript-again-chapter6/</loc>
     
     <lastmod>2021-10-14T01:07:02.315Z</lastmod>
     
@@ -192,6 +192,13 @@
   
   <url>
     <loc>https://blog.gdccwxx.com/%E9%9A%8F%E7%AC%94/summer-2017-feeling/</loc>
+    
+    <lastmod>2021-10-14T01:07:02.315Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.gdccwxx.com/javascript/read-javascript-again-chapter7/</loc>
     
     <lastmod>2021-10-14T01:07:02.315Z</lastmod>
     
