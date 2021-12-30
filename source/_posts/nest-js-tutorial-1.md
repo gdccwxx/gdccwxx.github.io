@@ -164,12 +164,16 @@ export class StudentsService {
 
 ```typescript
 // students.controller.ts
-import { Injectable } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
+import { StudentsService } from './students.service';
 
-@Injectable()
-export class StudentsService {
-    ImStudent() {
-        return 'Im student';
+@Controller('students')
+export class StudentsController {
+    constructor(private readonly studentsService: StudentsService) {}
+  
+    @Get('who-are-you')
+    whoAreYou() {
+        return this.studentsService.ImStudent();
     }
 }
 ```
