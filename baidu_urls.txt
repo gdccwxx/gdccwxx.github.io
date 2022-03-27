@@ -1,3 +1,4 @@
+https://blog.gdccwxx.com/随笔/the-secret-of-high-performance/
 https://blog.gdccwxx.com/docker/why-web-need-docker/
 https://blog.gdccwxx.com/http/the-types-of-web-data-transform/
 https://blog.gdccwxx.com/随笔/big-goal-2021/
